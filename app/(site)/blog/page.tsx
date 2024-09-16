@@ -18,6 +18,7 @@ const BlogPage = async () => {
             {BlogData.map((post, key) => (
               <BlogItem key={key} blog={post} />
             ))}
+            
           </div>
         </div>
       </section>
