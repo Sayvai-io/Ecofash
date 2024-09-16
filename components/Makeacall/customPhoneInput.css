@@ -1,0 +1,77 @@
+/* Ensure the container is styled correctly */
+.react-tel-input {
+  display: flex;
+  align-items: center;
+}
+
+/* Customize the flag dropdown */
+.react-tel-input .flag-dropdown .selected-flag {
+  padding-right: 0; 
+  background-color: transparent;
+  border: none;
+}
+
+/* Remove the flag icon background color */
+.react-tel-input .flag-dropdown .selected-flag .flag {
+  background-color: transparent;
+}
+
+/* Customize the input */
+.react-tel-input .form-control {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  color: inherit;
+  font-size: inherit;
+  height: auto;
+  width: 100%;
+}
+
+/* Hide unnecessary parts */
+.react-tel-input .flag-dropdown {
+  background-color: transparent;
+  border: none;
+}
+
+/* Ensure the dropdown remains transparent when clicked */
+.react-tel-input .flag-dropdown.open .selected-flag,
+.react-tel-input .flag-dropdown.open .selected-flag .flag,
+.react-tel-input .flag-dropdown.open .selected-flag .arrow {
+  background-color: transparent !important;
+}
+
+/* Ensure the input remains transparent when focused or active */
+.react-tel-input .form-control:focus,
+.react-tel-input .form-control:active,
+.react-tel-input .form-control.open {
+  background-color: transparent !important;
+}
+
+/* Ensure the dropdown list remains transparent when focused or hovered */
+.react-tel-input .country-list .country:hover,
+.react-tel-input .country-list .country:focus {
+  background-color: white;
+}
+
+/* Additional styling for the flag dropdown when the list is open */
+.react-tel-input .flag-dropdown.open,
+.react-tel-input .flag-dropdown:focus,
+.react-tel-input .flag-dropdown:active {
+  background-color: transparent !important;
+  border: none;
+}
+
+/* Ensure no background color change for any interactive state of the dropdown */
+.react-tel-input .flag-dropdown .selected-flag:focus,
+.react-tel-input .flag-dropdown .selected-flag:active,
+.react-tel-input .flag-dropdown.open .selected-flag:focus,
+.react-tel-input .flag-dropdown.open .selected-flag:active {
+  background-color: transparent !important;
+}
+
+/* Ensure the dropdown arrow does not change the background */
+.react-tel-input .flag-dropdown .selected-flag .arrow,
+.react-tel-input .flag-dropdown.open .selected-flag .arrow:focus,
+.react-tel-input .flag-dropdown.open .selected-flag .arrow:active {
+  background-color: transparent !important;
+}
