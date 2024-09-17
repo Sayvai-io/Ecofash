@@ -3,12 +3,28 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 
 const SupplyChain = () => {
+  const pathname = usePathname();
+
   const [email, setEmail] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+
+  const ServiceLink = ({ href, children }) => {
+    const isActive = pathname === href;
+    return (
+      <Link 
+        href={href} 
+        className={`flex text-lg font-semibold items-center ${isActive ? 'text-[#609641]' : 'hover:text-[#609641]'} pb-4 border-b-2 border-gray-200`}
+      >
+        <span className="mr-2 hidden group-hover:inline-block">{'<'}</span>
+        {children}
+      </Link>
+    );
   };
 
   return (
@@ -57,42 +73,12 @@ const SupplyChain = () => {
               <div className="mb-12">
                 <h2 className="text-4xl text-[#0d0e0d] font-bold mb-6">Services</h2>
                 <ul className="space-y-4">
-                  <li>
-                    <Link href="#" className="flex text-lg font-semibold items-center hover:text-[#609641] pb-4 border-b-2 border-gray-200">
-                      <span className="mr-2 hidden group-hover:inline-block">{'<'}</span>
-                      B Corp Certification
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/service/supply-chain-mapping" className="flex text-lg font-semibold items-center hover:text-[#609641] pb-4 border-b-2 border-gray-200">
-                      <span className="mr-2 hidden group-hover:inline-block">{'<'}</span>
-                      Supply Chain Mapping
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="flex text-lg font-semibold items-center hover:text-[#609641] pb-4 border-b-2 border-gray-200">
-                      <span className="mr-2 hidden group-hover:inline-block">{'<'}</span>
-                      Carbon Neutral Planning
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="flex text-lg font-semibold items-center hover:text-[#609641] pb-4 border-b-2 border-gray-200">
-                      <span className="mr-2 hidden group-hover:inline-block">{'<'}</span>
-                      Circular Economy Implementation
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="flex text-lg font-semibold items-center hover:text-[#609641] pb-4 border-b-2 border-gray-200">
-                      <span className="mr-2 hidden group-hover:inline-block">{'<'}</span>
-                      Sustainability Outsourcing
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="flex text-lg font-semibold items-center hover:text-[#609641] pb-4 border-b-2 border-gray-200">
-                      <span className="mr-2 hidden group-hover:inline-block">{'<'}</span>
-                      Other Services
-                    </Link>
-                  </li>
+                  <li><ServiceLink href="/service/supply-chain-mapping">Supply Chain Mapping</ServiceLink></li>
+                  <li><ServiceLink href="/service/b-corp-certification">B Corp Certification</ServiceLink></li>
+                  <li><ServiceLink href="/service/carbon-neutral-planning">Carbon Neutral Planning</ServiceLink></li>
+                  <li><ServiceLink href="/service/circular-economy-implementation">Circular Economy Implementation</ServiceLink></li>
+                  <li><ServiceLink href="/service/sustainability-outsourcing">Sustainability Outsourcing</ServiceLink></li>
+                  <li><ServiceLink href="/service/other-services">Other Services</ServiceLink></li>
                 </ul>
               </div>
 

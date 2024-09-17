@@ -1,7 +1,100 @@
+import React from 'react';
 import Link from 'next/link';
 import { FaArrowRight } from 'react-icons/fa';
 import Image from 'next/image';
 
+// First, let's define the ServiceCard component
+const ServiceCard = ({ title, description, link, bgImage, icon }: {
+  title: string;
+  description: string;
+  link: string;
+  bgImage?: string;
+  icon?: string;
+}) => {
+  const cardStyle = bgImage
+    ? "bg-cover bg-center"
+    : "bg-white shadow-[0_0_15px_rgba(96,150,65,0.5)]";
+
+  return (
+    <Link href={link} className="block">
+      <div className={`rounded-lg p-4 h-[350px] transition-transform hover:scale-105 relative overflow-hidden flex items-center justify-center w-[500px] mx-auto ${cardStyle}`}>
+        {bgImage && (
+          <>
+            <Image
+              src={bgImage}
+              alt={title}
+              layout="fill"
+              objectFit="cover"
+              className="absolute inset-0 z-0"
+            />
+            <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
+          </>
+        )}
+        
+        <div className="relative z-20 w-full max-w-xs p-2">
+          {icon && (
+            <div className="mb-4 mt-4">
+              <Image
+                src={icon}
+                alt={`${title} Icon`}
+                width={40}
+                height={40}
+              />
+            </div>
+          )}
+          
+          <h3 className={`text-2xl font-bold mb-4 ${bgImage ? 'text-white' : 'text-[#609641]'}`}>{title}</h3>
+          <p className={`text-sm mb-4 ${bgImage ? 'text-white' : 'text-gray-700'}`}>{description}</p>
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+// Now, let's define the services data
+const servicesData = [
+  {
+    title: "Sustainable Supply Chain Mapping",
+    description: "We help you map your entire supply chain to identify areas where sustainability can be improved. Our experts work closely with you to ensure every step of your supply chain is optimized for environmental responsibility.",
+    link: "/service/supply-chain-mapping",
+    bgImage: "/images/service/chain.png",
+    icon: "/images/service/Chainmapping.png"
+  },
+  {
+    title: "B Corp Certification",
+    description: "At Ecofash Services, we offer comprehensive guidance through the certification process, helping you understand and meet the rigorous standards required. Our team of experts will assist you in evaluating and improving your social and environmental practices, ensuring your business not only meets but exceeds B Corp criteria.",
+    link: "/service/b-corp-certification",
+    icon: "/images/service/Bcorp.png"
+  },
+  {
+    title: "Carbon Neutral Planning",
+    description: "Achieve carbon neutrality with our comprehensive planning services. We start by assessing your current carbon footprint, evaluating emissions throughout your supply chain. Based on this assessment, we create a customized plan to reduce and offset emissions, including energy efficiency improvements and sustainable practices.",
+    link: "/service/carbon-neutral-planning",
+    icon: "/images/service/carbo.png"
+  },
+  {
+    title: "Circular Economy Implementation",
+    description: "Transition to a circular economy with our expert guidance. We help you implement systems that minimize waste, enhance recycling practices, and integrate sustainability into every aspect of your business operations.",
+    link: "/service/circular-economy-implementation",
+    bgImage: "/images/service/circulareconomy.png",
+    icon: "/images/service/circular.png"
+  },
+  {
+    title: "Sustainability Outsourcing",
+    bgImage: "/images/service/OUtsourcing.png",
+    description: "Outsource your sustainability needs to us and benefit from cost savings on maintaining an in-house team. We offer a full range of services, including sustainability reporting, sustainable material sourcing, and strategy development.",
+    link: "/service/sustainability-outsourcing",
+    icon: "/images/service/Oursource.png"
+  },
+  {
+    title: "Other Services",
+    description: "In addition to our core services, we offer Sustainability Communication to effectively share your environmental efforts, Training and Capacity Building to empower your team with essential skills, Green Funding Assistance to help you secure financial support for sustainability projects, and ESG Reporting.",
+    link: "/service/other-services",
+    icon: "/images/service/other.png"
+  }
+];
+
+// Now, let's modify your existing component to include the ServiceCard
 const Home = () => {
   return (
     <>
@@ -59,63 +152,12 @@ const Home = () => {
           Chains, <span className="text-[#609641]">Fashion Innovation."</span>
         </h2>
       </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-8 mb-16">
-        <Link href="/service/supply-chain-mapping" className="block">
-          <div className="bg-[#609641] rounded-lg p-6 h-full transition-transform hover:scale-105">
-            <h3 className="text-white text-lg font-bold mb-4">Sustainable Supply Chain Mapping</h3>
-            <p className="text-white">
-              We help you map your entire supply chain to identify areas where sustainability can be improved. 
-              Our experts work closely with you to ensure every step of your supply chain is optimized for 
-              environmental responsibility.
-            </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        {servicesData.map((service, index) => (
+          <div key={service.title} className={index % 2 === 0 ? "md:pl-16" : "md:pr-16"}>
+            <ServiceCard {...service} />
           </div>
-        </Link>
-        
-        <Link href="/service/b-corp-certification" className="block">
-          <div className="bg-[#609641] rounded-lg p-6 h-full transition-transform hover:scale-105">
-            <h3 className="text-white text-lg font-bold mb-4">B Corp Certification</h3>
-            <p className="text-white">
-              At Ecofash Services, we offer comprehensive guidance through the certification process, helping you understand and meet the rigorous standards required. Our team of experts will assist you in evaluating and improving your social and environmental practices, ensuring your business not only meets but exceeds B Corp criteria.
-            </p>
-          </div>
-        </Link>
-        
-        <Link href="/service/carbon-neutral-planning" className="block">
-          <div className="bg-[#609641] rounded-lg p-6 h-full transition-transform hover:scale-105">
-            <h3 className="text-white text-lg font-bold mb-4">Carbon Neutral Planning</h3>
-            <p className="text-white">
-              Achieve carbon neutrality with our comprehensive planning services. We start by assessing your current carbon footprint, evaluating emissions throughout your supply chain. Based on this assessment, we create a customized plan to reduce and offset emissions, including energy efficiency improvements and sustainable practices. Our ongoing support ensures you stay on track to meet your carbon neutrality goals.
-            </p>
-          </div>
-        </Link>
-        
-        <Link href="/service/circular-economy-implementation" className="block">
-          <div className="bg-[#609641] rounded-lg p-6 h-full transition-transform hover:scale-105">
-            <h3 className="text-white text-lg font-bold mb-4">Circular Economy Implementation</h3>
-            <p className="text-white">
-              Transition to a circular economy with our expert guidance. We help you implement systems that minimize waste, enhance recycling practices, and integrate sustainability into every aspect of your business operations.
-            </p>
-          </div>
-        </Link>
-        
-        <Link href="/service/sustainability-outsourcing" className="block">
-          <div className="bg-[#609641] rounded-lg p-6 h-full transition-transform hover:scale-105">
-            <h3 className="text-white text-lg font-bold mb-4">Sustainability Outsourcing</h3>
-            <p className="text-white">
-              Outsource your sustainability needs to us and benefit from cost savings on maintaining an in-house team. We offer a full range of services, including sustainability reporting, sustainable material sourcing, and strategy development. Our team manages all aspects of your sustainability efforts, from tracking and reporting your environmental impact to identifying and sourcing eco-friendly materials.
-            </p>
-          </div>
-        </Link>
-        
-        <Link href="/service/other-services" className="block">
-          <div className="bg-[#609641] rounded-lg p-6 h-full transition-transform hover:scale-105">
-            <h3 className="text-white text-lg font-bold mb-4">Other Services</h3>
-            <p className="text-white">
-              In addition to our core services, we offer Sustainability Communication to effectively share your environmental efforts, Training and Capacity Building to empower your team with essential skills, Green Funding Assistance to help you secure financial support for sustainability projects, and ESG Reporting to meet regulatory requirements and highlight your achievements.
-            </p>
-          </div>
-        </Link>
+        ))}
       </div>
     </>
   );
