@@ -10,11 +10,11 @@ const Services = () => {
             <span className="border-2 border-white text-white rounded-full px-4 py-1">Services</span>
             <span className="text-black ml-2">We Offers</span>
           </h2>
-          <div className="flex justify-center items-center space-x-4">
-            <Image src="/images/service/Service1.jpg" alt="Service 1" width={247} height={288} className="rounded-2xl" />
-            <Image src="/images/service/Service2.jpg" alt="Service 2" width={247} height={288} className="rounded-2xl" />
-            <Image src="/images/service/Service3.jpg" alt="Service 3" width={247} height={288} className="rounded-2xl" />
-            <Image src="/images/service/Service4.jpg" alt="Service 4" width={247} height={288} className="rounded-2xl" />
+          <div className="flex justify-center items-center space-x-5">
+            <Image src="/images/service/Carbon.png" alt="Service 1" width={247} height={288}  />
+            <Image src="/images/service/Recycle.png" alt="Service 2" width={247} height={288} />
+            <Image src="/images/service/Ecofashservices.png" alt="Service 3" width={247} height={288}/>
+            <Image src="/images/service/file.png" alt="Service 4" width={247} height={288}/>
           </div>
         </div>
       </section>
