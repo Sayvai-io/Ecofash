@@ -38,7 +38,7 @@ const Contact = () => {
       </div>
     </section>
     <section>
-      <div className="flex items-center justify-center min-h-screen mt-20">
+      <div className="flex items-center justify-center min-h-screen mt-20 -mb-4">
         <div className="w-full max-w-6xl p-6 bg-white flex flex-col md:flex-row gap-8">
           {/* Left Side - Heading and Paragraph */}
           <div className="md:w-1/2 flex flex-col justify-center">
@@ -79,6 +79,15 @@ const Contact = () => {
             <p className="font-bold text-black mb-4 text-lg text-center">
               ecofash@gmail.com
             </p>
+            <div className="relative">
+              <Image
+                src="/images/contact/person.png"
+                alt="Person"
+                width={350}
+                height={350}
+                className="absolute -bottom-22 -left-20"
+              />
+            </div>
           </div>
 
           {/* Right Side - Contact Form */}
