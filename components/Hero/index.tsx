@@ -29,18 +29,53 @@ const Hero = () => {
           <div className="flex items-center min-h-[70vh]">
             <div className="w-full">
               <div className="max-w-3xl mx-auto">
+                {/* Left side content */}
+                <div className="absolute left-40 top-64 hidden lg:block">
+                  <Image
+                    src="/images/hero/star.png"
+                    alt="Star"
+                    width={48}
+                    height={48}
+                    className="mb-10 -ml-10"
+                  />
+                  <Image
+                    src="/images/hero/roundframe1.png"
+                    alt="Rounded Frame 1"
+                    width={80}
+                    height={80}
+                    className="-ml-1"
+                  />
+                </div>
+
+                {/* Right side content */}
+                <div className="absolute right-40 top-60 hidden lg:block">
+                  <Image
+                    src="/images/hero/roundframe2.png"
+                    alt="Rounded Frame 3"
+                    width={68}
+                    height={68}
+                    className="mb-6  ml-10"
+                  />
+                  <Image
+                    src="/images/hero/roundframe3.png"
+                    alt="Rounded Frame 4"
+                    width={80}
+                    height={80}
+                    className="-ml-10"
+                  />
+                </div>
+
                 <div className="text-center mb-4 sm:mb-5">
                   <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-                    Empowering 
-                    <span className="bg-[#68B13E] text-[#0a0a0a] px-2 sm:px-4 md:px-6 py-1 sm:py-2 rounded-full text-xl sm:text-2xl md:text-3xl lg:text-5xl inline-block mb-2 sm:mb-0">
+                    Empowering
+                    <span className="bg-[#68B13E] text-[#0a0a0a] px-2 sm:px-4 md:px-6 py-1 sm:py-2 rounded-full text-xl sm:text-2xl md:text-3xl lg:text-5xl inline-block mb-2 sm:mb-0 ml-2 sm:ml-2 md:ml-2">
                       Sustainable
                     </span> 
                     <br className="sm:hidden" />
-                    <span className="bg-[#68B13E] text-[#0a0a0a] px-2 sm:px-4 md:px-6 py-1 sm:py-2 rounded-full text-xl sm:text-2xl md:text-3xl lg:text-5xl inline-block mt-2 sm:mt-3">
+                    <span className="bg-[#68B13E] text-[#0a0a0a] px-2 sm:px-4 md:px-6 py-1 sm:py-2 rounded-full text-xl sm:text-2xl md:text-3xl lg:text-5xl inline-block mt-2 sm:mt-3 mr-2 sm:mr-2 md:mr-2">
                       Fashion
                     </span> 
-                   
-                    Supply Chains
+                    <span className="inline-block mt-2 sm:mt-3">Supply Chains</span>
                   </h1>
                 </div>
 
@@ -71,7 +106,7 @@ const Hero = () => {
                   </div>
 
                   <div className="relative w-full">
-                    <div className="absolute -top-12 right-0 sm:right-0 md:right-0 lg:-top-12 lg:right-0 xl:-top-12 xl:ml-80">
+                    <div className="absolute -top-8 right-0 sm:right-10 md:right-20 lg:right-50">
                       <Image
                         src="/images/hero/dot-arrow.png"
                         alt="Dot Arrow"

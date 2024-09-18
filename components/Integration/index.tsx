@@ -5,26 +5,26 @@ import Image from "next/image";
 const Integration = () => {
   return (
     <section className="bg-white py-20 lg:py-25 xl:py-30">
-      <div className="container mx-auto px-4 md:px-8 2xl:px-0 bg-gray-100">
-        <div className="flex flex-wrap">
+      <div className="container px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 bg-gray-100 rounded-3xl">
           {/* Left side content */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
-            className="w-full lg:w-1/2 px-2 lg:pr-6 mb-8"  
+            className="flex items-center"
           >
-            <div className="pt-15"> 
-              <h2 className="mb-6 text-3xl font-bold text-black dark:text-black xl:text-sectiontitle2">
+            <div className="rounded-2xl p-8 pl-12 sm:pl-16 md:pl-20"> 
+              <h2 className="mb-6 text-3xl font-bold text-black dark:text-black xl:text-3xl">
                 Let's make things happen
               </h2>
-              <p className="mb-8 text-base font-medium leading-relaxed text-body-color">
+              <p className="mb-8 text-lg font-normal leading-relaxed text-[#0a0a0a]">
                 Contact us today to learn more about how our services can help your business grow sustainably and make a difference.
               </p>
               <a
                 href="#"
-                className="inline-flex items-center gap-2.5 rounded-full bg-[#609641] px-6 py-3 font-medium text-white hover:opacity-90"
+                className="inline-flex items-center gap-2.5 rounded-lg bg-[#609641] px-6 py-3 font-medium text-white hover:opacity-90"
               >
                 Check out our services
                 <svg
@@ -50,18 +50,15 @@ const Integration = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="w-full lg:w-1/2 px-2"
+            className="flex items-center"
           >
-            {/* Container with adjusted width and rounded edges */}
-            <div className="relative w-full lg:w-full h-[320px] overflow-hidden" style={{ borderRadius: '3rem' }}>
+            <div className="relative w-full h-[320px] overflow-hidden rounded-3xl">
               <Image
-              src="/images/about/about-image.png"
-              alt=""
-              fill
-              className="object-cover border-none"
-            />
- 
-
+                src="/images/about/about-image.png"
+                alt=""
+                fill
+                className="object-cover"
+              />
               <Image
                 src="/images/about/about-image-dark.svg"
                 alt=""
