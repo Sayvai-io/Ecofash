@@ -6,9 +6,9 @@ const Footer = () => {
   return (
     <>
       <footer className="border-t border-stroke bg-[#131312] dark:border-strokedark dark:bg-blacksection">
-        <div className="mx-auto max-w-c-1390 px-4 md:px-8 2xl:px-0">
+        <div className="mx-auto max-w-c-1390 px-4 md:px-20 2xl:px-0">
           {/* <!-- Footer Top --> */}
-          <div className="py-20 lg:py-25">
+          <div className="pt-20 lg:pt-25 pb-10">
             <div className="flex flex-wrap gap-8 lg:justify-between lg:gap-0">
               <motion.div
                 variants={{
@@ -30,26 +30,26 @@ const Footer = () => {
               >
                 <a href="/" className="relative">
                   <Image
-                    width={110}
-                    height={80}
+                    width={180}
+                    height={135}
                     src="/images/logo/logo.png"
                     alt="Logo"
                     className="dark:hidden"
                   />
                   <Image
-                    width={110}
-                    height={80}
+                    width={120}
+                    height={90}
                     src="/images/logo/logo.png"
                     alt="Logo"
                     className="hidden dark:block"
                   />
                 </a>
-                <p className="mb-10 text-white mt-10 text-2xl">
+                <p className="mb-6 text-white mt-10 text-xl">
                   Get the freshest news
                 <br />
-                <span className="text-2xl text-white">on sustainability</span>
+                <span className="text-xl text-white">on sustainability</span>
                 </p>
-                <button className="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition-all duration-300 justify-center w-48">
+                <button className="bg-green-500 text-white px-8 py-2 rounded-full hover:bg-green-600 transition-all duration-300 justify-center">
                   Subscribe
                 </button>
                 <motion.div
@@ -172,11 +172,11 @@ const Footer = () => {
                     Content
                   </h4>
 
-                  <ul>
+                  <ul className="space-y-6">
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                         Home
                       </a>
@@ -184,7 +184,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                         About us
                       </a>
@@ -192,7 +192,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                        Services
                       </a>
@@ -200,7 +200,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Blog
                       </a>
@@ -208,7 +208,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Content
                       </a>
@@ -238,11 +238,11 @@ const Footer = () => {
                      Resource
                   </h4>
 
-                  <ul>
-                  <li>
+                  <ul className="space-y-6">
+                    <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Sustainability
                       </a>
@@ -250,7 +250,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Fasion
                       </a>
@@ -258,7 +258,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                        Ecology
                       </a>
@@ -266,7 +266,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                         Recycle
                       </a>
@@ -274,7 +274,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Support
                       </a>
@@ -304,11 +304,11 @@ const Footer = () => {
                     Content
                   </h4>
 
-                  <ul>
+                  <ul className="space-y-6">
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                         Home
                       </a>
@@ -316,7 +316,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                         About us
                       </a>
@@ -324,7 +324,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Service
                       </a>
@@ -332,7 +332,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Blog
                       </a>
@@ -340,7 +340,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Contact
                       </a>
@@ -369,11 +369,11 @@ const Footer = () => {
                     Socials
                   </h4>
 
-                  <ul>
+                  <ul className="space-y-6">
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Youtube
                       </a>
@@ -381,7 +381,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Facebook
                       </a>
@@ -389,7 +389,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Instagram
                       </a>
@@ -397,7 +397,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                         Twitter
                       </a>
@@ -405,7 +405,7 @@ const Footer = () => {
                     <li>
                       <a
                         href="#"
-                        className="mb-3 inline-block hover:text-primary"
+                        className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                         Linkedin 
                       </a>
