@@ -166,11 +166,11 @@ const BCorpCertification = () => {
                     <ul className="list-none space-y-4">
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Assess and select suppliers based on sustainability and ethical criteria.</span>
+                        <span>Review B Corp criteria and assess current practices.</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Develop detailed maps that visualize each stage of the supply chain, from raw materials to finished products.</span>
+                        <span>Fill out and submit the B Impact Assessment to evaluate social and environmental performance.</span>
                       </li>
                     </ul>
                   </div>
@@ -178,11 +178,11 @@ const BCorpCertification = () => {
                     <ul className="list-none space-y-4">
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Analyze and identify potential environmental and social risks within the supply chain.</span>
+                        <span>Adjust policies and operations to meet B Corp requirements.</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Suggest changes to reduce waste, enhance efficiency, and ensure compliance with sustainability practices.</span>
+                        <span>Submit required documentation and undergo the verification process to achieve B Corp certification.</span>
                       </li>
                     </ul>
                   </div>

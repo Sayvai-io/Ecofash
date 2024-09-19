@@ -167,11 +167,11 @@ const CircularEconomyImplementation = () => {
                     <ul className="list-none space-y-4">
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Assess and select suppliers based on sustainability and ethical criteria.</span>
+                        <span>Analyze current resource use and waste to find opportunities for improvement.</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Develop detailed maps that visualize each stage of the supply chain, from raw materials to finished products.</span>
+                        <span>Introduce systems for recycling, reusing, and repurposing materials within the supply chain.</span>
                       </li>
                     </ul>
                   </div>
@@ -179,11 +179,11 @@ const CircularEconomyImplementation = () => {
                     <ul className="list-none space-y-4">
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Analyze and identify potential environmental and social risks within the supply chain.</span>
+                        <span>Create products and processes that focus on durability, ease of repair, and recyclability.</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Suggest changes to reduce waste, enhance efficiency, and ensure compliance with sustainability practices.</span>
+                        <span>Track performance, gather data, and refine strategies to enhance circularity and reduce waste.</span>
                       </li>
                     </ul>
                   </div>

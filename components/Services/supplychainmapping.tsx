@@ -167,11 +167,11 @@ const SupplyChain = () => {
                     <ul className="list-none space-y-4">
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Assess and select suppliers based on sustainability and ethical criteria.</span>
+                        <span>Gather detailed information on your needs and goals.</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Develop detailed maps that visualize each stage of the supply chain, from raw materials to finished products.</span>
+                        <span>Execute the planned services efficiently and effectively.</span>
                       </li>
                     </ul>
                   </div>
@@ -179,11 +179,11 @@ const SupplyChain = () => {
                     <ul className="list-none space-y-4">
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Analyze and identify potential environmental and social risks within the supply chain.</span>
+                        <span>Design tailored strategies and solutions to meet those needs.</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Suggest changes to reduce waste, enhance efficiency, and ensure compliance with sustainability practices.</span>
+                        <span>Monitor performance, gather feedback, and make necessary adjustments to optimize outcomes.</span>
                       </li>
                     </ul>
                   </div>

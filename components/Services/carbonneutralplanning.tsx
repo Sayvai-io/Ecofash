@@ -167,11 +167,11 @@ const CarbonNeutralPlanning = () => {
                     <ul className="list-none space-y-4">
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Assess and select suppliers based on sustainability and ethical criteria.</span>
+                        <span>Calculate current carbon footprint and identify key sources of emissions.</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Develop detailed maps that visualize each stage of the supply chain, from raw materials to finished products.</span>
+                        <span>Execute plans to reduce emissions through energy efficiency, renewable energy, and other sustainable practices.</span>
                       </li>
                     </ul>
                   </div>
@@ -179,11 +179,11 @@ const CarbonNeutralPlanning = () => {
                     <ul className="list-none space-y-4">
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Analyze and identify potential environmental and social risks within the supply chain.</span>
+                        <span>Define clear carbon reduction goals and develop a strategy to achieve them.</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Suggest changes to reduce waste, enhance efficiency, and ensure compliance with sustainability practices.</span>
+                        <span>Track progress, report on reductions, and offset remaining emissions to achieve carbon neutrality.</span>
                       </li>
                     </ul>
                   </div>

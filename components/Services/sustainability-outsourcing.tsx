@@ -167,11 +167,11 @@ const SustainabilityOutsourcing = () => {
                     <ul className="list-none space-y-4">
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Assess and select suppliers based on sustainability and ethical criteria.</span>
+                        <span>Evaluate your sustainability goals and current practices.</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Develop detailed maps that visualize each stage of the supply chain, from raw materials to finished products.</span>
+                        <span>Integrate outsourced sustainability strategies and practices into your operations.</span>
                       </li>
                     </ul>
                   </div>
@@ -179,11 +179,11 @@ const SustainabilityOutsourcing = () => {
                     <ul className="list-none space-y-4">
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Analyze and identify potential environmental and social risks within the supply chain.</span>
+                        <span>Select experienced and reliable sustainability experts and service providers.</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-[#609641] mr-2">✔</span>
-                        <span>Suggest changes to reduce waste, enhance efficiency, and ensure compliance with sustainability practices.</span>
+                        <span>Track progress, assess results, and make adjustments to ensure ongoing improvement and effectiveness.</span>
                       </li>
                     </ul>
                   </div>

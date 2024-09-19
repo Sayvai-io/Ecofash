@@ -159,7 +159,61 @@ const Home = () => {
           </div>
         ))}
       </div>
+      <div className="flex flex-col md:flex-row md:justify-between px-4 md:px-4">
+        <div className="md:w-1/2 pl-24">
+          <p className="mb-4 text-5xl text-gray-900">
+            Let’s see a collection<br /> of <span className="text-green-500">our Works</span>
+          </p>
+        </div>
+        <div className="md:w-1/2 pl-12">
+          <p className="mb-4 text-xl text-gray-900  ">
+            Discover a curated collection of our work, showcasing our expertise in driving sustainability and transforming businesses. Our portfolio highlights successful projects across various industries, demonstrating our commitment to environmental and social responsibility.
+          </p>
+        </div>
+      </div>
+   
+       
+ 
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 pt-16 px-2 md:px-4">
+          <div className="relative flex justify-center">
+    <Image
+      src="/images/service/chain.png"
+      alt="Example Image 1"
+      width={300}
+      height={400} // Height is twice the width
+      className="rounded-lg shadow-lg"
+    />
+     
+  </div>
+  <div className="relative flex justify-center">
+    <Image
+      src="/images/service/OUtsourcing.png"
+      alt="Example Image 2"
+      width={300}
+      height={400} // Height is twice the width
+      className="rounded-lg shadow-lg"
+    />
+     
+  </div>
+  <div className="relative flex justify-center">
+    <Image
+      src="/images/service/circulareconomy.png"
+      alt="Example Image 3"
+      width={300}
+      height={400} // Height is twice the width
+      className="rounded-lg shadow-lg"
+    />
+     
+  </div>
+</div>
+
+
+
+
+
+
     </>
+     
   );
 };
 
