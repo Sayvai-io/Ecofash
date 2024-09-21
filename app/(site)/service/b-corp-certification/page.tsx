@@ -3,8 +3,8 @@ import { Metadata } from "next";
 import BCorpCertification from "@/components/Services/bcorpcertification";
 
 export const metadata: Metadata = {
-  title: "Support Page - Solid SaaS Boilerplate",
-  description: "This is Support page for Solid Pro",
+  title: "B Corp Certification - EcoFash",
+  description: "This is BCorp Certification page for EcoFash",
   // other metadata
 };
 

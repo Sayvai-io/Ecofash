@@ -98,12 +98,12 @@ const servicesData = [
 const Home = () => {
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-between items-center mb-80 px-4 md:px-8">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-80 px-8 md:px-35 max-w-7xl mx-auto">
         <div className="md:w-1/2 mb-8 md:mb-0">
-          <h2 className="text-3xl font-bold mb-4">
+          <h2 className="text-5xl text-[#0b0b0a] font-semibold mb-4">
             Guiding Brands to
             <br />
-            a <span className="text-[#609641] font-bold text-3xl">Greener</span> Future
+            a <span className="text-[#609641] font-semibold text-5xl">Greener</span> Future
           </h2>
         </div>
         <div className="md:w-1/2">
@@ -117,7 +117,7 @@ const Home = () => {
           </button>
         </div>
       </div>
-      <div className="bg-[#609641] py-12 px-4 md:px-8 relative">
+      <div className="bg-[#609641] py-12 px-8 md:px-16 relative max-w-7xl mx-auto">
         <div className="w-full md:-mt-80 flex justify-center">
           <Image
             src="/images/service/Services-meeting.jpg"
@@ -161,12 +161,12 @@ const Home = () => {
       </div>
       <div className="flex flex-col md:flex-row md:justify-between px-4 md:px-4">
         <div className="md:w-1/2 pl-24">
-          <p className="mb-4 text-5xl text-gray-900">
-            Let’s see a collection<br /> of <span className="text-green-500">our Works</span>
+          <p className="mb-4 text-5xl font-semibold text-gray-900">
+            Let’s see a collection<br /> of <span className="text-[#609641]">our Works</span>
           </p>
         </div>
-        <div className="md:w-1/2 pl-12">
-          <p className="mb-4 text-xl text-gray-900  ">
+        <div className="md:w-1/2 pl-12 pr-16">
+          <p className="mb-4 text-base text-gray-900  ">
             Discover a curated collection of our work, showcasing our expertise in driving sustainability and transforming businesses. Our portfolio highlights successful projects across various industries, demonstrating our commitment to environmental and social responsibility.
           </p>
         </div>

@@ -3,8 +3,8 @@ import { Metadata } from "next";
 import CarbonNeutralPlanning from "@/components/Services/carbonneutralplanning";
 
 export const metadata: Metadata = {
-  title: "Support Page - Solid SaaS Boilerplate",
-  description: "This is Support page for Solid Pro",
+  title: "Carbon Neutral Planning - EcoFash",
+  description: "This is Carbon Neutral Planning page for EcoFash",
   // other metadata
 };
 

@@ -4,8 +4,8 @@ import About from "@/components/About";
 import About1 from "@/components/About-page";
 
 export const metadata: Metadata = {
-  title: "Support Page - Solid SaaS Boilerplate",
-  description: "This is Support page for Solid Pro",
+  title: "About Page - EcoFash",
+  description: "This is About page for EcoFash",
   // other metadata
 };
 

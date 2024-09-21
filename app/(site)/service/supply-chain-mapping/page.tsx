@@ -3,8 +3,8 @@ import { Metadata } from "next";
 import SupplyChain from "@/components/Services/supplychainmapping";
 
 export const metadata: Metadata = {
-  title: "Support Page - Solid SaaS Boilerplate",
-  description: "This is Support page for Solid Pro",
+  title: "Supply Chain Mapping - EcoFash",
+  description: "This is Supply Chain Mapping page for EcoFash",
   // other metadata
 };
 

@@ -3,8 +3,8 @@ import { Metadata } from "next";
 import CircularEconomyImplementation from "@/components/Services/circular-economy-implementation";
 
 export const metadata: Metadata = {
-  title: "Support Page - Solid SaaS Boilerplate",
-  description: "This is Support page for Solid Pro",
+  title: "Circular Economy Implementation - EcoFash",
+  description: "This is Circular Economy Implementation page for EcoFash",
   // other metadata
 };
 

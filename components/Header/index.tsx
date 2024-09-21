@@ -224,7 +224,7 @@ const Header = () => {
               </svg>
             </button>
 
-            <ThemeToggler />
+            {/* <ThemeToggler /> */}
           </div>
         </div>
       </div>

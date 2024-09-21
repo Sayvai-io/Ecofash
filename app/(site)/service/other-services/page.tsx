@@ -3,8 +3,8 @@ import { Metadata } from "next";
 import OtherServices from "@/components/Services/other-services";
 
 export const metadata: Metadata = {
-  title: "Support Page - Solid SaaS Boilerplate",
-  description: "This is Support page for Solid Pro",
+  title: "Other Services - EcoFash",
+  description: "This is Other Services page for EcoFash",
   // other metadata
 };
 

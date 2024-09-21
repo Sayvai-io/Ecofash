@@ -14,11 +14,11 @@ import Blog from "@/components/Blog";
 import Testimonial from "@/components/Makeacall";
 import Services from "@/components/Service";
 import Makeacall from "@/components/Makeacall";
-import Service2 from "@/components/Integration";
+
 
 export const metadata: Metadata = {
   title: "EcoFash",
-  description: "This is Home for Solid Pro",
+  description: "This is Home page for EcoFash",
   // other metadata
 };
 

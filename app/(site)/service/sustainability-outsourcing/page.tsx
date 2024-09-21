@@ -3,8 +3,8 @@ import { Metadata } from "next";
 import Sustainability from "@/components/Services/sustainability-outsourcing";
 
 export const metadata: Metadata = {
-  title: "Support Page - Solid SaaS Boilerplate",
-  description: "This is Support page for Solid Pro",
+  title: "Sustainability Outsourcing - EcoFash",
+  description: "This is Sustainability Outsourcing page for EcoFash",
   // other metadata
 };
 
