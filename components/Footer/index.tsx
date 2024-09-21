@@ -175,7 +175,7 @@ const Footer = () => {
                   <ul className="space-y-6">
                     <li>
                       <a
-                        href="#"
+                        href="/home"
                         className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                         Home
@@ -183,7 +183,7 @@ const Footer = () => {
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href="/about"
                         className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                         About us
@@ -191,7 +191,7 @@ const Footer = () => {
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href="/services"
                         className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                        Services
@@ -199,17 +199,19 @@ const Footer = () => {
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href="/blog"
                         className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
+
                          Blog
                       </a>
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href="/contact"
                         className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
+
                          Content
                       </a>
                     </li>
@@ -307,15 +309,16 @@ const Footer = () => {
                   <ul className="space-y-6">
                     <li>
                       <a
-                        href="#"
+                        href="/"
                         className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
+
                         Home
                       </a>
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href="/about"
                         className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                         About us
@@ -323,7 +326,7 @@ const Footer = () => {
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href="/services"
                         className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Service
@@ -331,15 +334,16 @@ const Footer = () => {
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href="/blog"
                         className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
+
                          Blog
                       </a>
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href="/contact"
                         className="inline-block text-gray-300 hover:text-[#609641] transition-colors duration-300"
                       >
                          Contact

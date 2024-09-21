@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   // other metadata
 };
 
-const SupportPage = () => {
+const ContactPage = () => {
   return (
     <div className="pb-20 pt-40">
       <Contact />
@@ -16,4 +16,4 @@ const SupportPage = () => {
   );
 };
 
-export default SupportPage;
+export default ContactPage;
