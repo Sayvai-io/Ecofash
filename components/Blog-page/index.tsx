@@ -1,8 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import React from "react";
-import { useRouter } from 'next/router'; // Import useRouter
+import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation'; // Change to next/navigation
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -11,28 +9,30 @@ const supabase = createClient(
 );
 
 const BlogDetailpage = () => {
-  const router = useRouter(); // Initialize router
-  const { id } = router.query; // Get post ID from URL
-  const [post, setPost] = React.useState<any>(null); // State to hold the post data
+  const router = useRouter();
+  const [post, setPost] = useState<any>(null);
+  const [id, setId] = useState<string | null>(null);
 
-  // Ensure the component is wrapped in a useEffect to avoid router not mounted error
-  React.useEffect(() => {
-    if (!router.isReady) return; // Wait for router to be ready
-    const { id } = router.query; // Get post ID from URL
+  useEffect(() => {
+    // Get the ID from the URL using window.location
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get('id');
+    setId(postId);
+  }, []);
 
-    // Fetch post details based on ID
-    const fetchPost = async () => {
-      if (id) {
+  useEffect(() => {
+    if (id) {
+      const fetchPost = async () => {
         const { data, error } = await supabase.from('blogs').select('*').eq('id', id).single();
         if (error) {
           console.error(error);
         } else {
           setPost(data);
         }
-      }
-    };
-    fetchPost();
-  }, [router.isReady, router.query]); // Add router.isReady to dependencies
+      };
+      fetchPost();
+    }
+  }, [id]);
 
   if (!post) {
     return <p>Loading...</p>; // Show loading state
