@@ -43,7 +43,7 @@ const Blog: React.FC = () => {
 
   return (
     <div className="px-30 py-30"> {/* Grid layout with 3 columns */}
-      {isLoading && <p>Loading...</p>}
+      
       {error && <div className="text-red-500 mb-4">{error}</div>}
       {posts.length === 0 ? (
         <ComingSoon />
@@ -53,17 +53,19 @@ const Blog: React.FC = () => {
             <div 
               key={post.id}
               onClick={() => handlePostClick(post.id)}
-              className="cursor-pointer border p-4 rounded-lg hover:shadow-lg transition-shadow duration-200"
+              className="cursor-pointer  p-4 rounded-lg hover:shadow-lg transition-shadow duration-200"
             >
               {post.image_url && (
                 <img 
                   src={post.image_url} 
                   alt={post.title} 
-                  className="w-full h-auto mb-2" // Responsive image
+                  className="w-full h-auto mb-2 rounded-lg" // Responsive image
                 />
               )}
-              <h2 className="text-xl font-bold mb-2">{post.title}</h2>
-              <p className="flex-grow text-gray-700">{post.content}</p>
+              <h2 className="text-xl text-[#030303] font-bold mb-2">{post.title}</h2>
+              <p className="flex-grow text-gray-700">
+                {post.content.split(' ').slice(0, 10).join(' ') + (post.content.split(' ').length > 10 ? '...' : '')}
+              </p>
               <div className="tags mt-2">
                 {post.tags.map((tag: string) => (
                   <span key={tag} className="tag bg-gray-200 px-2 py-1 rounded mr-2">{tag}</span>

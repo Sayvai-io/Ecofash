@@ -53,11 +53,32 @@ const BlogDetailpage = () => {
   return (
     <>
       <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40">
-        <h1>{id}</h1>
-        <h1>{title}</h1>
-        <p>{content}</p>
-        <p>{tags}</p>
-        {/* Add more post details as needed */}
+        <h1 className="font-bold text-[#0b0b0b] text-4xl sm:text-5xl md:text-6xl mb-6 sm:mb-10 text-center mt-10 sm:mt-6 md:mt-8">{title}</h1> {/* Responsive title */}
+        {imagePreview && ( // Display image if available
+          <div className="flex justify-center mb-4 px-4 sm:px-8 md:px-12 lg:px-32"> {/* Responsive padding on left and right */}
+            <img 
+              src={imagePreview} 
+              alt={title} 
+              className="max-w-full h-auto rounded-lg" // Responsive size with rounded corners
+            />
+          </div>
+        )}
+        <h1 className="font-bold text-gray-700 text-3xl mt-10 mb-4 px-4 sm:px-8 md:px-12 lg:px-50">{title}</h1> {/* Bold title with responsive padding */}
+        <p className="text-lg text-gray-700 mb-4 px-4 sm:px-8 md:px-12 lg:px-50">{content}</p> {/* Content with larger font size and responsive padding */}
+        
+        {/* Display tags if available */}
+        {tags.length > 0 && (
+          <div className="mt-4 px-4 sm:px-8 md:px-12 lg:px-50"> {/* Responsive padding for tags section */}
+            <h2 className="text-lg font-semibold">Tags:</h2>
+            <div className="flex flex-wrap mt-2">
+              {tags.map((tag: string) => (
+                <span key={tag} className="bg-gray-200 text-gray-700 px-2 py-1 rounded mr-2 mb-2">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
     </>
   );
