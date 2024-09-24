@@ -46,3 +46,75 @@ const Newsletter = () => {
 };
 
 export default Newsletter;
+
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
+import { createClient } from '@supabase/supabase-js';
+import ComingSoon from './coming-soon'; // Assuming ComingSoon is in the same directory
+
+// Initialize Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+const Blog: React.FC = () => {
+  const [posts, setPosts] = useState<any[]>([]); // State to hold blog posts
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Fetch blog posts from Supabase
+  const fetchPosts = async () => {
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase.from('blogs').select('*');
+      if (error) throw error;
+      setPosts(data);
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'An unknown error occurred');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts(); // Fetch posts on component mount
+  }, []);
+
+  return (
+    <div className="grid grid-cols-3 gap-4 mt-30">
+      {isLoading && <p>Loading...</p>}
+      {error && <div className="text-red-500 mb-4">{error}</div>}
+      {posts.length === 0 ? ( // Check if there are no posts
+        <ComingSoon /> // Render ComingSoon component
+      ) : (
+        <div className="posts-list">
+          <section className="py-20 lg:py-25 xl:py-15 px-4 md:px-20">
+            <div className="container">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3"> {/* Adjusted gap */}
+                {posts.map((post) => (
+                  <div 
+                    key={post.id} 
+                    className="post mb-4 p-4 border rounded w-[300px] h-[350px] flex flex-col justify-between mx-auto" // Fixed width and height
+                  >
+                    <h2 className="text-xl font-bold mb-2">{post.title}</h2>
+                    <p className="flex-grow">{post.content}</p>
+                    <div className="tags mt-2">
+                      {post.tags.map((tag: string) => (
+                        <span key={tag} className="tag bg-gray-200 px-2 py-1 rounded mr-2">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Blog;
+
