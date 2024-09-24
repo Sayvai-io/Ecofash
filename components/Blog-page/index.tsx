@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation'; // Change to next/navigation
+import { useRouter, useParams } from 'next/navigation'; // Import useParams
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -10,40 +10,38 @@ const supabase = createClient(
 
 const BlogDetailpage = () => {
   const router = useRouter();
-  const [post, setPost] = useState<any>(null);
-  const [id, setId] = useState<string | null>(null);
+  const { id } = useParams(); // Get the blog ID from the route parameters
+  const [blog, setBlog] = useState(null);
 
   useEffect(() => {
-    // Get the ID from the URL using window.location
-    const urlParams = new URLSearchParams(window.location.search);
-    const postId = urlParams.get('id');
-    setId(postId);
-  }, []);
+    const fetchBlog = async () => {
+      const { data, error } = await supabase
+        .from('blogs')
+        .select('*')
+        .eq('id', id)
+        .single();
 
-  useEffect(() => {
+      if (error) {
+        console.error('Error fetching blog:', error);
+        return;
+      }
+
+      setBlog(data);
+    };
+
     if (id) {
-      const fetchPost = async () => {
-        const { data, error } = await supabase.from('blogs').select('*').eq('id', id).single();
-        if (error) {
-          console.error(error);
-        } else {
-          setPost(data);
-        }
-      };
-      fetchPost();
+      fetchBlog();
     }
   }, [id]);
 
-  if (!post) {
-    return <p>Loading...</p>; // Show loading state
+  if (!blog) {
+    return <div>Loading...</div>;
   }
 
   return (
     <>
       <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40">
-        <h1>{post.title}</h1>
-        <img src={post.image_url} alt={post.title} />
-        <p>{post.content}</p>
+        <h1>{id}</h1>
         {/* Add more post details as needed */}
       </section>
     </>
