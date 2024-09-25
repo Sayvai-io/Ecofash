@@ -11,21 +11,19 @@ const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [dropdownToggler, setDropdownToggler] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
-
   const pathUrl = usePathname();
 
   // Sticky menu
   const handleStickyMenu = () => {
-    if (window.scrollY >= 80) {
-      setStickyMenu(true);
-    } else {
-      setStickyMenu(false);
-    }
+    setStickyMenu(window.scrollY >= 80);
   };
 
   useEffect(() => {
     window.addEventListener("scroll", handleStickyMenu);
-  });
+    return () => {
+      window.removeEventListener("scroll", handleStickyMenu);
+    };
+  }, []);
 
   const handleMakeACallClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -35,12 +33,15 @@ const Header = () => {
     }
   };
 
+  // Close menu when a link is clicked
+  const handleLinkClick = () => {
+    setNavigationOpen(false); // Close menu on click
+  };
+
   return (
     <header
       className={`fixed left-0 top-0 z-[100] w-full bg-white py-6 ${
-        stickyMenu
-          ? "!py-4 shadow transition duration-100 dark:bg-black"
-          : ""
+        stickyMenu ? "!py-4 shadow transition duration-100 dark:bg-black" : ""
       }`}
     >
       <div className="relative mx-auto max-w-c-1390 items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
@@ -62,7 +63,7 @@ const Header = () => {
             />
           </a>
 
-          {/* <!-- Hamburger Toggle BTN --> */}
+          {/* Hamburger Toggle BTN */}
           <button
             aria-label="hamburger Toggler"
             className="block xl:hidden"
@@ -100,20 +101,19 @@ const Header = () => {
               </span>
             </span>
           </button>
-          {/* <!-- Hamburger Toggle BTN --> */}
+          {/* Hamburger Toggle BTN */}
         </div>
 
-        {/* Nav Menu Start   */}
+        {/* Nav Menu Start */}
         <div
           className={`invisible h-0 w-full items-center justify-between xl:visible xl:flex xl:h-auto xl:w-full ${
-            navigationOpen &&
-            "navbar !visible mt-4 h-auto max-h-[400px] rounded-md bg-white p-7.5 shadow-solid-5 dark:bg-blacksection xl:h-auto xl:p-0 xl:shadow-none xl:dark:bg-transparent"
+            navigationOpen && "navbar !visible mt-4 h-auto max-h-[400px] rounded-md bg-white p-7.5 shadow-solid-5 dark:bg-blacksection xl:h-auto xl:p-0 xl:shadow-none xl:dark:bg-transparent"
           }`}
-        >
+         >
           <nav>
             <ul className="flex flex-col gap-5 xl:flex-row xl:items-center xl:gap-10">
               {menuData.map((menuItem, key) => (
-                <li key={key} className={menuItem.submenu && "group relative"}>
+                <li key={key} className={menuItem.submenu ? "group relative" : ""}>
                   {menuItem.submenu ? (
                     <>
                       <button
@@ -132,11 +132,9 @@ const Header = () => {
                         </span>
                       </button>
 
-                      <ul
-                        className={`dropdown ${dropdownToggler ? "flex" : ""}`}
-                      >
+                      <ul className={`dropdown ${dropdownToggler ? "flex" : ""}`}>
                         {menuItem.submenu.map((item, key) => (
-                          <li key={key} className="hover:text-[#609641]">
+                          <li key={key} className="hover:text-[#609641]" onClick={handleLinkClick}>
                             <Link href={item.path || "#"} className="font-semibold">{item.title}</Link>
                           </li>
                         ))}
@@ -150,6 +148,7 @@ const Header = () => {
                           ? "text-[#609641] hover:text-[#609641]"
                           : "hover:text-[#609641]"
                       }`}
+                      onClick={handleLinkClick}
                     >
                       {menuItem.title}
                     </Link>
@@ -160,78 +159,81 @@ const Header = () => {
           </nav>
 
           <div className="mt-7 flex items-center gap-6 xl:mt-0">
-            <Link
-              href="#"
-              className="flex items-center text-regular font-semibold text-waterloo hover:text-[#609641]"
-            >
-              <svg
-                className="mr-2 h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              English
-              <svg
-                className="ml-2 h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </Link>
+<Link
+  href="#"
+  className="flex items-center text-regular font-semibold text-waterloo hover:text-[#609641]"
+>
+  <svg
+    className="mr-2 h-5 w-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
+  English
+  <svg
+    className="ml-2 h-4 w-4"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M19 9l-7 7-7-7"
+    />
+  </svg>
+</Link>
 
-            <Link
-              href="#makeACallSection"
-              onClick={handleMakeACallClick}
-              className="flex items-center justify-center rounded-full bg-[#609641] px-5.5 py-2 text-regular font-semibold text-white duration-300 ease-in-out hover:bg-[#609641]"
-            >
-              Request a Call
-            </Link>
+<Link
+  href="#makeACallSection"
+  onClick={handleMakeACallClick}
+  className="flex items-center justify-center rounded-full bg-[#609641] px-5.5 py-2 text-regular font-semibold text-white duration-300 ease-in-out hover:bg-[#609641]"
+>
+  Request a Call
+</Link>
 
-            {/* Search Icon Button */}
-            <button
-              aria-label="Search"
-              className="text-waterloo hover:text-[#609641] transition-colors duration-300"
-            >
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
+{/* Search Icon Button */}
+<button
+  aria-label="Search"
+  className="text-waterloo hover:text-[#609641] transition-colors duration-300"
+>
+  <svg
+    className="h-5 w-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+    />
+  </svg>
+</button>
 
-            <ThemeToggler />
-          </div>
+<ThemeToggler />
+</div>
         </div>
+        {/* Nav Menu End */}
       </div>
     </header>
   );
 };
 
-// w-full delay-300
-
 export default Header;
+
+
+ 
+ 

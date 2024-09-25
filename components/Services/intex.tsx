@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FaArrowRight } from 'react-icons/fa';
 import Image from 'next/image';
 
-// First, let's define the ServiceCard component
+// Define the ServiceCard component
 const ServiceCard = ({ title, description, link, bgImage, icon }: {
   title: string;
   description: string;
@@ -51,7 +51,7 @@ const ServiceCard = ({ title, description, link, bgImage, icon }: {
   );
 };
 
-// Now, let's define the services data
+// Define the services data
 const servicesData = [
   {
     title: "Sustainable Supply Chain Mapping",
@@ -94,31 +94,30 @@ const servicesData = [
   }
 ];
 
-// Now, let's modify your existing component to include the ServiceCard
+// Main Home component
 const Home = () => {
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-between items-center mb-80 px-4 md:px-8">
-        <div className="md:w-1/2 mb-8 md:mb-0">
-          <h2 className="text-3xl font-bold mb-4">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-20 px-4 md:px-8">
+        <div className="md:w-1/2 mb-6 md:mb-0">
+          <h2 className="text-4xl font-bold mb-4 leading-tight">
             Guiding Brands to
             <br />
-            a <span className="text-[#609641] font-bold text-3xl">Greener</span> Future
+            a <span className="text-[#609641] font-bold">Greener</span> Future
           </h2>
         </div>
         <div className="md:w-1/2">
-          <p className="mb-4">
-            Founded in 2020, Ecofash Services emerged from a deep commitment to revolutionize 
-            the fashion industry, placing sustainability and ethics at the forefront of our mission. 
-            What began as a small initiative driven by passion and a vision for change quickly evolved into
+          <p className="mb-4 text-lg">
+            Founded in 2020, Ecofash Services emerged from a deep commitment to revolutionize the fashion industry, placing sustainability and ethics at the forefront of our mission. What began as a small initiative driven by passion and a vision for change quickly evolved into
           </p>
           <button className="flex items-center text-black hover:underline">
             Our Services <FaArrowRight className="ml-2" />
           </button>
         </div>
       </div>
+
       <div className="bg-[#609641] py-12 px-4 md:px-8 relative">
-        <div className="w-full md:-mt-80 flex justify-center">
+        <div className="w-full flex justify-center">
           <Image
             src="/images/service/Services-meeting.jpg"
             alt="Service Meeting"
@@ -127,93 +126,79 @@ const Home = () => {
             className="rounded-lg shadow-lg"
           />
         </div>
-        <div className="mt-12 flex flex-wrap justify-center">
-          <div className="w-1/2 md:w-1/4 text-center mb-8">
-            <p className="text-8xl font-bold text-white mb-4">10+</p>
-            <p className="text-xl text-black">Years of Experience</p>
-          </div>
-          <div className="w-1/2 md:w-1/4 text-center mb-8">
-            <p className="text-8xl font-bold text-white mb-4">5+</p>
-            <p className="text-xl text-black">Satisfied Clients</p>
-          </div>
-          <div className="w-1/2 md:w-1/4 text-center mb-8">
-            <p className="text-8xl font-bold text-white mb-4">27</p>
-            <p className="text-xl text-black">Services Provided</p>
-          </div>
-          <div className="w-1/2 md:w-1/4 text-center mb-8">
-            <p className="text-8xl font-bold text-white mb-4">10+</p>
-            <p className="text-xl text-black">Business Portfolios</p>
-          </div>
+        <div className="mt-8 flex flex-wrap justify-center">
+          {[
+            { value: "10+", label: "Years of Experience" },
+            { value: "5+", label: "Satisfied Clients" },
+            { value: "27", label: "Services Provided" },
+            { value: "10+", label: "Business Portfolios" }
+          ].map((item) => (
+            <div key={item.label} className="w-full md:w-1/4 text-center mb-8 px-2">
+              <p className="text-6xl md:text-8xl font-bold text-white mb-2">{item.value}</p>
+              <p className="text-lg md:text-xl text-black">{item.label}</p>
+            </div>
+          ))}
         </div>
       </div>
+
       <div className="text-center py-16 px-4">
-        <h2 className="text-5xl font-bold mb-4 text-black">
-          <span className="block mb-4">"Sustainable Strategy, Ethical Supply</span>
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-black">
+          <span className="block mb-2">"Sustainable Strategy, Ethical Supply</span>
           Chains, <span className="text-[#609641]">Fashion Innovation."</span>
         </h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-        {servicesData.map((service, index) => (
-          <div key={service.title} className={index % 2 === 0 ? "md:pl-16" : "md:pr-16"}>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 px-4">
+        {servicesData.map((service) => (
+          <div key={service.title} className="flex justify-center mb-4">
             <ServiceCard {...service} />
           </div>
         ))}
       </div>
-      <div className="flex flex-col md:flex-row md:justify-between px-4 md:px-4">
-        <div className="md:w-1/2 pl-24">
-          <p className="mb-4 text-5xl text-gray-900">
+
+      <div className="flex flex-col md:flex-row md:justify-between px-4">
+        <div className="md:w-1/2 mb-4 md:mb-0">
+          <p className="mb-4 text-4xl md:text-5xl text-gray-900 text-center md:text-left pl-16">
             Let’s see a collection<br /> of <span className="text-green-500">our Works</span>
           </p>
         </div>
-        <div className="md:w-1/2 pl-12">
-          <p className="mb-4 text-xl text-gray-900  ">
+        <div className="md:w-1/2">
+          <p className="mb-4 text-lg md:text-xl text-gray-900 text-center md:text-left pl-12">
             Discover a curated collection of our work, showcasing our expertise in driving sustainability and transforming businesses. Our portfolio highlights successful projects across various industries, demonstrating our commitment to environmental and social responsibility.
           </p>
         </div>
       </div>
-   
-       
- 
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 pt-16 px-2 md:px-4">
-          <div className="relative flex justify-center">
-    <Image
-      src="/images/service/chain.png"
-      alt="Example Image 1"
-      width={300}
-      height={400} // Height is twice the width
-      className="rounded-lg shadow-lg"
-    />
-     
-  </div>
-  <div className="relative flex justify-center">
-    <Image
-      src="/images/service/OUtsourcing.png"
-      alt="Example Image 2"
-      width={300}
-      height={400} // Height is twice the width
-      className="rounded-lg shadow-lg"
-    />
-     
-  </div>
-  <div className="relative flex justify-center">
-    <Image
-      src="/images/service/circulareconomy.png"
-      alt="Example Image 3"
-      width={300}
-      height={400} // Height is twice the width
-      className="rounded-lg shadow-lg"
-    />
-     
-  </div>
-</div>
-
-
-
-
-
-
+        <div className="relative flex justify-center">
+          <Image
+            src="/images/service/chain.png"
+            alt="Example Image 1"
+            width={300}
+            height={400} // Height is twice the width
+            className="rounded-lg shadow-lg"
+          />
+        </div>
+        <div className="relative flex justify-center">
+          <Image
+            src="/images/service/OUtsourcing.png"
+            alt="Example Image 2"
+            width={300}
+            height={400} // Height is twice the width
+            className="rounded-lg shadow-lg"
+          />
+        </div>
+        <div className="relative flex justify-center">
+          <Image
+            src="/images/service/circulareconomy.png"
+            alt="Example Image 3"
+            width={300}
+            height={400} // Height is twice the width
+            className="rounded-lg shadow-lg"
+          />
+        </div>
+      </div>
     </>
-     
   );
 };
 
