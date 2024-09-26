@@ -1,10 +1,64 @@
 "use client";
-
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { FaStar } from 'react-icons/fa';
+import React,{useState,useEffect} from "react"
+import { createClient } from '@supabase/supabase-js';
+import { FaStar } from 'react-icons/fa';  // Add this import
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+const About = () => {
+  const [hasMounted, setHasMounted] = useState(false);
+  
+  const [AboutDetails, setAboutDetails] = useState({
+      
+      title: "",
+     aboutheading: "",
+     aboutcontent: "",
+     aboutimage: "",
+      mvtitle:"",
+      mvheading:"",
+      mvcontent:"",
+      tctitle:"",
+      tcheading:"",
+      tccontent:"",
+      tcimage:"",
+      reviewheading:"",
+  });
 
-const About1 = () => {
+  const fetchAboutDetails = async () => {
+    const { data, error } = await supabase.from('about').select('*');
+    if (error) {
+      console.error("Error fetching about details:", error);
+    } else {
+      const AboutData = data[0]; // Assuming you only need the first row
+      setAboutDetails({
+         title: AboutData.title,
+        aboutheading: AboutData.about_heading,
+        aboutcontent: AboutData.about_content,
+        aboutimage: AboutData.about_image,
+         mvtitle:AboutData.mv_title,
+         mvheading: AboutData.mv_heading,
+         mvcontent: AboutData.mv_content,
+         tctitle:AboutData.tc_title,
+        
+         tcheading: AboutData.tc_heading,
+         tccontent:AboutData.tc_content,
+         tcimage:AboutData.tc_image,
+         reviewheading:AboutData.review_heading,
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchAboutDetails();
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
   return (
     <>
       {/* Existing section */}
@@ -32,10 +86,7 @@ const About1 = () => {
             />
             <div>
               <h1 className="text-4xl sm:text-4xl md:text-5xl font-semibold text-white leading-tight mb-4">
-                <span className="mb-4 block">Driving <span className="text-[#609641]">environmental</span></span>
-                <span className="mb-4 block">responsibility and ethical</span>
-                <span className="mb-4 block">practices across the</span> 
-                <span className="text-[#609641]">fashion industry.</span>
+                {AboutDetails.title}
               </h1>
             </div>
           </div>
@@ -78,11 +129,10 @@ const About1 = () => {
                 <span className="text-lg text-[#4d4d4b] mr-2">About Us</span>
               </div>
               <h2 className="text-3xl sm:text-6xl font-bold mb-6 text-black">
-                Our <span className="text-[#609641]">Story</span>
+              {AboutDetails.aboutheading}
               </h2>
               <p className="text-black text-lg mb-8">
-                Founded in 2020, Ecofash Services emerged from a deep commitment to revolutionize the fashion industry, placing sustainability and ethics at the forefront of our mission. What began as a small initiative driven by passion and a vision for change quickly evolved into a pioneering force in sustainable fashion. Our journey started with a handful of dedicated individuals who recognized the urgent need to address the environmental and social impacts of traditional fashion practices.
-              </p>
+              {AboutDetails.aboutcontent} </p>
               <button className="px-6 py-2 bg-[#609641] text-white font-semibold rounded-xl hover:bg-[#4d7a33] transition duration-300">
                 Learn More
               </button>
@@ -109,12 +159,10 @@ const About1 = () => {
               </div>
              
               <h3 className="text-3xl sm:text-6xl font-bold mb-12 text-black">
-                Fashion for a <br />
-                <span className="text-[#609641]">Greener</span> Future.
+              {AboutDetails.mvtitle}
               </h3>
               <p className="text-black text-lg mb-8 pl-6 border-l-4 border-[#609641] rounded-l-md">
-                At Ecofash Services, we strive to transform the fashion industry by making sustainability and ethics the standard. Our mission is to empower brands to reduce environmental impact and embrace social responsibility at every step. We envision a future where sustainable fashion drives positive change for people and the planet.
-              </p>
+              {AboutDetails.mvcontent} </p>
               <div className="mt-12 border-b-2 border-gray-300 w-full"></div>
             </div>
 
@@ -160,12 +208,10 @@ const About1 = () => {
                 <span className="text-lg text-[#4d4d4b]  mr-2">Our Team</span>
               </div>
               <h2 className="text-3xl sm:text-5xl font-bold mb-6 text-black">
-                Your Allies in <br />
-                <span className="text-[#609641]">Sustainable Fashion.</span>
+              {AboutDetails.tctitle}
               </h2>
               <p className="text-black text-lg mb-8">
-                Ecofash Services is driven by sustainability experts, supply chain analysts, and fashion veterans. We help brands transform their operations to be more sustainable and socially responsible, shaping a better future for fashion.
-              </p>
+              {AboutDetails.tccontent} </p>
               <button className="px-6 py-2 bg-[#609641] text-white font-semibold rounded-xl hover:bg-[#4d7a33] transition duration-300">
                 Learn More
               </button>
@@ -211,8 +257,7 @@ const About1 = () => {
                   ))}
                 </div>
                 <p className={`mb-6 ${index === 1 ? 'text-white' : 'text-gray-700 group-hover:text-white'}`}>
-                  "I am impressed by their expertise and commitment to excellence. Their efficient solutions and proactive services have consistently exceeded my expectations, making them our trusted partner."
-                </p>
+                {AboutDetails.reviewheading} </p>
                 <div className="flex items-center">
                   <Image
                     src={client.image}
@@ -237,4 +282,4 @@ const About1 = () => {
   );
 };
 
-export default About1;
+export default About;
