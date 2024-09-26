@@ -99,15 +99,7 @@ const Hero = () => {
 
                 <div className="text-center mb-4 sm:mb-5">
                   <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-                    Empowering
-                    <span className="bg-[#68B13E] text-[#0a0a0a] px-2 sm:px-4 md:px-6 py-1 sm:py-2 rounded-full text-xl sm:text-2xl md:text-3xl lg:text-5xl inline-block mb-2 sm:mb-0 ml-2 sm:ml-2 md:ml-2">
-                      Sustainable
-                    </span> 
-                    <br className="sm:hidden" />
-                    <span className="bg-[#68B13E] text-[#0a0a0a] px-2 sm:px-4 md:px-6 py-1 sm:py-2 rounded-full text-xl sm:text-2xl md:text-3xl lg:text-5xl inline-block mt-2 sm:mt-3 mr-2 sm:mr-2 md:mr-2">
-                      Fashion
-                    </span> 
-                    <span className="inline-block mt-2 sm:mt-3">Supply Chains</span>
+                    {HeroDetails.heading}
                   </h1>
                 </div>
 
