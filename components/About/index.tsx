@@ -1,9 +1,49 @@
 "use client";
-
 import { motion } from "framer-motion";
 import Image from "next/image";
-
+import React,{useState,useEffect} from "react"
+import { createClient } from '@supabase/supabase-js';
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 const About = () => {
+  const [hasMounted, setHasMounted] = useState(false);
+  
+  const [AboutDetails, setAboutDetails] = useState({
+      
+     abouttitle: "",
+     aboutheading: "",
+     aboutcontent: "",
+     aboutimage: "",
+      
+  });
+
+  const fetchAboutDetails = async () => {
+    const { data, error } = await supabase.from('home').select('*');
+    if (error) {
+      console.error("Error fetching about details:", error);
+    } else {
+      const AboutData = data[0]; // Assuming you only need the first row
+      setAboutDetails({
+        
+        abouttitle: AboutData.about_title,
+        aboutheading: AboutData.about_heading,
+        aboutcontent: AboutData.about_content,
+        aboutimage: AboutData.about_image,
+         
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchAboutDetails();
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
   return (
     <>
       {/* <!-- ===== About Start ===== --> */}
@@ -73,21 +113,14 @@ const About = () => {
               className="animate_right md:w-1/2"
             >
               <span className="font-semibold text-2xl mb-4 block text-black dark:text-white">
-                About us
+            {AboutDetails.abouttitle}
               </span>
               <h2 className="mb-6 text-4xl sm:text-5xl md:text-6xl font-bold text-black dark:text-white leading-tight">
-                Sustainability
-                <br />
-                <span className="relative inline-block mt-4 mb-4">
-                  Woven into <span className="text-[#609641]">Every</span>
-                </span>
-                <br />
-                <span className="text-[#609641]">Switch</span>
+                {AboutDetails.aboutheading}
               </h2>
               
               <p className="text-base sm:text-lg md:text-xl mb-6">
-                With a team of dedicated sustainability experts and industry veterans, Ecofash Services is committed to guiding you through every step of your sustainability journey. We believe that every fashion brand has the power to make a positive impact, and we're here to help you lead the way. Join us as we redefine fashion with purpose, innovation, and integrity.
-              </p>
+                 {AboutDetails.aboutcontent} </p>
 
               <div className="flex items-center">
                 <button className="flex items-center justify-center rounded-md bg-[#609641] text-white px-6 py-3 text-base font-bold transition duration-300 ease-in-out hover:bg-[#4d7a34]">

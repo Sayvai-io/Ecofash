@@ -1,13 +1,45 @@
 "use client";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
-
+import React,{useState,useEffect} from "react"
+import { createClient } from '@supabase/supabase-js';
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 const Hero = () => {
-  const [email, setEmail] = useState("");
+  const [hasMounted, setHasMounted] = useState(false);
+  
+  const [HeroDetails, setHeroDetails] = useState({
+     heading: "",
+     headcontent: "",
+     headimage: "",
+      
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const fetchHeroDetails = async () => {
+    const { data, error } = await supabase.from('home').select('*');
+    if (error) {
+      console.error("Error fetching Hero details:", error);
+    } else {
+      const  HeroData = data[0]; // Assuming you only need the first row
+      setHeroDetails({
+        heading: HeroData.heading,
+        headcontent: HeroData.head_content,
+        headimage: HeroData.head_image,
+         
+      });
+    }
   };
+
+  useEffect(() => {
+    fetchHeroDetails();
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
 
   return (
     <>
@@ -81,13 +113,12 @@ const Hero = () => {
 
                 <div className="text-center mb-6 sm:mb-8 md:mb-10">
                   <p className="text-white text-xs sm:text-sm md:text-base lg:text-lg px-4 sm:px-0">
-                    Optimizing resource efficiency, from sourcing eco-conscious materials to minimizing waste throughout the process. By integrating cutting-edge technology and industry expertise, Ecofash Services drives measurable environmental and social impact, helping brands lead the way in responsible fashion.
-                  </p>
+                     {HeroDetails.headcontent}  </p>
                 </div>
 
                 <div className="flex flex-col items-center">
                   <div className="mt-6 sm:mt-8 md:mt-10">
-                    <form onSubmit={handleSubmit} className="flex items-center">
+                    <div className="flex items-center">
                       <button
                         aria-label="get started button"
                         className="flex rounded-full bg-white px-6 sm:px-5.5 py-2 sm:py-2.5 text-sm sm:text-base text-black duration-300 ease-in-out"
@@ -102,7 +133,7 @@ const Hero = () => {
                           <path fillRule="evenodd" d="M8.25 3.75H19.5a.75.75 0 01.75.75v11.25a.75.75 0 01-1.5 0V6.31L5.03 20.03a.75.75 0 01-1.06-1.06L17.69 5.25H8.25a.75.75 0 010-1.5z" clipRule="evenodd" />
                         </svg>
                       </button>
-                    </form>
+                    </div>
                   </div>
 
                   <div className="relative w-full">

@@ -1,8 +1,54 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import React,{useState,useEffect} from "react"
+import { createClient } from '@supabase/supabase-js';
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+const Home = () => {
+  const [hasMounted, setHasMounted] = useState(false);
+  
+  const [homeDetails, setHomeDetails] = useState({
+      
+     
+     service: "",
+     contactheading:"",
+     contactcontent:"",
+     contactimage:"",
+  });
 
-const Integration = () => {
+  const fetchHomeDetails = async () => {
+    const { data, error } = await supabase.from('home').select('*');
+    if (error) {
+      console.error("Error fetching contact details:", error);
+    } else {
+      const  HomeData = data[0]; // Assuming you only need the first row
+      setHomeDetails({
+        
+         
+        service: HomeData.service,
+        contactheading: HomeData.contact_heading,
+        contactcontent: HomeData.contact_content,
+        contactimage: HomeData.contact_image,
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchHomeDetails();
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
+
+  // ... rest of the component
+
+
+ 
   return (
     <section className="bg-white py-20 lg:py-25 xl:py-30">
       <div className="container px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 max-w-7xl">
@@ -17,16 +63,21 @@ const Integration = () => {
           >
             <div className="rounded-2xl p-8 pl-12 sm:pl-16 md:pl-20"> 
               <h2 className="mb-6 text-3xl font-bold text-black dark:text-black xl:text-3xl">
-                Let's make things happen
+                {
+                  homeDetails.contactheading
+                }
               </h2>
               <p className="mb-8 text-lg font-normal leading-relaxed text-[#0a0a0a]">
-                Contact us today to learn more about how our services can help your business grow sustainably and make a difference.
-              </p>
+              {
+                  homeDetails.contactcontent
+                } </p>
               <a
                 href="#"
                 className="inline-flex items-center gap-2.5 rounded-lg bg-[#609641] px-6 py-3 font-medium text-white hover:opacity-90"
-              >
-                Check out our services
+               >
+                 {
+                  homeDetails.service
+                }
                 <svg
                   className="fill-white"
                   width="14"
@@ -73,4 +124,4 @@ const Integration = () => {
   );
 };
 
-export default Integration;
+export default Home;
