@@ -1,0 +1,8 @@
+{
+    "Blog": {
+      "error": "Error: {error}",
+      "loading": "Loading posts...",
+      "newPostTitle": "test26",
+      "newPostContent": "People perform many tasks on a daily basis, like tying shoelaces or tightening a screw."
+    }
+  }
