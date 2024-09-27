@@ -150,9 +150,6 @@ const Home = () => {
   });
 
   const fetchServiceDataDetails = async () => {
-    console.log("asdf");
-
-    console.log(servicesData);
     const { data, error } = await supabase.from("service_provided").select("*");
     if (error) {
       console.error("Error fetching service data details:", error);
@@ -217,7 +214,6 @@ const Home = () => {
         }
 
         setServiceData((prevData) => [...prevData, sampleData]);
-        console.log(servData);
       });
     }
   };
@@ -226,7 +222,6 @@ const Home = () => {
     if (error) {
       console.error("Error fetching service details:", error);
     } else {
-      console.log(data);
       const serviceData = data[0]; // Assuming you only need the first row
       setServiceDetails({
         serviceHeading: serviceData.service_heading,
