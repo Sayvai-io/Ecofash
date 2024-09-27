@@ -14,12 +14,14 @@ const About = () => {
   const [AboutDetails, setAboutDetails] = useState({
       
       title: "",
+      bgimage:"",
      aboutheading: "",
      aboutcontent: "",
      aboutimage: "",
       mvtitle:"",
       mvheading:"",
       mvcontent:"",
+      mvimage:"",
       tctitle:"",
       tcheading:"",
       tccontent:"",
@@ -35,14 +37,15 @@ const About = () => {
       const AboutData = data[0]; // Assuming you only need the first row
       setAboutDetails({
          title: AboutData.title,
+         bgimage:AboutData.bg_image,
         aboutheading: AboutData.about_heading,
         aboutcontent: AboutData.about_content,
         aboutimage: AboutData.about_image,
          mvtitle:AboutData.mv_title,
          mvheading: AboutData.mv_heading,
          mvcontent: AboutData.mv_content,
+         mvimage:AboutData.mv_image,
          tctitle:AboutData.tc_title,
-        
          tcheading: AboutData.tc_heading,
          tccontent:AboutData.tc_content,
          tcimage:AboutData.tc_image,
@@ -66,7 +69,7 @@ const About = () => {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/service/service-hero.jpg"
+            src={AboutDetails.bgimage}
             alt="Supply Chain Mapping"
             layout="fill"
             objectFit="cover"
@@ -121,7 +124,7 @@ const About = () => {
               <div className="flex items-center gap-2 mb-4">
                 
                 <Image
-                  src="/images/about/aboutuslogo.png"
+                  src={AboutDetails.aboutimage}
                   alt="About Us Logo"
                   width={24}
                   height={24}
@@ -150,7 +153,7 @@ const About = () => {
               <div className="flex items-center gap-2 mb-4">
                
                 <Image
-                  src="/images/about/missionlogo.png"
+                  src={AboutDetails.mvimage}
                   alt="About Us Logo"
                   width={24}
                   height={24}
@@ -200,7 +203,7 @@ const About = () => {
             <div className="flex items-center gap-2 mb-4">
                 
                 <Image
-                  src="/images/about/aboutuslogo.png"
+                  src={AboutDetails.tcimage}
                   alt="About Us Logo"
                   width={24}
                   height={24}
