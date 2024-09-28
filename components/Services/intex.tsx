@@ -118,7 +118,7 @@ const ServiceCard = ({
 //   },
 // ];
 
-// Now, let's modify your existing component to include the ServiceCard
+// Main Home component
 const Home = () => {
   const [hasMounted, setHasMounted] = React.useState(false);
   const isInitialRender = React.useRef(true);
