@@ -44,6 +44,12 @@ const About = () => {
   if (!hasMounted) {
     return null;
   }
+  const images = [
+    { src: AboutDetails.aboutimage, alt: "About", style: { left: '230px', top: '0px', zIndex: 1 } },
+    { src: AboutDetails.aboutimage, alt: "About", style: { left: '220px', top: '200px', zIndex: 3, transform: 'rotate(12deg)' } },
+    { src: AboutDetails.aboutimage, alt: "About", style: { left: '40px', top: '100px', zIndex: 2, transform: 'rotate(-12deg)' } },
+  ];
+
   return (
     <>
       {/* <!-- ===== About Start ===== --> */}
@@ -69,30 +75,16 @@ const About = () => {
               className="animate_left relative mx-auto hidden md:block md:w-1/2"
               style={{ height: '600px', width: '500px' }} // Adjust these dimensions as needed
             >
-              <div className="absolute w-[319px] h-[399px]" style={{ left: '230px', top: '0px', zIndex: 1 }}>
-                <Image
-                  src="/images/about/about1.jpg"
-                  alt="About 1"
-                  fill
-                  className="rounded-[50px] object-cover"
-                />
-              </div>
-              <div className="absolute w-[319px] h-[399px]" style={{ left: '220px', top: '200px', zIndex: 3, transform: 'rotate(12deg)' }}>
-                <Image
-                  src="/images/about/about2.jpg"
-                  alt="About 2"
-                  fill
-                  className="rounded-[50px] object-cover"
-                />
-              </div>
-              <div className="absolute w-[319px] h-[399px]" style={{ left: '40px', top: '100px', zIndex: 2, transform: 'rotate(-12deg)' }}>
-                <Image
-                  src="/images/about/about3.jpg"
-                  alt="About 3"
-                  fill
-                  className="rounded-[50px] object-cover"
-                />
-              </div>
+              {images.map((image, index) => (
+                <div key={index} className="absolute w-[319px] h-[399px]" style={image.style}>
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="rounded-[50px] object-cover"
+                  />
+                </div>
+              ))}
             </motion.div>
             <motion.div
               variants={{

@@ -103,13 +103,17 @@ const Home = () => {
           >
             <div className="relative w-full h-[320px] overflow-hidden rounded-3xl">
               <Image
-                src="/images/about/about-image.png"
+                src={
+                  homeDetails.contactimage
+                }
                 alt=""
                 fill
                 className="object-cover"
               />
               <Image
-                src="/images/about/about-image-dark.svg"
+                src={
+                  homeDetails.contactimage
+                }
                 alt=""
                 fill
                 className="hidden dark:block object-cover"

@@ -47,7 +47,7 @@ const Hero = () => {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero/hero1.jpg"
+            src= {HeroDetails.headimage}
             alt="Hero Background"
             fill
             style={{ objectFit: 'cover' }}
