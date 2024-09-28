@@ -320,7 +320,7 @@ const Home = () => {
           {serviceDetails.serviceProvidedHeading}
         </h2>
       </div>
-      <div className="mb-16 grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2"> {/* Set to 1 column for specified range */}
+      <div className="mb-16 grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 pr-16"> {/* Set to 1 column for specified range */}
         {servicesData?.map((service, index) => (
           <div
             key={service.title + index}
