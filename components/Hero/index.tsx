@@ -1,33 +1,31 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React,{useState,useEffect} from "react"
-import { createClient } from '@supabase/supabase-js';
+import React, { useState, useEffect } from "react";
+import { createClient } from "@supabase/supabase-js";
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 );
 const Hero = () => {
   const [hasMounted, setHasMounted] = useState(false);
-  
+
   const [HeroDetails, setHeroDetails] = useState({
-     heading: "",
-     headcontent: "",
-     headimage: "",
-      
+    heading: "",
+    headcontent: "",
+    headimage: "",
   });
 
   const fetchHeroDetails = async () => {
-    const { data, error } = await supabase.from('home').select('*');
+    const { data, error } = await supabase.from("home").select("*");
     if (error) {
       console.error("Error fetching Hero details:", error);
     } else {
-      const  HeroData = data[0]; // Assuming you only need the first row
+      const HeroData = data[0]; // Assuming you only need the first row
       setHeroDetails({
         heading: HeroData.heading,
         headcontent: HeroData.head_content,
         headimage: HeroData.head_image,
-         
       });
     }
   };
@@ -46,21 +44,23 @@ const Hero = () => {
       <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-36">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <Image
-            src= {HeroDetails.headimage}
-            alt="Hero Background"
-            fill
-            style={{ objectFit: 'cover' }}
-            quality={100}
-          />
+          {HeroDetails?.headimage && (
+            <Image
+              src={HeroDetails.headimage}
+              alt="Hero Background"
+              fill
+              style={{ objectFit: "cover" }}
+              quality={100}
+            />
+          )}
           {/* Overlay for better text visibility */}
           <div className="absolute inset-0 bg-black opacity-50"></div>
         </div>
-        
+
         <div className="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center min-h-[70vh]">
+          <div className="flex min-h-[70vh] items-center">
             <div className="w-full">
-              <div className="max-w-3xl mx-auto">
+              <div className="mx-auto max-w-3xl">
                 {/* Left side content */}
                 <div className="absolute left-40 top-64 hidden lg:block">
                   <Image
@@ -68,7 +68,7 @@ const Hero = () => {
                     alt="Star"
                     width={48}
                     height={48}
-                    className="mb-10 -ml-10"
+                    className="-ml-10 mb-10"
                   />
                   <Image
                     src="/images/hero/roundframe1.png"
@@ -97,15 +97,16 @@ const Hero = () => {
                   />
                 </div>
 
-                <div className="text-center mb-4 sm:mb-5">
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                <div className="mb-4 text-center sm:mb-5">
+                  <h1 className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
                     {HeroDetails.heading}
                   </h1>
                 </div>
 
-                <div className="text-center mb-6 sm:mb-8 md:mb-10">
-                  <p className="text-white text-xs sm:text-sm md:text-base lg:text-lg px-4 sm:px-0">
-                     {HeroDetails.headcontent}  </p>
+                <div className="mb-6 text-center sm:mb-8 md:mb-10">
+                  <p className="px-4 text-xs text-white sm:px-0 sm:text-sm md:text-base lg:text-lg">
+                    {HeroDetails.headcontent}{" "}
+                  </p>
                 </div>
 
                 <div className="flex flex-col items-center">
@@ -113,16 +114,25 @@ const Hero = () => {
                     <div className="flex items-center">
                       <button
                         aria-label="get started button"
-                        className="flex rounded-full bg-white px-6 sm:px-5.5 py-2 sm:py-2.5 text-sm sm:text-base text-black duration-300 ease-in-out"
+                        className="flex rounded-full bg-white px-6 py-2 text-sm text-black duration-300 ease-in-out sm:px-5.5 sm:py-2.5 sm:text-base"
                       >
                         Get Started
                       </button>
                       <button
                         aria-label="up-right arrow button"
-                        className="flex items-center justify-center rounded-full bg-[#609641] w-10 h-10 sm:w-11 sm:h-11 text-white duration-300 ease-in-out -ml-5 sm:-ml-4"
+                        className="-ml-5 flex h-10 w-10 items-center justify-center rounded-full bg-[#609641] text-white duration-300 ease-in-out sm:-ml-4 sm:h-11 sm:w-11"
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                          <path fillRule="evenodd" d="M8.25 3.75H19.5a.75.75 0 01.75.75v11.25a.75.75 0 01-1.5 0V6.31L5.03 20.03a.75.75 0 01-1.06-1.06L17.69 5.25H8.25a.75.75 0 010-1.5z" clipRule="evenodd" />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="h-5 w-5"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M8.25 3.75H19.5a.75.75 0 01.75.75v11.25a.75.75 0 01-1.5 0V6.31L5.03 20.03a.75.75 0 01-1.06-1.06L17.69 5.25H8.25a.75.75 0 010-1.5z"
+                            clipRule="evenodd"
+                          />
                         </svg>
                       </button>
                     </div>
@@ -135,7 +145,7 @@ const Hero = () => {
                         alt="Dot Arrow"
                         width={100}
                         height={100}
-                        className="w-auto h-auto max-w-[60px] sm:max-w-[80px] md:max-w-[100px]"
+                        className="h-auto w-auto max-w-[60px] sm:max-w-[80px] md:max-w-[100px]"
                       />
                     </div>
                   </div>

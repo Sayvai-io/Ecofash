@@ -90,7 +90,7 @@ const About = () => {
               whileInView="visible"
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
-              className="animate_left relative mx-auto hidden md:block md:w-1/2"
+              className="animate_left relative mx-auto hidden md:w-1/2 lg:block"
               style={{ height: "600px", width: "500px" }} // Adjust these dimensions as needed
             >
               {images.map((image, index) => (
@@ -99,12 +99,14 @@ const About = () => {
                   className="absolute h-[399px] w-[319px]"
                   style={image.style}
                 >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    className="rounded-[50px] object-cover"
-                  />
+                  {image?.src && (
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="rounded-[50px] object-cover"
+                    />
+                  )}
                 </div>
               ))}
             </motion.div>
@@ -124,7 +126,7 @@ const About = () => {
               whileInView="visible"
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
-              className="animate_right md:w-1/2"
+              className="animate_right z-40 w-full lg:w-1/2"
             >
               <span className="mb-4 block text-2xl font-semibold text-black dark:text-white">
                 {AboutDetails.abouttitle}
