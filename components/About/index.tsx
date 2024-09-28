@@ -45,9 +45,9 @@ const About = () => {
     return null;
   }
   const images = [
-    { src: AboutDetails.aboutimage, alt: "About", style: { left: '230px', top: '0px', zIndex: 1 } },
-    { src: AboutDetails.aboutimage, alt: "About", style: { left: '220px', top: '200px', zIndex: 3, transform: 'rotate(12deg)' } },
-    { src: AboutDetails.aboutimage, alt: "About", style: { left: '40px', top: '100px', zIndex: 2, transform: 'rotate(-12deg)' } },
+    { src: AboutDetails.aboutimage[0], alt: "About", style: { left: '230px', top: '0px', zIndex: 1 } },
+    { src: AboutDetails.aboutimage[1], alt: "About", style: { left: '220px', top: '200px', zIndex: 3, transform: 'rotate(12deg)' } },
+    { src: AboutDetails.aboutimage[2], alt: "About", style: { left: '40px', top: '100px', zIndex: 2, transform: 'rotate(-12deg)' } },
   ];
 
   return (
