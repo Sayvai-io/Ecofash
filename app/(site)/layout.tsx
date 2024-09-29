@@ -16,6 +16,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const setLanguage = (lang: string) => {
+    // Your language setting logic here
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`dark:bg-black ${inter.className}`}>
@@ -25,7 +29,7 @@ export default function RootLayout({
           defaultTheme="light"
         >
           {/* <Lines /> */}
-          <Header />
+          <Header setLanguage={setLanguage} /> {/* {{ edit_1 }} */}
           <ToasterContext />
           {children}
           <Footer />
