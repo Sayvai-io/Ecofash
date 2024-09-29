@@ -3,7 +3,7 @@ import React from "react";
 import Slider from "react-slick";
 import SingleWord from "./SingleWord";
 import wordData from "./wordData";
-import { FaSun } from 'react-icons/fa';
+import { FaSun } from "react-icons/fa";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -19,7 +19,27 @@ const Brands = () => {
     cssEase: "linear",
     arrows: false,
     pauseOnHover: false,
-    let: true
+    let: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
   };
 
   return (
@@ -28,13 +48,13 @@ const Brands = () => {
         <Slider {...settings}>
           {wordData.map((word, index) => (
             <div key={index} className="flex items-center justify-center">
-              <div className="flex items-center justify-between w-full px-4">
-                <SingleWord 
-                  word={word} 
-                  color="#e8ffb1" 
-                  className="text-lg sm:text-xl md:text-lg"
+              <div className=" flex w-full items-center justify-between px-4">
+                <SingleWord
+                  word={word}
+                  color="#e8ffb1"
+                  className="mr-4 text-sm "
                 />
-                <FaSun className="text-[#D7FFB1] text-2xl sm:text-3xl md:text-2xl ml-0 sm:ml-4" />
+                <FaSun className="ml-0 text-2xl text-[#D7FFB1] sm:ml-4 sm:text-3xl md:text-2xl" />
               </div>
             </div>
           ))}

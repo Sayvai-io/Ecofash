@@ -1,12 +1,50 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React from "react";
+import React,{useState,useEffect} from "react"
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 const Contact = () => {
-  const [hasMounted, setHasMounted] = React.useState(false);
-  React.useEffect(() => {
+  const [hasMounted, setHasMounted] = useState(false);
+  
+  const [contactDetails, setContactDetails] = useState({
+    title: "",
+    subquotes: "",
+    contactTitle: "",
+    contactContent: "",
+    contactPhone: "",
+    emailTitle: "",
+    emailContent: "",
+    email: "",
+  });
+  
+
+  const fecthContactDetails=async ()=>{
+    const {data,error}=await supabase.from('contact').select('*');
+    if (error) {
+      console.error("Error fetching blogs:", error);
+    } else {
+      const contactData = data[0]; // Assuming you only need the first row
+      setContactDetails({
+        title: contactData.title,
+        subquotes: contactData.subquotes,
+        contactTitle: contactData.contact_title,
+        contactContent: contactData.contact_content,
+        contactPhone: contactData.contact_phone,
+        emailTitle: contactData.email_title,
+        emailContent: contactData.email_content,
+        email: contactData.email,
+      });
+    }
+  }
+  useEffect(() => {
     setHasMounted(true);
+    fecthContactDetails();
   }, []);
   if (!hasMounted) {
     return null;
@@ -28,7 +66,7 @@ const Contact = () => {
       </div>
       
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-20">
-        <h5 className="text-white mb-15">“Reach out for any assistance or information.”</h5>
+        <h5 className="text-white mb-15">"{contactDetails.title}"</h5>
         <div className="px-5 border-l-8 rounded-md border-[#101010]">
           <h1 className="text-4xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
             <span className="mb-4 block">We’d Love to Hear </span>
@@ -56,11 +94,11 @@ const Contact = () => {
             </h1>
 
             <p className="text-lg mb-6 text-black text-center">
-              Got a question or need assistance? We're here to help! Whether you have an inquiry, need support, or just want to share your thoughts, feel free to get in touch.
+              {contactDetails.contactContent}
             </p>
 
             <p className="font-bold text-black mb-4 text-lg text-center">
-              +91 9872325297
+              {contactDetails.contactPhone}
             </p>
             <div className="flex justify-center pb-4">
               <Image 
@@ -74,10 +112,10 @@ const Contact = () => {
               Email your <span className="text-[#609641]">queries</span>
             </h1>
             <p className="text-lg mb-6 text-black text-center">
-              Got a question or need assistance? We're here to help! Whether you have an inquiry, need support, or just want to share your thoughts, feel free to get in touch.
+              {contactDetails.emailContent}
             </p>
             <p className="font-bold text-black mb-4 text-lg text-center">
-              ecofash@gmail.com
+              {contactDetails.email}
             </p>
             <div className="relative">
               <Image
