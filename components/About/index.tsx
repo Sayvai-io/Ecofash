@@ -40,33 +40,6 @@ const About = () => {
   if (!hasMounted) {
     return null;
   }
-  const images = [
-    {
-      src: AboutDetails.aboutimage[0],
-      alt: "About",
-      style: { left: "230px", top: "0px", zIndex: 1 },
-    },
-    {
-      src: AboutDetails.aboutimage[1],
-      alt: "About",
-      style: {
-        left: "220px",
-        top: "200px",
-        zIndex: 3,
-        transform: "rotate(12deg)",
-      },
-    },
-    {
-      src: AboutDetails.aboutimage[2],
-      alt: "About",
-      style: {
-        left: "40px",
-        top: "100px",
-        zIndex: 2,
-        transform: "rotate(-12deg)",
-      },
-    },
-  ];
 
   return (
     <>
@@ -93,22 +66,16 @@ const About = () => {
               className="animate_left relative mx-auto hidden md:w-1/2 lg:block"
               style={{ height: "600px", width: "500px" }} // Adjust these dimensions as needed
             >
-              {images.map((image, index) => (
-                <div
-                  key={index}
-                  className="absolute h-[399px] w-[319px]"
-                  style={image.style}
-                >
-                  {image?.src && (
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
-                      className="rounded-[50px] object-cover"
-                    />
-                  )}
+              {AboutDetails.aboutimage && (
+                <div className="absolute h-[499px] w-[329px]">
+                  <Image
+                    src={AboutDetails.aboutimage}
+                    alt={AboutDetails.aboutimage}
+                    fill
+                    className="rounded-[50px] object-cover"
+                  />
                 </div>
-              ))}
+              )}
             </motion.div>
             <motion.div
               variants={{
