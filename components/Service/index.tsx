@@ -52,7 +52,7 @@ const Services = () => {
           </h2>
           <div className="flex flex-wrap justify-center">
             {ServicesDetails.servicesimage && (
-              <div className="relative m-2 h-[300px] w-[300px]">
+              <div className="relative m-2 h-[300px] w-[250px]">
                 <Image
                   src={ServicesDetails.servicesimage}
                   alt={ServicesDetails.servicesimage}
@@ -62,7 +62,7 @@ const Services = () => {
               </div>
             )}
 
-            <div className="relative m-2 h-[300px] w-[300px]">
+            <div className="relative m-2 h-[300px] w-[250px]">
               <Image
                 src="/images/service/Recycle.png"
                 alt="carbon img"
@@ -70,7 +70,7 @@ const Services = () => {
                 className="rounded-[20px] object-cover"
               />
             </div>
-            <div className="relative m-2 h-[300px] w-[300px]">
+            <div className="relative m-2 h-[300px] w-[250px]">
               <Image
                 src="/images/service/Ecofashservices.png"
                 alt="carbon img"
@@ -78,7 +78,7 @@ const Services = () => {
                 className="rounded-[20px] object-cover"
               />
             </div>
-            <div className="relative m-2 h-[300px] w-[300px]">
+            <div className="relative m-2 h-[300px] w-[250px]">
               <Image
                 src="/images/service/file.png"
                 alt="carbon img"
