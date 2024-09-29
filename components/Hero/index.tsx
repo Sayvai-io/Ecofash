@@ -172,9 +172,10 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 );
 
-const Hero = () => { // Accept state as a prop
+const Hero = () => {
+  // Accept state as a prop
   const [hasMounted, setHasMounted] = useState(false);
-  const {state,setState}=useGlobalState();
+  const { state, setState } = useGlobalState();
 
   const [HeroDetails, setHeroDetails] = useState({
     heading: "",
@@ -189,17 +190,19 @@ const Hero = () => { // Accept state as a prop
     } else {
       const HeroData = data[0]; // Assuming you only need the first row
       setHeroDetails({
-        heading: HeroData.heading,
-        headcontent: HeroData.head_content,
+        heading: state === "en" ? HeroData.heading : "賦能永續時尚供應鏈",
+        headcontent:
+          state === "en"
+            ? HeroData.head_content
+            : "優化資源效率，從採購環保材料到最大限度地減少整個過程中的浪費。透過整合尖端技術和行業專業知識，Ecofash Services 推動可衡量的環境和社會影響，幫助品牌引領負責任的時尚之路。",
         headimage: HeroData.head_image,
       });
     }
   };
 
   useEffect(() => {
-    if (state === "en") {
-      fetchHeroDetails(); // Fetch details only for English
-    }
+    fetchHeroDetails(); // Fetch details only for English
+
     setHasMounted(true);
   }, [state]); // Dependency on state
 
@@ -208,13 +211,13 @@ const Hero = () => { // Accept state as a prop
   }
 
   // Conditional rendering based on state
-  const displayContent = state === "en" ? {
-    heading: HeroDetails.heading,
-    content: HeroDetails.headcontent,
-  } : {
-    heading: "賦能永續時尚供應鏈",
-    content: "優化資源效率，從採購環保材料到最大限度地減少整個過程中的浪費。透過整合尖端技術和行業專業知識，Ecofash Services 推動可衡量的環境和社會影響，幫助品牌引領負責任的時尚之路。",
-  };
+  // const HeroDetails = state === "en" ? {
+  //   heading: HeroDetails.heading,
+  //   content: HeroDetails.headcontent,
+  // } : {
+  //   heading: "賦能永續時尚供應鏈",
+  //   content: "優化資源效率，從採購環保材料到最大限度地減少整個過程中的浪費。透過整合尖端技術和行業專業知識，Ecofash Services 推動可衡量的環境和社會影響，幫助品牌引領負責任的時尚之路。",
+  // };
 
   return (
     <>
@@ -276,13 +279,13 @@ const Hero = () => { // Accept state as a prop
 
                 <div className="mb-4 text-center sm:mb-5">
                   <h1 className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
-                    {displayContent.heading} {/* Updated to use displayContent */}
+                    {HeroDetails.heading} {/* Updated to use HeroDetails */}
                   </h1>
                 </div>
 
                 <div className="mb-6 text-center sm:mb-8 md:mb-10">
                   <p className="px-4 text-xs text-white sm:px-0 sm:text-sm md:text-base lg:text-lg">
-                    {displayContent.content}{" "} {/* Updated to use displayContent */}
+                    {HeroDetails.headcontent} {/* Updated to use HeroDetails */}
                   </p>
                 </div>
 

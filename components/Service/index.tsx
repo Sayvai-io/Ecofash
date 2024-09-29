@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { useGlobalState } from "@/app/context/GlobalContext";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -11,7 +12,7 @@ const supabase = createClient(
 
 const Services = () => {
   const [hasMounted, setHasMounted] = useState(false);
-
+  const { state, setState } = useGlobalState();
   const [ServicesDetails, setServicesDetails] = useState({
     servicesimage: [] as string[],
   });
@@ -49,9 +50,11 @@ const Services = () => {
         <div className="container mx-auto">
           <h2 className="mb-15 mt-10 text-center text-4xl font-semibold">
             <span className="rounded-full border-2 border-white px-4 py-1 text-white">
-              Services
+              {state === "en" ? "Services" : "服务"}
             </span>
-            <span className="ml-2 text-black">We Offer</span>
+            <span className="ml-2 text-black">
+              {state === "en" ? "We Offer" : "我们提供"}
+            </span>
           </h2>
           <div className="flex flex-wrap justify-center">
             {images.map((image, index) => (

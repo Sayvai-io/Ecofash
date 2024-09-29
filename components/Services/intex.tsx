@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import { supabase } from "../../supabase_config/supabaseClient";
+import { useGlobalState } from "@/app/context/GlobalContext";
 
 // First, let's define the ServiceCard component
 const ServiceCard = ({
@@ -120,6 +121,7 @@ const ServiceCard = ({
 
 // Main Home component
 const Home = () => {
+  const { state, setState } = useGlobalState();
   const [hasMounted, setHasMounted] = React.useState(false);
   const isInitialRender = React.useRef(true);
   const [servicesData, setServiceData] = React.useState<
@@ -245,12 +247,17 @@ const Home = () => {
 
   React.useEffect(() => {
     if (isInitialRender.current) {
-      fetchServiceDetails();
-      fetchServiceDataDetails();
+      if (state === "en") {
+        fetchServiceDetails();
+        fetchServiceDataDetails();
+      } else {
+        setServiceData([]);
+      }
+
       isInitialRender.current = false;
       setHasMounted(true);
     }
-  }, []);
+  }, [state]);
 
   if (!hasMounted) {
     return null;

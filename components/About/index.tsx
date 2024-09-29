@@ -3,13 +3,14 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { useGlobalState } from "@/app/context/GlobalContext";
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 );
 const About = () => {
   const [hasMounted, setHasMounted] = useState(false);
-
+  const { state, setState } = useGlobalState();
   const [AboutDetails, setAboutDetails] = useState({
     abouttitle: "",
     aboutheading: "",
@@ -24,9 +25,13 @@ const About = () => {
     } else {
       const AboutData = data[0]; // Assuming you only need the first row
       setAboutDetails({
-        abouttitle: AboutData.about_title,
-        aboutheading: AboutData.about_heading,
-        aboutcontent: AboutData.about_content,
+        abouttitle: state === "en" ? AboutData.about_title : "關於我們",
+        aboutheading:
+          state === "en" ? AboutData.about_heading : "永續性融入每一個開關",
+        aboutcontent:
+          state === "en"
+            ? AboutData.about_content
+            : "擁有一支由專門的永續發展專家和行業資深人士組成的團隊。 Ecofash Services 致力於引導您完成永續發展之旅的每一步。我們相信每個時尚品牌都有能力產生正面影響，我們隨時幫助您引領潮流。加入我們，讓我們以目標、創新和誠信重新定義時尚",
         aboutimage: AboutData.about_image,
       });
     }
@@ -35,7 +40,7 @@ const About = () => {
   useEffect(() => {
     fetchAboutDetails();
     setHasMounted(true);
-  }, []);
+  }, [state]);
 
   if (!hasMounted) {
     return null;
@@ -141,7 +146,7 @@ const About = () => {
 
               <div className="flex items-center">
                 <button className="flex items-center justify-center rounded-md bg-[#609641] px-6 py-3 text-base font-bold text-white transition duration-300 ease-in-out hover:bg-[#4d7a34]">
-                  Contact Us
+                  {state === "en" ? "Contact Us" : "联系我们"}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
