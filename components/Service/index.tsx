@@ -13,7 +13,7 @@ const Services = () => {
   const [hasMounted, setHasMounted] = useState(false);
 
   const [ServicesDetails, setServicesDetails] = useState({
-    servicesimage: [] as string[],
+    servicesimage: "",
   });
 
   const fetchServicesDetails = async () => {
@@ -38,10 +38,7 @@ const Services = () => {
   }
 
   // Define images array here
-  const images = ServicesDetails.servicesimage.map((src, index) => ({
-    src,
-    alt: `Service ${index + 1}`,
-  }));
+  const images = ServicesDetails.servicesimage;
 
   return (
     <>
@@ -54,16 +51,16 @@ const Services = () => {
             <span className="ml-2 text-black">We Offer</span>
           </h2>
           <div className="flex flex-wrap justify-center">
-            {images.map((image, index) => (
-              <div key={index} className="relative m-2 h-[300px] w-[300px]">
+            {ServicesDetails.servicesimage && (
+              <div className="relative m-2 h-[300px] w-[300px]">
                 <Image
-                  src={image.src}
-                  alt={image.alt}
+                  src={ServicesDetails.servicesimage}
+                  alt={ServicesDetails.servicesimage}
                   layout="fill"
                   className="rounded-[20px] object-cover"
                 />
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>

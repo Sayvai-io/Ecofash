@@ -145,7 +145,7 @@ const Home = () => {
     businessPortfolio: null,
     collectionHeading: "",
     collectionContent: "",
-    collectionImage: [],
+    collectionImage: "",
     serviceProvidedHeading: "",
   });
 
@@ -345,16 +345,19 @@ const Home = () => {
       </div>
 
       <div className="grid grid-cols-1 gap-1 px-2 pt-16 sm:grid-cols-2 md:grid-cols-3 md:px-4">
-        <div className="relative flex justify-center">
-          <Image
-            src="/images/service/chain.png"
-            alt="Example Image 1"
-            width={300}
-            height={400} // Height is twice the width
-            className="rounded-lg shadow-lg"
-          />
-        </div>
-        <div className="relative flex justify-center">
+        {serviceDetails.collectionImage && (
+          <div className="relative flex justify-center">
+            <Image
+              src={serviceDetails.collectionImage}
+              alt="Example Image 1"
+              width={300}
+              height={400} // Height is twice the width
+              className="rounded-lg shadow-lg"
+            />
+          </div>
+        )}
+
+        {/* <div className="relative flex justify-center">
           <Image
             src="/images/service/OUtsourcing.png"
             alt="Example Image 2"
@@ -371,7 +374,7 @@ const Home = () => {
             height={400} // Height is twice the width
             className="rounded-lg shadow-lg"
           />
-        </div>
+        </div> */}
       </div>
     </>
   );
