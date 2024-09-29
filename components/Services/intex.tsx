@@ -357,7 +357,7 @@ const Home = () => {
           </div>
         )}
 
-        {/* <div className="relative flex justify-center">
+        <div className="relative flex justify-center">
           <Image
             src="/images/service/OUtsourcing.png"
             alt="Example Image 2"
@@ -368,13 +368,13 @@ const Home = () => {
         </div>
         <div className="relative flex justify-center">
           <Image
-            src="/images/service/circulareconomy.png"
+            src="/images/service/chain.png"
             alt="Example Image 3"
             width={300}
             height={400} // Height is twice the width
             className="rounded-lg shadow-lg"
           />
-        </div> */}
+        </div>
       </div>
     </>
   );

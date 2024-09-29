@@ -63,11 +63,11 @@ const About = () => {
               whileInView="visible"
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
-              className="animate_left relative mx-auto hidden md:w-1/2 lg:block"
+              className="animate_left relative mx-auto hidden md:flex md:w-1/2 md:justify-center lg:block"
               style={{ height: "600px", width: "500px" }} // Adjust these dimensions as needed
             >
               {AboutDetails.aboutimage && (
-                <div className="absolute h-[499px] w-[329px]">
+                <div className=" h-[499px] w-[329px]">
                   <Image
                     src={AboutDetails.aboutimage}
                     alt={AboutDetails.aboutimage}
