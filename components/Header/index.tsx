@@ -257,7 +257,7 @@ import { useEffect, useState } from "react";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
 
-const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
+const Header = ({ setState }) => { // Accept setLanguage as a prop
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [dropdownToggler, setDropdownToggler] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
@@ -469,7 +469,7 @@ const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
                 <li
                   className="px-4 py-2 text-black hover:bg-gray-100"
                   onClick={() => {
-                    setLanguage("en");
+                    setState("en");
                     setLanguageDropdownOpen(false);
                   }}
                 >
@@ -480,7 +480,7 @@ const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
                 <li
                   className="px-4 py-2 text-black hover:bg-gray-100"
                   onClick={() => {
-                    setLanguage("zh");
+                    setState("zh");
                     setLanguageDropdownOpen(false);
                   }}
                 >

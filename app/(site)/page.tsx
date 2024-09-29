@@ -61,14 +61,16 @@ import Services from "@/components/Service";
 import Integration from "@/components/Integration";
 // Import metadata from the new file
 import { metadata } from "./metadata"; 
+import { useGlobalState } from '../context/GlobalContext';
 
 export default function Home() {
   const [language, setLanguage] = useState("en");
+  const { state, setState } = useGlobalState();
 
   return (
     <main>
-      <Header setLanguage={setLanguage} /> {/* Pass setLanguage to Header */}
-      <Hero language={language} /> 
+      <Header setState={setState} /> {/* Pass setLanguage to Header */}
+      <Hero /> 
       <Brands />
       <Makeacall />
       <About />

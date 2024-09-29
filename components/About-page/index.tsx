@@ -4,12 +4,15 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { FaStar } from "react-icons/fa"; // Add this import
+import { useGlobalState } from '../../app/context/GlobalContext';
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 );
 const About = () => {
   const [hasMounted, setHasMounted] = useState(false);
+  const { state, setState } = useGlobalState();
 
   const [AboutDetails, setAboutDetails] = useState({
     title: "",

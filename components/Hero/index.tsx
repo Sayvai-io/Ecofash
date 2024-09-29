@@ -165,14 +165,16 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { useGlobalState } from "@/app/context/GlobalContext";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 );
 
-const Hero = ({ language }) => { // Accept language as a prop
+const Hero = () => { // Accept state as a prop
   const [hasMounted, setHasMounted] = useState(false);
+  const {state,setState}=useGlobalState();
 
   const [HeroDetails, setHeroDetails] = useState({
     heading: "",
@@ -195,18 +197,18 @@ const Hero = ({ language }) => { // Accept language as a prop
   };
 
   useEffect(() => {
-    if (language === "en") {
+    if (state === "en") {
       fetchHeroDetails(); // Fetch details only for English
     }
     setHasMounted(true);
-  }, [language]); // Dependency on language
+  }, [state]); // Dependency on state
 
   if (!hasMounted) {
     return null;
   }
 
-  // Conditional rendering based on language
-  const displayContent = language === "en" ? {
+  // Conditional rendering based on state
+  const displayContent = state === "en" ? {
     heading: HeroDetails.heading,
     content: HeroDetails.headcontent,
   } : {

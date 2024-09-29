@@ -10,6 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 import ToasterContext from "../context/ToastContext";
 import Chatwidget from "@/components/Chatwidget/intex";
+import { GlobalStateProvider } from '../context/GlobalContext'; // Import GlobalContext
 
 export default function RootLayout({
   children,
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`dark:bg-black ${inter.className}`}>
+        <GlobalStateProvider>
         <ThemeProvider
           enableSystem={false}
           attribute="class"
@@ -31,6 +33,8 @@ export default function RootLayout({
           <Footer />
           <Chatwidget /> 
         </ThemeProvider>
+        </GlobalStateProvider>
+        
       </body>
     </html>
   );
