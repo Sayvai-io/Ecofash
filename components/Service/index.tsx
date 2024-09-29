@@ -61,6 +61,31 @@ const Services = () => {
                 />
               </div>
             )}
+
+            <div className="relative m-2 h-[300px] w-[300px]">
+              <Image
+                src="/images/service/Recycle.png"
+                alt="carbon img"
+                layout="fill"
+                className="rounded-[20px] object-cover"
+              />
+            </div>
+            <div className="relative m-2 h-[300px] w-[300px]">
+              <Image
+                src="/images/service/Ecofashservices.png"
+                alt="carbon img"
+                layout="fill"
+                className="rounded-[20px] object-cover"
+              />
+            </div>
+            <div className="relative m-2 h-[300px] w-[300px]">
+              <Image
+                src="/images/service/file.png"
+                alt="carbon img"
+                layout="fill"
+                className="rounded-[20px] object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
