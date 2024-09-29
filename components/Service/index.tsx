@@ -1,7 +1,48 @@
 "use client";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import React, { useState, useEffect } from "react";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+);
 
 const Services = () => {
+  const [hasMounted, setHasMounted] = useState(false);
+
+  const [ServicesDetails, setServicesDetails] = useState({
+    servicesimage: [] as string[],
+  });
+
+  const fetchServicesDetails = async () => {
+    const { data, error } = await supabase.from("home").select("*");
+    if (error) {
+      console.error("Error fetching Services details:", error);
+    } else {
+      const ServicesData = data[0];
+      setServicesDetails({
+        servicesimage: ServicesData.services_image,
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchServicesDetails();
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
+
+  // Define images array here
+  const images = ServicesDetails.servicesimage.map((src, index) => ({
+    src,
+    alt: `Service ${index + 1}`,
+  }));
+
   return (
     <>
       <section className="overflow-hidden bg-[#609641] pb-20 pt-15 lg:pb-25 xl:pb-30">
@@ -12,42 +53,17 @@ const Services = () => {
             </span>
             <span className="ml-2 text-black">We Offer</span>
           </h2>
-          <div className="grid grid-cols-4  gap-4">
-            <div className="col-span-4 justify-self-center md:col-span-2 lg:col-span-1">
-              <Image
-                src="/images/service/Carbon.png"
-                alt="Service 1"
-                width={247}
-                height={288}
-              />
-            </div>
-            <div className="col-span-4 justify-self-center md:col-span-2 lg:col-span-1">
-              <Image
-                className="col-span-4 md:col-span-2 lg:col-span-1"
-                src="/images/service/Recycle.png"
-                alt="Service 2"
-                width={247}
-                height={288}
-              />
-            </div>
-            <div className="col-span-4 justify-self-center md:col-span-2 lg:col-span-1">
-              <Image
-                className="col-span-4 md:col-span-2 lg:col-span-1"
-                src="/images/service/Ecofashservices.png"
-                alt="Service 3"
-                width={247}
-                height={288}
-              />
-            </div>
-            <div className="col-span-4 justify-self-center md:col-span-2 lg:col-span-1">
-              <Image
-                className="col-span-4 md:col-span-2 lg:col-span-1"
-                src="/images/service/file.png"
-                alt="Service 4"
-                width={247}
-                height={288}
-              />
-            </div>
+          <div className="flex flex-wrap justify-center">
+            {images.map((image, index) => (
+              <div key={index} className="relative m-2 h-[300px] w-[300px]">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  layout="fill"
+                  className="rounded-[20px] object-cover"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>

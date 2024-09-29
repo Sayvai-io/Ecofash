@@ -26,7 +26,7 @@ const ServiceCard = ({
   return (
     <Link href={link} className="block">
       <div
-        className={`relative mx-auto flex h-[350px] w-[500px] items-center justify-center overflow-hidden rounded-lg p-4 transition-transform hover:scale-105 ${cardStyle}`}
+        className={`relative mx-auto flex h-[350px] w-[400px] items-center justify-center overflow-hidden rounded-lg p-4 transition-transform hover:scale-105 md:w-[390px] lg:w-[500px]  ${cardStyle}`}
       >
         {bgImage && (
           <>
@@ -320,13 +320,14 @@ const Home = () => {
           {serviceDetails.serviceProvidedHeading}
         </h2>
       </div>
-      <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div className="mb-16 grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
+        {" "}
+        {/* Set to 1 column for specified range */}
         {servicesData?.map((service, index) => (
-          <div
-            key={service.title + index}
-            className={index % 2 === 0 ? "md:pl-16" : "md:pr-16"}
-          >
-            <ServiceCard {...service} />
+          <div key={service.title + index} className="flex justify-center">
+            <div className="w-full !p-4">
+              <ServiceCard {...service} />
+            </div>
           </div>
         ))}
       </div>
