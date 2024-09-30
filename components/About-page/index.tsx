@@ -5,8 +5,11 @@ import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { FaStar } from "react-icons/fa"; // Add this import
 import { supabase } from "../../supabase_config/supabaseClient";
-
+import { useSelector } from "react-redux";
+import { getTranslation } from "@/translator/translateToChinese";
 const About = () => {
+  const language = useSelector((state) => state.language.language);
+
   const [hasMounted, setHasMounted] = useState(false);
 
   const [AboutDetails, setAboutDetails] = useState({
@@ -33,7 +36,8 @@ const About = () => {
     } else {
       const AboutData = data[0]; // Assuming you only need the first row
       setAboutDetails({
-        title: AboutData.title,
+        title:
+          language === "en" ? AboutData.title : getTranslation(AboutData.title),
         bgimage: AboutData.bg_image,
         aboutheading: AboutData.about_heading,
         aboutcontent: AboutData.about_content,
@@ -54,7 +58,7 @@ const About = () => {
   useEffect(() => {
     fetchAboutDetails();
     setHasMounted(true);
-  }, []);
+  }, [language]);
 
   if (!hasMounted) {
     return null;
@@ -62,7 +66,7 @@ const About = () => {
   return (
     <>
       {/* Existing section */}
-      <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-44 -mt-14 sm:-mt-10 md:-mt-12 lg:-mt-14 xl:-mt-14">
+      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-14 xl:py-44">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           {AboutDetails.bgimage && (

@@ -3,17 +3,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import { setLanguage } from "../../store/userSlice";
+import { useSelector, useDispatch } from "react-redux";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
 
-const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
+const Header = () => {
+  // Accept setLanguage as a prop
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [dropdownToggler, setDropdownToggler] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
   const pathUrl = usePathname();
-
+  const dispatch = useDispatch();
+  const lang = useSelector((state) => state.language.language);
   // Sticky menu
   const handleStickyMenu = () => {
     setStickyMenu(window.scrollY >= 80);
@@ -36,6 +39,9 @@ const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
 
   const handleLinkClick = () => {
     setNavigationOpen(false);
+  };
+  const changeLanguage = (newLang) => {
+    dispatch(setLanguage(newLang));
   };
 
   return (
@@ -219,7 +225,7 @@ const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
                 <li
                   className="px-4 py-2 text-black hover:bg-gray-100"
                   onClick={() => {
-                    setLanguage("en");
+                    changeLanguage("en");
                     setLanguageDropdownOpen(false);
                   }}
                 >
@@ -230,7 +236,7 @@ const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
                 <li
                   className="px-4 py-2 text-black hover:bg-gray-100"
                   onClick={() => {
-                    setLanguage("zh");
+                    changeLanguage("zh");
                     setLanguageDropdownOpen(false);
                   }}
                 >

@@ -18,7 +18,6 @@
 // import Services from "@/components/Service";
 // import Makeacall from "@/components/Makeacall";
 
-
 // export const metadata: Metadata = {
 //   title: "EcoFash",
 //   description: "This is Home page for EcoFash",
@@ -31,14 +30,14 @@
 //   return (
 //     <main>
 //       <Header setLanguage={setLanguage} /> {/* Pass setLanguage to Header */}
-//       <Hero language={language} /> 
+//       <Hero language={language} />
 //       <Brands />
 //       <Makeacall />
 //       {/* <Feature /> */}
 //       <About />
 //       {/* <FeaturesTab />
 //       <FunFact /> */}
-      
+
 //       {/* <CTA />
 //       <FAQ />
 //       */}
@@ -51,7 +50,7 @@
 // }
 
 "use client"; // Keep this for client-side features
-import { useState } from 'react';
+import { useState } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Brands from "@/components/Brands";
@@ -60,15 +59,15 @@ import About from "@/components/About";
 import Services from "@/components/Service";
 import Integration from "@/components/Integration";
 // Import metadata from the new file
-import { metadata } from "./metadata"; 
+import { metadata } from "./metadata";
 
 export default function Home() {
   const [language, setLanguage] = useState("en");
 
   return (
     <main>
-      <Header setLanguage={setLanguage} /> {/* Pass setLanguage to Header */}
-      <Hero language={language} /> 
+      <Header /> {/* Pass setLanguage to Header */}
+      <Hero />
       <Brands />
       <Makeacall />
       <About />
