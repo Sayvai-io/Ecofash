@@ -6,11 +6,8 @@ import ComingSoon from './coming-soon'; // Assuming ComingSoon is in the same di
 import Link from 'next/link'; // Import Link from next/link
 import { useRouter } from 'next/navigation'; // Change this import
 
-// Initialize Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { supabase } from "../../supabase_config/supabaseClient";
+
 
 const Blog: React.FC = () => {
   const [posts, setPosts] = useState<any[]>([]); // State to hold blog posts
