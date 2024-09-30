@@ -165,13 +165,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { supabase } from "../../supabase_config/supabaseClient";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
-
-const Hero = ({ language }) => { // Accept language as a prop
+const Hero = ({language}) => {
   const [hasMounted, setHasMounted] = useState(false);
 
   const [HeroDetails, setHeroDetails] = useState({

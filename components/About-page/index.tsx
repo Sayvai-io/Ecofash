@@ -4,10 +4,8 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { FaStar } from "react-icons/fa"; // Add this import
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+import { supabase } from "../../supabase_config/supabaseClient";
+
 const About = () => {
   const [hasMounted, setHasMounted] = useState(false);
 
