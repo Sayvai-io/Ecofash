@@ -5,6 +5,7 @@ import React,{useState,useEffect} from "react"
 import { createClient } from '@supabase/supabase-js';
 
 import { supabase } from "../../supabase_config/supabaseClient";
+import DOMPurify from 'dompurify';
 
 
 const Contact = () => {
@@ -48,6 +49,12 @@ const Contact = () => {
     return null;
   }
 
+  const sanitizeHTML = (html: string) => {
+    return {
+        __html: DOMPurify.sanitize(html)
+    };
+  };
+
   return (
   <>
   <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40 -mt-14 sm:-mt-10 md:-mt-12 lg:-mt-14 xl:-mt-14">
@@ -64,7 +71,10 @@ const Contact = () => {
       </div>
       
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-20">
-        <h5 className="text-white mb-15">"{contactDetails.title}"</h5>
+        <h5 className="text-white mb-15"
+        dangerouslySetInnerHTML={sanitizeHTML(contactDetails.title)}
+        >
+        </h5>
         <div className="px-5 border-l-8 rounded-md border-[#101010]">
           <h1 className="text-4xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
             <span className="mb-4 block">We’d Love to Hear </span>
@@ -91,12 +101,14 @@ const Contact = () => {
               Talk <span className="text-[#609641]">To Us</span>
             </h1>
 
-            <p className="text-lg mb-6 text-black text-center">
-              {contactDetails.contactContent}
+            <p className="text-lg mb-6 text-black text-center"
+            dangerouslySetInnerHTML={sanitizeHTML(contactDetails.contactContent)}
+            >
             </p>
 
-            <p className="font-bold text-black mb-4 text-lg text-center">
-              {contactDetails.contactPhone}
+            <p className="font-bold text-black mb-4 text-lg text-center"
+            dangerouslySetInnerHTML={sanitizeHTML(contactDetails.contactPhone)}
+            >
             </p>
             <div className="flex justify-center pb-4">
               <Image 
@@ -109,11 +121,13 @@ const Contact = () => {
             <h1 className="text-4xl font-bold mb-4 text-black text-center">
               Email your <span className="text-[#609641]">queries</span>
             </h1>
-            <p className="text-lg mb-6 text-black text-center">
-              {contactDetails.emailContent}
+            <p className="text-lg mb-6 text-black text-center"
+            dangerouslySetInnerHTML={sanitizeHTML(contactDetails.emailContent)}
+            >
             </p>
-            <p className="font-bold text-black mb-4 text-lg text-center">
-              {contactDetails.email}
+            <p className="font-bold text-black mb-4 text-lg text-center"
+            dangerouslySetInnerHTML={sanitizeHTML(contactDetails.email)}
+            >
             </p>
             <div className="relative">
               <Image
