@@ -7,6 +7,7 @@ import { FaStar } from "react-icons/fa"; // Add this import
 import { supabase } from "../../supabase_config/supabaseClient";
 import { useSelector } from "react-redux";
 import { getTranslation } from "@/translator/translateToChinese";
+import DOMPurify from 'dompurify';
 const About = () => {
   const language = useSelector((state) => state.language.language);
 
@@ -67,6 +68,13 @@ const About = () => {
   if (!hasMounted) {
     return null;
   }
+
+  const sanitizeHTML = (html: string) => {
+    return {
+        __html: DOMPurify.sanitize(html)
+    };
+  };
+  
   return (
     <>
       {/* Existing section */}
@@ -96,8 +104,9 @@ const About = () => {
               className="-ml-16 mt-19"
             />
             <div>
-              <h1 className="mb-4 text-4xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
-                {AboutDetails.title}
+              <h1 className="mb-4 text-4xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.title)}
+              >
               </h1>
             </div>
           </div>
@@ -140,11 +149,14 @@ const About = () => {
 
                 <span className="mr-2 text-lg text-[#4d4d4b]">About Us</span>
               </div>
-              <h2 className="mb-6 text-3xl font-bold text-black sm:text-6xl">
-                {AboutDetails.aboutheading}
+              <h2
+                className="mb-6 text-3xl font-bold text-black sm:text-6xl"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.aboutheading)}
+              >
               </h2>
-              <p className="mb-8 text-lg text-black">
-                {AboutDetails.aboutcontent}{" "}
+              <p className="mb-8 text-lg text-black"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.aboutcontent)}
+              >
               </p>
               <button className="rounded-xl bg-[#609641] px-6 py-2 font-semibold text-white transition duration-300 hover:bg-[#4d7a33]">
                 Learn More
@@ -175,11 +187,13 @@ const About = () => {
                 </span>
               </div>
 
-              <h3 className="mb-12 text-3xl font-bold text-black sm:text-6xl">
-                {AboutDetails.mvtitle}
+              <h3 className="mb-12 text-3xl font-bold text-black sm:text-6xl"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.mvtitle)}
+              >
               </h3>
-              <p className="mb-8 rounded-l-md border-l-4 border-[#609641] pl-6 text-lg text-black">
-                {AboutDetails.mvcontent}{" "}
+              <p className="mb-8 rounded-l-md border-l-4 border-[#609641] pl-6 text-lg text-black"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.mvcontent)}
+              >
               </p>
               <div className="mt-12 w-full border-b-2 border-gray-300"></div>
             </div>
@@ -226,11 +240,13 @@ const About = () => {
 
                 <span className="mr-2 text-lg  text-[#4d4d4b]">Our Team</span>
               </div>
-              <h2 className="mb-6 text-3xl font-bold text-black sm:text-5xl">
-                {AboutDetails.tctitle}
+              <h2 className="mb-6 text-3xl font-bold text-black sm:text-5xl"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.tctitle)}
+              >
               </h2>
-              <p className="mb-8 text-lg text-black">
-                {AboutDetails.tccontent}{" "}
+              <p className="mb-8 text-lg text-black"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.tccontent)}
+              >
               </p>
               <button className="rounded-xl bg-[#609641] px-6 py-2 font-semibold text-white transition duration-300 hover:bg-[#4d7a33]">
                 Learn More
@@ -286,8 +302,9 @@ const About = () => {
                       ? "text-white"
                       : "text-gray-700 group-hover:text-white"
                   }`}
+                  dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.reviewheading)}
                 >
-                  {AboutDetails.reviewheading}{" "}
+                  
                 </p>
                 <div className="flex items-center">
                   {client.image && (
@@ -301,15 +318,20 @@ const About = () => {
                   )}
 
                   <div className="text-left">
-                    <p className="font-semibold">{client.name}</p>
+                    <p className="font-semibold"
+                      dangerouslySetInnerHTML={sanitizeHTML(client.name)}
+                    >
+                      
+                    </p>
                     <p
                       className={`text-sm ${
                         index === 1
                           ? "text-gray-300"
                           : "text-gray-500 group-hover:text-gray-300"
                       }`}
+                      dangerouslySetInnerHTML={sanitizeHTML(client.company)}
                     >
-                      {client.company}
+                      
                     </p>
                   </div>
                 </div>
