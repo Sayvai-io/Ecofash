@@ -39,8 +39,12 @@ const About = () => {
         title:
           language === "en" ? AboutData.title : getTranslation(AboutData.title),
         bgimage: AboutData.bg_image,
-        aboutheading: AboutData.about_heading,
-        aboutcontent: AboutData.about_content,
+        aboutheading:
+          language === "en" ? AboutData.about_heading : getTranslation(AboutData.about_heading),
+        // aboutheading: AboutData.about_heading,
+        aboutcontent:
+          language === "en" ? AboutData.about_content : getTranslation(AboutData.about_content),
+        // aboutcontent: AboutData.about_content,
         aboutimage: AboutData.about_image,
         mvtitle: AboutData.mv_title,
         mvheading: AboutData.mv_heading,
