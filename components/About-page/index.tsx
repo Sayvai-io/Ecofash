@@ -8,6 +8,7 @@ import { supabase } from "../../supabase_config/supabaseClient";
 import { useSelector } from "react-redux";
 import { getTranslation } from "@/translator/translateToChinese";
 import DOMPurify from 'dompurify';
+import Link from 'next/link'; // {{ edit_1 }}
 const About = () => {
   const language = useSelector((state) => state.language.language);
 
@@ -248,9 +249,11 @@ const About = () => {
                 dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.tccontent)}
               >
               </p>
-              <button className="rounded-xl bg-[#609641] px-6 py-2 font-semibold text-white transition duration-300 hover:bg-[#4d7a33]">
-                Learn More
-              </button>
+              <Link href="/teams">
+                <button className="rounded-xl bg-[#609641] px-6 py-2 font-semibold text-white transition duration-300 hover:bg-[#4d7a33]">
+                  Learn More
+                </button>
+              </Link>
             </div>
           </div>
         </div>
