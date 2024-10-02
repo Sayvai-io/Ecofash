@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import { supabase } from "../../supabase_config/supabaseClient";
-
+import DOMPurify from 'dompurify';
 // First, let's define the ServiceCard component
 const ServiceCard = ({
   title,
@@ -66,6 +66,9 @@ const ServiceCard = ({
       </div>
     </Link>
   );
+};
+const sanitizeHTML = (htmlContent) => {
+  return { __html: DOMPurify.sanitize(htmlContent) };
 };
 
 // Now, let's define the services data
@@ -260,11 +263,13 @@ const Home = () => {
       <div className="mx-auto mb-80 flex max-w-7xl flex-col items-center justify-between px-8 md:flex-row md:px-35">
         <div className="mb-8 md:mb-0 md:w-1/2">
           <h2 className="mb-4 text-5xl font-semibold text-[#0b0b0a]">
-            {serviceDetails.serviceHeading}
+            <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.serviceHeading)} />
           </h2>
         </div>
         <div className="md:w-1/2">
-          <p className="mb-4">{serviceDetails.serviceContent}</p>
+          <p className="mb-4">
+            <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.serviceContent)} />
+          </p>
           <button className="flex items-center text-black hover:underline">
             Our Services <FaArrowRight className="ml-2" />
           </button>
@@ -283,41 +288,44 @@ const Home = () => {
         <div className="mt-12 flex flex-wrap justify-center">
           <div className="mb-8 w-1/2 text-center md:w-1/4">
             <p className="mb-4 text-8xl font-bold text-white">
-              {serviceDetails.yearsOfExperience}+
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.yearsOfExperience)} />
+              +
             </p>
             <p className="text-xl text-black">
-              {serviceDetails.yearsOfExperienceTitle}
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.yearsOfExperienceTitle)} />
             </p>
           </div>
           <div className="mb-8 w-1/2 text-center md:w-1/4">
             <p className="mb-4 text-8xl font-bold text-white">
-              {serviceDetails.satisfiedClients}+
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.satisfiedClients)} />
+              +
             </p>
             <p className="text-xl text-black">
-              {serviceDetails.satisfiedClientsTitle}
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.satisfiedClientsTitle)} />
             </p>
           </div>
           <div className="mb-8 w-1/2 text-center md:w-1/4">
             <p className="mb-4 text-8xl font-bold text-white">
-              {serviceDetails.serviceProvided}
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.serviceProvided)} />
             </p>
             <p className="text-xl text-black">
-              {serviceDetails.serviceProvidedTitle}
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.serviceProvidedTitle)} />
             </p>
           </div>
           <div className="mb-8 w-1/2 text-center md:w-1/4">
             <p className="mb-4 text-8xl font-bold text-white">
-              {serviceDetails.businessPortfolio}+
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.businessPortfolio)} />
+              +
             </p>
             <p className="text-xl text-black">
-              {serviceDetails.businessPortfolioTitle}
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.businessPortfolioTitle)} />
             </p>
           </div>
         </div>
       </div>
       <div className="px-4 py-16 text-center">
         <h2 className="mb-4 text-5xl font-bold text-black">
-          {serviceDetails.serviceProvidedHeading}
+          <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.serviceProvidedHeading)} />
         </h2>
       </div>
       <div className="mb-16 grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
@@ -334,12 +342,12 @@ const Home = () => {
       <div className="flex flex-col px-4 md:flex-row md:justify-between md:px-4">
         <div className="pl-24 md:w-1/2">
           <p className="mb-4 text-5xl font-semibold text-gray-900">
-            {serviceDetails.collectionHeading}
+            <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.collectionHeading)} />
           </p>
         </div>
         <div className="pl-12 pr-16 md:w-1/2">
           <p className="mb-4 text-base text-gray-900  ">
-            {serviceDetails.collectionContent}
+            <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.collectionContent)} />
           </p>
         </div>
       </div>

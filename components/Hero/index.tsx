@@ -178,7 +178,6 @@ const Hero = () => {
     headcontent: "",
     headimage: "",
   });
-
   const fetchHeroDetails = async () => {
     const { data, error } = await supabase.from("home").select("*");
     if (error) {
