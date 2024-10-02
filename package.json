@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
+    "@supabase/supabase-js": "^2.45.4",
     "@types/bcrypt": "^5.0.1",
     "@types/node": "^20.8.9",
     "@types/react": "^18.2.32",
@@ -18,7 +19,7 @@
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "framer-motion": "^10.12.16",
-    "next": "^14.2.11",
+    "next": "^14.2.13",
     "next-themes": "^0.2.1",
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",

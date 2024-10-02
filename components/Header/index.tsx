@@ -7,40 +7,41 @@ import { useEffect, useState } from "react";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
 
-const Header = () => {
+const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [dropdownToggler, setDropdownToggler] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
-
+  const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
   const pathUrl = usePathname();
 
   // Sticky menu
   const handleStickyMenu = () => {
-    if (window.scrollY >= 80) {
-      setStickyMenu(true);
-    } else {
-      setStickyMenu(false);
-    }
+    setStickyMenu(window.scrollY >= 80);
   };
 
   useEffect(() => {
     window.addEventListener("scroll", handleStickyMenu);
-  });
+    return () => {
+      window.removeEventListener("scroll", handleStickyMenu);
+    };
+  }, []);
 
   const handleMakeACallClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const makeACallSection = document.getElementById('makeACallSection');
+    const makeACallSection = document.getElementById("makeACallSection");
     if (makeACallSection) {
-      makeACallSection.scrollIntoView({ behavior: 'smooth' });
+      makeACallSection.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleLinkClick = () => {
+    setNavigationOpen(false);
   };
 
   return (
     <header
-      className={`fixed left-0 top-0 z-[100] w-full bg-white py-6 ${
-        stickyMenu
-          ? "!py-4 shadow transition duration-100 dark:bg-black"
-          : ""
+      className={`fixed left-0 top-0 z-[100] w-full bg-white py-4 ${
+        stickyMenu ? "!py-4 shadow transition duration-100 dark:bg-black" : ""
       }`}
     >
       <div className="relative mx-auto max-w-c-1390 items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
@@ -49,20 +50,20 @@ const Header = () => {
             <Image
               src="/images/logo/logo.png"
               alt="logo"
-              width={119.03}
-              height={30}
+              width={80} // {{ edit_1 }}
+              height={20} // {{ edit_2 }}
               className="hidden w-full dark:block"
             />
             <Image
               src="/images/logo/logo.png"
               alt="logo"
-              width={119.03}
-              height={30}
+              width={80} // {{ edit_1 }}
+              height={20} // {{ edit_2 }}
               className="w-full dark:hidden"
             />
           </a>
 
-          {/* <!-- Hamburger Toggle BTN --> */}
+          {/* Hamburger Toggle BTN */}
           <button
             aria-label="hamburger Toggler"
             className="block xl:hidden"
@@ -100,10 +101,10 @@ const Header = () => {
               </span>
             </span>
           </button>
-          {/* <!-- Hamburger Toggle BTN --> */}
+          {/* Hamburger Toggle BTN */}
         </div>
 
-        {/* Nav Menu Start   */}
+        {/* Nav Menu Start */}
         <div
           className={`invisible h-0 w-full items-center justify-between xl:visible xl:flex xl:h-auto xl:w-full ${
             navigationOpen &&
@@ -113,7 +114,10 @@ const Header = () => {
           <nav>
             <ul className="flex flex-col gap-5 xl:flex-row xl:items-center xl:gap-10">
               {menuData.map((menuItem, key) => (
-                <li key={key} className={menuItem.submenu && "group relative"}>
+                <li
+                  key={key}
+                  className={menuItem.submenu ? "group relative" : ""}
+                >
                   {menuItem.submenu ? (
                     <>
                       <button
@@ -136,8 +140,17 @@ const Header = () => {
                         className={`dropdown ${dropdownToggler ? "flex" : ""}`}
                       >
                         {menuItem.submenu.map((item, key) => (
-                          <li key={key} className="hover:text-[#609641]">
-                            <Link href={item.path || "#"} className="font-semibold">{item.title}</Link>
+                          <li
+                            key={key}
+                            className="hover:text-[#609641]"
+                            onClick={handleLinkClick}
+                          >
+                            <Link
+                              href={item.path || "#"}
+                              className="font-semibold"
+                            >
+                              {item.title}
+                            </Link>
                           </li>
                         ))}
                       </ul>
@@ -150,6 +163,7 @@ const Header = () => {
                           ? "text-[#609641] hover:text-[#609641]"
                           : "hover:text-[#609641]"
                       }`}
+                      onClick={handleLinkClick}
                     >
                       {menuItem.title}
                     </Link>
@@ -160,40 +174,72 @@ const Header = () => {
           </nav>
 
           <div className="mt-7 flex items-center gap-6 xl:mt-0">
-            <Link
-              href="#"
-              className="flex items-center text-regular font-semibold text-waterloo hover:text-[#609641]"
-            >
-              <svg
-                className="mr-2 h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+            <div className="relative">
+              <button
+                className="flex items-center text-regular font-semibold text-waterloo hover:text-[#609641]"
+                onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
+                aria-expanded={languageDropdownOpen} // Accessibility enhancement
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              English
-              <svg
-                className="ml-2 h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+                <svg
+                  className="mr-2 h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                Language
+                <svg
+                  className="ml-2 h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              <ul
+                className={`absolute left-0 mt-2 w-40 rounded-md border border-gray-200 bg-white shadow-lg ${
+                  languageDropdownOpen ? "block" : "hidden"
+                }`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </Link>
+                <li
+                  className="px-4 py-2 text-black hover:bg-gray-100"
+                  onClick={() => {
+                    setLanguage("en");
+                    setLanguageDropdownOpen(false);
+                  }}
+                >
+                  <Link href="#" className="block text-sm font-semibold">
+                    English
+                  </Link>
+                </li>
+                <li
+                  className="px-4 py-2 text-black hover:bg-gray-100"
+                  onClick={() => {
+                    setLanguage("zh");
+                    setLanguageDropdownOpen(false);
+                  }}
+                >
+                  <Link href="#" className="block text-sm font-semibold">
+                    中文
+                  </Link>
+                </li>
+              </ul>
+            </div>
 
             <Link
               href="#makeACallSection"
@@ -203,10 +249,9 @@ const Header = () => {
               Request a Call
             </Link>
 
-            {/* Search Icon Button */}
             <button
               aria-label="Search"
-              className="text-waterloo hover:text-[#609641] transition-colors duration-300"
+              className="text-waterloo transition-colors duration-300 hover:text-[#609641]"
             >
               <svg
                 className="h-5 w-5"
@@ -227,11 +272,10 @@ const Header = () => {
             {/* <ThemeToggler /> */}
           </div>
         </div>
+        {/* Nav Menu End */}
       </div>
     </header>
   );
 };
-
-// w-full delay-300
 
 export default Header;
