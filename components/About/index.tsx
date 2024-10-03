@@ -14,7 +14,7 @@ const About = () => {
     aboutcontent: "",
     aboutimage: "",
   });
-
+  const router = useRouter();
   const fetchAboutDetails = async () => {
     const { data, error } = await supabase.from("home").select("*");
     if (error) {
@@ -38,6 +38,13 @@ const About = () => {
   if (!hasMounted) {
     return null;
   }
+
+  const navigateToContact = () => {
+    if (hasMounted) {
+      router.push("/contact");
+    }
+    // Change '/contact' to the desired route
+  };
 
   return (
     <>
@@ -105,7 +112,10 @@ const About = () => {
               </p>
 
               <div className="flex items-center">
-                <button className="flex items-center justify-center rounded-md bg-[#609641] px-6 py-3 text-base font-bold text-white transition duration-300 ease-in-out hover:bg-[#4d7a34]">
+                <button
+                  onClick={navigateToContact}
+                  className="flex items-center justify-center rounded-md bg-[#609641] px-6 py-3 text-base font-bold text-white transition duration-300 ease-in-out hover:bg-[#4d7a34]"
+                >
                   Contact Us
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

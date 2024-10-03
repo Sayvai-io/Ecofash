@@ -8,7 +8,7 @@ import { supabase } from "../../supabase_config/supabaseClient";
 
 const About = () => {
   const [hasMounted, setHasMounted] = useState(false);
-
+  const router = useRouter();
   const [AboutDetails, setAboutDetails] = useState({
     title: "",
     bgimage: "",
@@ -59,10 +59,16 @@ const About = () => {
   if (!hasMounted) {
     return null;
   }
+  const navigateToContact = () => {
+    if (hasMounted) {
+      router.push("/contact");
+    }
+    // Change '/contact' to the desired route
+  };
   return (
     <>
       {/* Existing section */}
-      <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-44 -mt-14 sm:-mt-10 md:-mt-12 lg:-mt-14 xl:-mt-14">
+      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-14 xl:py-44">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           {AboutDetails.bgimage && (
@@ -85,19 +91,22 @@ const About = () => {
               alt="Line"
               width={14}
               height={40}
-              className="-ml-16 mt-19"
+              className="-ml-16 mt-5 lg:mt-19"
             />
             <div>
-              <h1 className="mb-4 text-4xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
+              <h1 className="mb-4 overflow-clip text-2xl font-semibold leading-tight text-white md:text-4xl lg:text-5xl">
                 {AboutDetails.title}
               </h1>
             </div>
           </div>
-          <div className="mt-8 flex space-x-4">
+          <div className="mt-3 flex space-x-4 md:mt-8">
             <button className="rounded-xl bg-white px-6 py-2 font-semibold text-black transition duration-300 hover:bg-gray-100">
               Get Started
             </button>
-            <button className="rounded-xl border-2 border-white px-6 py-2 font-semibold text-white transition duration-300 hover:bg-white hover:text-black">
+            <button
+              onClick={navigateToContact}
+              className="rounded-xl border-2 border-white px-6 py-2 font-semibold text-white transition duration-300 hover:bg-white hover:text-black"
+            >
               Contact Us
             </button>
           </div>
