@@ -63,7 +63,7 @@ const Home = () => {
                 {homeDetails.contactcontent}{" "}
               </p>
               <a
-                href="#"
+                href="/services"
                 className="inline-flex items-center gap-2.5 rounded-lg bg-[#609641] px-6 py-3 font-medium text-white hover:opacity-90"
               >
                 <h1>Checkout our services</h1>

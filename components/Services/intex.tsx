@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import { supabase } from "../../supabase_config/supabaseClient";
+import { useRouter } from "next/navigation";
 
 // First, let's define the ServiceCard component
 const ServiceCard = ({
@@ -122,6 +123,7 @@ const ServiceCard = ({
 const Home = () => {
   const [hasMounted, setHasMounted] = React.useState(false);
   const isInitialRender = React.useRef(true);
+  const router = useRouter();
   const [servicesData, setServiceData] = React.useState<
     {
       title: string;
@@ -255,6 +257,12 @@ const Home = () => {
   if (!hasMounted) {
     return null;
   }
+  const navigateToServices = () => {
+    if (hasMounted) {
+      router.push("/services");
+    }
+    // Change '/contact' to the desired route
+  };
   return (
     <>
       <div className="mx-auto mb-80 flex max-w-full flex-col items-center justify-between px-4 md:max-w-7xl md:flex-row md:px-8">
@@ -317,23 +325,21 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="px-4 py-8 text-center"> 
-        <h2 className="mb-4 text-4xl font-bold text-black md:text-5xl"> 
+      <div className="px-4 py-8 text-center">
+        <h2 className="mb-4 text-4xl font-bold text-black md:text-5xl">
           {serviceDetails.serviceProvidedHeading}
         </h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 px-4">
+      <div className="mb-16 grid grid-cols-1 gap-8 px-4 md:grid-cols-2">
         {" "}
         {/* Set to 1 column for specified range */}
         {servicesData?.map((service, index) => (
-          <div key={service.title + index} className="flex justify-center mb-4">
-           
-              <ServiceCard {...service} />
-           
+          <div key={service.title + index} className="mb-4 flex justify-center">
+            <ServiceCard {...service} />
           </div>
         ))}
       </div>
-      <div className="flex flex-col px-4 md:flex-row gap-10 md:justify-between md:px-20">
+      <div className="flex flex-col gap-10 px-4 md:flex-row md:justify-between md:px-20">
         <div className="mb-4 md:mb-0 md:w-1/2">
           <p className="mb-4 text-5xl font-semibold text-gray-900">
             {serviceDetails.collectionHeading}
