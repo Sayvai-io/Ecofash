@@ -263,6 +263,15 @@ const Home = () => {
     }
     // Change '/contact' to the desired route
   };
+  const handleScroll = (targetId) => {
+    const targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      targetSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
   return (
     <>
       <div className="mx-auto mb-80 flex max-w-full flex-col items-center justify-between px-4 md:max-w-7xl md:flex-row md:px-8">
@@ -275,7 +284,10 @@ const Home = () => {
           <p className="mb-4 text-base md:text-lg">
             {serviceDetails.serviceContent}
           </p>
-          <button className="flex items-center text-black hover:underline">
+          <button
+            onClick={() => handleScroll("serviceProvider")}
+            className="flex items-center text-black hover:underline"
+          >
             Our Services <FaArrowRight className="ml-2" />
           </button>
         </div>
@@ -325,19 +337,24 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="px-4 py-8 text-center">
-        <h2 className="mb-4 text-4xl font-bold text-black md:text-5xl">
-          {serviceDetails.serviceProvidedHeading}
-        </h2>
-      </div>
-      <div className="mb-16 grid grid-cols-1 gap-8 px-4 md:grid-cols-2">
-        {" "}
-        {/* Set to 1 column for specified range */}
-        {servicesData?.map((service, index) => (
-          <div key={service.title + index} className="mb-4 flex justify-center">
-            <ServiceCard {...service} />
-          </div>
-        ))}
+      <div id="serviceProvider">
+        <div className="px-4 py-8 text-center">
+          <h2 className="mb-4 text-4xl font-bold text-black md:text-5xl">
+            {serviceDetails.serviceProvidedHeading}
+          </h2>
+        </div>
+        <div className="mb-16 grid grid-cols-1 gap-8 px-4 md:grid-cols-2">
+          {" "}
+          {/* Set to 1 column for specified range */}
+          {servicesData?.map((service, index) => (
+            <div
+              key={service.title + index}
+              className="mb-4 flex justify-center"
+            >
+              <ServiceCard {...service} />
+            </div>
+          ))}
+        </div>
       </div>
       <div className="flex flex-col gap-10 px-4 md:flex-row md:justify-between md:px-20">
         <div className="mb-4 md:mb-0 md:w-1/2">
