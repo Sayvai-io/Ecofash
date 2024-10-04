@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <>
       <footer className="border-t border-stroke bg-[#131312] dark:border-strokedark dark:bg-blacksection">
-        <div className="mx-auto max-w-c-1390 px-4 md:px-20 2xl:px-0">
+        <div className="mx-auto max-w-full px-4 md:max-w-c-1390 md:px-20 2xl:px-0">
           {/* <!-- Footer Top --> */}
           <div className="pb-10 pt-20 lg:pt-25">
             <div className="flex flex-col items-center gap-8 md:flex-row md:justify-center lg:justify-between lg:gap-0">
@@ -26,7 +26,7 @@ const Footer = () => {
                 whileInView="visible"
                 transition={{ duration: 1, delay: 0.5 }}
                 viewport={{ once: true }}
-                className="animate_top flex w-1/2 flex-col items-center lg:w-1/4"
+                className="animate_top flex w-full flex-col items-center md:w-1/4"
               >
                 <a href="/" className="relative">
                   <Image
@@ -143,7 +143,7 @@ const Footer = () => {
                 </motion.div>
               </motion.div>
 
-              <div className="grid w-full grid-cols-4 justify-center gap-4 ">
+              <div className="grid w-full grid-cols-2 gap-4 md:grid-cols-4">
                 <motion.div
                   variants={{
                     hidden: {
@@ -160,7 +160,7 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top col-span-2 flex flex-col items-center lg:col-span-1"
+                  className="animate_top flex flex-col items-center"
                 >
                   <h4 className="mb-9 text-itemtitle2 font-medium text-white dark:text-white">
                     Content
@@ -226,7 +226,7 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top  col-span-2 flex flex-col items-center lg:col-span-1"
+                  className="animate_top flex flex-col items-center"
                 >
                   <h4 className="mb-9 text-itemtitle2 font-medium text-white dark:text-white">
                     Resource
@@ -292,7 +292,7 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top  col-span-2 flex flex-col items-center lg:col-span-1"
+                  className="animate_top flex flex-col items-center"
                 >
                   <h4 className="mb-9 text-itemtitle2 font-medium text-white dark:text-white">
                     Content
@@ -357,7 +357,7 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top col-span-2 flex flex-col items-center lg:col-span-1"
+                  className="animate_top flex flex-col items-center"
                 >
                   <h4 className="mb-9 text-itemtitle2 font-medium text-white dark:text-white">
                     Socials

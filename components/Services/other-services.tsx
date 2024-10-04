@@ -74,7 +74,7 @@ const OtherServices = () => {
 
   return (
     <>
-      <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40">
+      <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-44 -mt-14 sm:-mt-10 md:-mt-12 lg:-mt-14 xl:-mt-14">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
