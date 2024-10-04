@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { supabase } from "../../supabase_config/supabaseClient";
+import { useRouter } from "next/navigation";
 
 const About = () => {
   const [hasMounted, setHasMounted] = useState(false);
