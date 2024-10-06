@@ -22,6 +22,13 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta name="description" content="Your description here" />
+        <link rel="icon" href="/images/favicon.ico" sizes="any" />
+        <link rel="icon" href="/images/favicon-32x32.png" type="image/png" sizes="32x32" />
+        <link rel="icon" href="/images/favicon-16x16.png" type="image/png" sizes="16x16" />
+      </head>
       <body className={`dark:bg-black ${inter.className}`}>
         <ThemeProvider
           enableSystem={false}
