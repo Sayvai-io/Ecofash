@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { supabase } from "../../supabase_config/supabaseClient";
 import DOMPurify from 'dompurify';
+import { useRouter } from "next/navigation";
 
 const About = () => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -15,7 +16,7 @@ const About = () => {
     aboutcontent: "",
     aboutimage: "",
   });
-
+  const router = useRouter();
   const fetchAboutDetails = async () => {
     const { data, error } = await supabase.from("home").select("*");
     if (error) {
@@ -44,6 +45,12 @@ const About = () => {
     return {
         __html: DOMPurify.sanitize(html)
     };
+  };
+  const navigateToContact = () => {
+    if (hasMounted) {
+      router.push("/contact");
+    }
+    // Change '/contact' to the desired route
   };
 
   return (
@@ -117,7 +124,10 @@ const About = () => {
               </p>
 
               <div className="flex items-center">
-                <button className="flex items-center justify-center rounded-md bg-[#609641] px-6 py-3 text-base font-bold text-white transition duration-300 ease-in-out hover:bg-[#4d7a34]">
+                <button
+                  onClick={navigateToContact}
+                  className="flex items-center justify-center rounded-md bg-[#609641] px-6 py-3 text-base font-bold text-white transition duration-300 ease-in-out hover:bg-[#4d7a34]"
+                >
                   Contact Us
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

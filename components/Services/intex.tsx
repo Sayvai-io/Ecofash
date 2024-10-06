@@ -5,6 +5,8 @@ import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import { supabase } from "../../supabase_config/supabaseClient";
 import DOMPurify from 'dompurify';
+import { useRouter } from "next/navigation";
+
 // First, let's define the ServiceCard component
 const ServiceCard = ({
   title,
@@ -125,6 +127,7 @@ const sanitizeHTML = (htmlContent) => {
 const Home = () => {
   const [hasMounted, setHasMounted] = React.useState(false);
   const isInitialRender = React.useRef(true);
+  const router = useRouter();
   const [servicesData, setServiceData] = React.useState<
     {
       title: string;
@@ -258,9 +261,24 @@ const Home = () => {
   if (!hasMounted) {
     return null;
   }
+  const navigateToServices = () => {
+    if (hasMounted) {
+      router.push("/services");
+    }
+    // Change '/contact' to the desired route
+  };
+  const handleScroll = (targetId) => {
+    const targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      targetSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
   return (
     <>
-      <div className="mx-auto mb-80 flex max-w-7xl flex-col items-center justify-between px-8 md:flex-row md:px-35">
+      <div className="mx-auto mb-80 flex max-w-full flex-col items-center justify-between px-4 md:max-w-7xl md:flex-row md:px-8">
         <div className="mb-8 md:mb-0 md:w-1/2">
           <h2 className="mb-4 text-5xl font-semibold text-[#0b0b0a]">
             <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.serviceHeading)} />
@@ -337,10 +355,11 @@ const Home = () => {
               <ServiceCard {...service} />
             </div>
           </div>
-        ))}
+          ))}
+        
       </div>
-      <div className="flex flex-col px-4 md:flex-row md:justify-between md:px-4">
-        <div className="pl-24 md:w-1/2">
+      <div className="flex flex-col gap-10 px-4 md:flex-row md:justify-between md:px-20">
+        <div className="mb-4 md:mb-0 md:w-1/2">
           <p className="mb-4 text-5xl font-semibold text-gray-900">
             <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.collectionHeading)} />
           </p>

@@ -9,11 +9,14 @@ import { useSelector } from "react-redux";
 import { getTranslation } from "@/translator/translateToChinese";
 import DOMPurify from "dompurify";
 import Link from "next/link"; // {{ edit_1 }}
+import { useRouter } from "next/navigation";
+
 const About = () => {
   const language = useSelector((state) => state.language.language);
   const isInitialRender = useRef(true);
   const [hasMounted, setHasMounted] = useState(false);
   const [reviewDetails, setReviewDetails] = useState<any>([]);
+  const router = useRouter();
   const [AboutDetails, setAboutDetails] = useState({
     title: "",
     bgimage: "",
@@ -105,6 +108,12 @@ const About = () => {
     };
   };
 
+  const navigateToContact = () => {
+    if (hasMounted) {
+      router.push("/contact");
+    }
+    // Change '/contact' to the desired route
+  };
   return (
     <>
       {/* Existing section */}
@@ -131,7 +140,7 @@ const About = () => {
               alt="Line"
               width={14}
               height={40}
-              className="-ml-16 mt-19"
+              className="-ml-16 mt-5 lg:mt-19"
             />
             <div>
               <h1
@@ -140,11 +149,14 @@ const About = () => {
               ></h1>
             </div>
           </div>
-          <div className="mt-8 flex space-x-4">
+          <div className="mt-3 flex space-x-4 md:mt-8">
             <button className="rounded-xl bg-white px-6 py-2 font-semibold text-black transition duration-300 hover:bg-gray-100">
               Get Started
             </button>
-            <button className="rounded-xl border-2 border-white px-6 py-2 font-semibold text-white transition duration-300 hover:bg-white hover:text-black">
+            <button
+              onClick={navigateToContact}
+              className="rounded-xl border-2 border-white px-6 py-2 font-semibold text-white transition duration-300 hover:bg-white hover:text-black"
+            >
               Contact Us
             </button>
           </div>

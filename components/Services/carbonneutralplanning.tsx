@@ -265,13 +265,14 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { supabase } from "../../supabase_config/supabaseClient";
 import DOMPurify from 'dompurify'; // {{ edit_1 }}
 
 const CarbonNeutralPlanning = () => {
   const pathname = usePathname();
   const [hasMounted, setHasMounted] = useState(false);
+  const router = useRouter();
   const isInitialRender = useRef(true);
   const [email, setEmail] = useState("");
   const [serviceProviderData, setProviderData] = useState<{
@@ -317,7 +318,12 @@ const CarbonNeutralPlanning = () => {
   if (!hasMounted) {
     return null;
   }
-  
+  const navigateToContact = () => {
+    if (hasMounted) {
+      router.push("/contact");
+    }
+    // Change '/contact' to the desired route
+  };
   const ServiceLink = ({ href, children }) => {
     const isActive = pathname === href;
     return (
@@ -338,7 +344,7 @@ const CarbonNeutralPlanning = () => {
 
   return (
     <>
-      <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40">
+      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-14 xl:py-44">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -365,7 +371,10 @@ const CarbonNeutralPlanning = () => {
             <button className="rounded-lg bg-white px-6 py-2 font-semibold text-black transition duration-300 hover:bg-gray-100">
               Get Started
             </button>
-            <button className="rounded-lg border-2 border-white px-6 py-2 font-semibold text-white transition duration-300 hover:bg-white hover:text-black">
+            <button
+              onClick={navigateToContact}
+              className="rounded-lg border-2 border-white px-6 py-2 font-semibold text-white transition duration-300 hover:bg-white hover:text-black"
+            >
               Contact Us
             </button>
           </div>
@@ -457,7 +466,7 @@ const CarbonNeutralPlanning = () => {
                     help your business grow sustainably and make a difference.
                   </p>
                   <a
-                    href="#"
+                    href="/contact"
                     className="mb-6 inline-flex items-center justify-center gap-2 rounded-xl bg-[#609641] px-6 py-2 font-medium text-white hover:opacity-90"
                   >
                     contact us

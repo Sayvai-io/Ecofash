@@ -40,8 +40,8 @@ const Header = () => {
       setLogoImage(image.logo_image);
     }
   };
-  const handleMakeACallClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
+  const handleMakeACallClick = ( ) => {
+   
     const makeACallSection = document.getElementById("makeACallSection");
     if (makeACallSection) {
       makeACallSection.scrollIntoView({ behavior: "smooth" });
@@ -53,6 +53,11 @@ const Header = () => {
   };
   const changeLanguage = (newLang) => {
     dispatch(setLanguage(newLang));
+  };
+
+  const handleCombinedClick = () => {
+    handleMakeACallClick(); // Call the first function without arguments
+    handleLinkClick(); // Call the second function without arguments
   };
 
   return (
@@ -194,10 +199,10 @@ const Header = () => {
             </ul>
           </nav>
 
-          <div className="mt-7 flex items-center gap-6 xl:mt-0">
+          <div className="mt-7 flex flex-col gap-4 xl:mt-0 xl:flex-row">
             <div className="relative">
               <button
-                className="flex items-center text-regular font-semibold text-waterloo hover:text-[#609641]"
+                className="flex items-center text-regular font-semibold text-waterloo hover:text-[#609641] mt-2"
                 onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
                 aria-expanded={languageDropdownOpen} // Accessibility enhancement
               >
@@ -242,9 +247,12 @@ const Header = () => {
                   onClick={() => {
                     changeLanguage("en");
                     setLanguageDropdownOpen(false);
+                    
                   }}
                 >
-                  <Link href="#" className="block text-sm font-semibold">
+                  <Link href="#" 
+                  className="block text-sm font-semibold"
+                  onClick={handleLinkClick}>
                     English
                   </Link>
                 </li>
@@ -255,7 +263,9 @@ const Header = () => {
                     setLanguageDropdownOpen(false);
                   }}
                 >
-                  <Link href="#" className="block text-sm font-semibold">
+                  <Link href="#" 
+                  className="block text-sm font-semibold"
+                  onClick={handleLinkClick}>
                     中文
                   </Link>
                 </li>
@@ -263,9 +273,9 @@ const Header = () => {
             </div>
 
             <Link
-              href="#makeACallSection"
-              onClick={handleMakeACallClick}
-              className="flex items-center justify-center rounded-full bg-[#609641] px-5.5 py-2 text-regular font-semibold text-white duration-300 ease-in-out hover:bg-[#609641]"
+              href="/#makeACallSection"
+              onClick={handleCombinedClick} // Use the combined function
+              className="flex items-start justify-center rounded-full bg-[#609641] px-4 py-2 text-regular font-semibold text-white duration-300 ease-in-out hover:bg-[#609641] md:px-5.5"
             >
               Request a Call
             </Link>
@@ -273,6 +283,7 @@ const Header = () => {
             <button
               aria-label="Search"
               className="text-waterloo transition-colors duration-300 hover:text-[#609641]"
+              onClick={handleLinkClick}
             >
               <svg
                 className="h-5 w-5"
