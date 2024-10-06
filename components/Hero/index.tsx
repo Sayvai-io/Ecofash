@@ -168,7 +168,7 @@ import { createClient } from "@supabase/supabase-js";
 import { supabase } from "../../supabase_config/supabaseClient";
 import { useSelector } from "react-redux";
 import { getTranslation } from "../../translator/translateToChinese";
-import DOMPurify from 'dompurify';
+import DOMPurify from "dompurify";
 
 const Hero = () => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -185,10 +185,7 @@ const Hero = () => {
     } else {
       const HeroData = data[0]; // Assuming you only need the first row
       setHeroDetails({
-        heading:
-          language === "en"
-            ? HeroData.heading
-            : getTranslation(HeroData.heading),
+        heading: HeroData.heading,
         headcontent: HeroData.head_content,
         headimage: HeroData.head_image,
       });
@@ -199,7 +196,7 @@ const Hero = () => {
     fetchHeroDetails(); // Fetch details only for English
 
     setHasMounted(true);
-  }, [language]); // Dependency on language
+  }, []); // Dependency on language
 
   if (!hasMounted) {
     return null;
@@ -213,7 +210,7 @@ const Hero = () => {
 
   const sanitizeHTML = (html: string) => {
     return {
-        __html: DOMPurify.sanitize(html)
+      __html: DOMPurify.sanitize(html),
     };
   };
 
@@ -276,16 +273,22 @@ const Hero = () => {
                 </div>
 
                 <div className="mb-4 text-center sm:mb-5">
-                  <h1 className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl"
-                  dangerouslySetInnerHTML={sanitizeHTML(displayContent.heading)}
+                  <h1
+                    className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl"
+                    dangerouslySetInnerHTML={sanitizeHTML(
+                      displayContent.heading,
+                    )}
                   >
                     {/* Updated to use displayContent */}
                   </h1>
                 </div>
 
                 <div className="mb-6 text-center sm:mb-8 md:mb-10">
-                  <p className="px-4 text-xs text-white sm:px-0 sm:text-sm md:text-base lg:text-lg"
-                  dangerouslySetInnerHTML={sanitizeHTML(displayContent.content)}
+                  <p
+                    className="px-4 text-xs text-white sm:px-0 sm:text-sm md:text-base lg:text-lg"
+                    dangerouslySetInnerHTML={sanitizeHTML(
+                      displayContent.content,
+                    )}
                   >
                     {/* Updated to use displayContent */}
                   </p>

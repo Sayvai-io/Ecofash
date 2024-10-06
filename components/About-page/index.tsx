@@ -60,18 +60,11 @@ const About = () => {
     } else {
       const AboutData = data[0]; // Assuming you only need the first row
       setAboutDetails({
-        title:
-          language === "en" ? AboutData.title : getTranslation(AboutData.title),
+        title: AboutData.title,
         bgimage: AboutData.bg_image,
-        aboutheading:
-          language === "en"
-            ? AboutData.about_heading
-            : getTranslation(AboutData.about_heading),
+        aboutheading: AboutData.about_heading,
         // aboutheading: AboutData.about_heading,
-        aboutcontent:
-          language === "en"
-            ? AboutData.about_content
-            : getTranslation(AboutData.about_content),
+        aboutcontent: AboutData.about_content,
         // aboutcontent: AboutData.about_content,
         aboutimage: AboutData.about_image,
         mvtitle: AboutData.mv_title,
@@ -92,11 +85,11 @@ const About = () => {
       isInitialRender.current = false;
       setHasMounted(true);
     }
-  }, [language]);
+  }, []);
   useEffect(() => {
     fetchAboutDetails();
     setHasMounted(true);
-  }, [language]);
+  }, []);
 
   if (!hasMounted) {
     return null;
