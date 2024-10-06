@@ -7,6 +7,7 @@ import Link from "next/link"; // Import Link from next/link
 import { useRouter } from "next/navigation"; // Change this import
 
 import { supabase } from "../../supabase_config/supabaseClient";
+import DOMPurify from "dompurify";
 
 const Blog: React.FC = () => {
   const [posts, setPosts] = useState<any[] | null>(null); // State to hold blog posts
@@ -15,6 +16,11 @@ const Blog: React.FC = () => {
   const router = useRouter(); // Keep this line
 
   // Fetch blog posts from Supabase
+  const sanitizeHTML = (html: string) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  };
   const fetchPosts = async () => {
     setIsLoading(true);
     try {
@@ -80,13 +86,18 @@ const Blog: React.FC = () => {
                     className="mb-2 h-auto w-full rounded-lg" // Responsive image
                   />
                 )}
-                <h2 className="mb-2 text-xl font-bold text-[#030303]">
-                  {post.title}
-                </h2>
-                <p className="flex-grow text-gray-700">
+                <h2
+                  className="mb-2 text-xl font-bold text-[#030303]"
+                  dangerouslySetInnerHTML={sanitizeHTML(post.title)}
+                ></h2>
+                <p
+                  className="line-clamp-3 flex-grow text-gray-700"
+                  dangerouslySetInnerHTML={sanitizeHTML(post.content + "...")}
+                ></p>
+                {/* <p className="flex-grow text-gray-700">
                   {post.content.split(" ").slice(0, 10).join(" ") +
                     (post.content.split(" ").length > 10 ? "..." : "")}
-                </p>
+                </p> */}
                 <div className="tags mt-2 flex flex-wrap">
                   {post.tags.map((tag: string) => (
                     <div

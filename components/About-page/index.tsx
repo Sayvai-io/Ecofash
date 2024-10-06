@@ -20,6 +20,7 @@ const About = () => {
   const [AboutDetails, setAboutDetails] = useState({
     title: "",
     bgimage: "",
+    abouttitle: "",
     aboutheading: "",
     aboutcontent: "",
     aboutimage: "",
@@ -62,6 +63,7 @@ const About = () => {
       setAboutDetails({
         title: AboutData.title,
         bgimage: AboutData.bg_image,
+        abouttitle: AboutData.about_title,
         aboutheading: AboutData.about_heading,
         // aboutheading: AboutData.about_heading,
         aboutcontent: AboutData.about_content,
@@ -182,7 +184,12 @@ const About = () => {
                   />
                 )}
 
-                <span className="mr-2 text-lg text-[#4d4d4b]">About Us</span>
+                <span
+                  className="mr-2 text-lg text-[#4d4d4b]"
+                  dangerouslySetInnerHTML={sanitizeHTML(
+                    AboutDetails.abouttitle,
+                  )}
+                ></span>
               </div>
               <h2
                 className="mb-6 text-3xl font-bold text-black sm:text-6xl"
@@ -220,14 +227,15 @@ const About = () => {
                   />
                 )}
 
-                <span className="text-lg text-[#4d4d4b]">
-                  Our Mission & Vision
-                </span>
+                <span
+                  className="text-lg text-[#4d4d4b]"
+                  dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.mvtitle)}
+                ></span>
               </div>
 
               <h3
                 className="mb-12 text-3xl font-bold text-black sm:text-6xl"
-                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.mvtitle)}
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.mvheading)}
               ></h3>
               <p
                 className="mb-8 rounded-l-md border-l-4 border-[#609641] pl-6 text-lg text-black"
@@ -276,11 +284,14 @@ const About = () => {
                   />
                 )}
 
-                <span className="mr-2 text-lg  text-[#4d4d4b]">Our Team</span>
+                <span
+                  className="mr-2 text-lg  text-[#4d4d4b]"
+                  dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.tctitle)}
+                ></span>
               </div>
               <h2
                 className="mb-6 text-3xl font-bold text-black sm:text-5xl"
-                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.tctitle)}
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.tcheading)}
               ></h2>
               <p
                 className="mb-8 text-lg text-black"
@@ -299,10 +310,10 @@ const About = () => {
       {/* Testimonials Section */}
       <section className="py-16 sm:py-20 md:py-28 lg:py-32 xl:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-12 text-center text-3xl font-bold text-black sm:text-4xl">
-            <span className="block">Get to Know What Our</span>
-            <span className="block">Clients Think</span>
-          </h2>
+          <h2
+            className="mb-12 text-center text-3xl font-bold text-black sm:text-4xl"
+            dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.reviewheading)}
+          ></h2>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {reviewDetails.map((client, index) => (

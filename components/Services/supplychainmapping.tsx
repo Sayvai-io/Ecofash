@@ -270,11 +270,11 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { supabase } from "../../supabase_config/supabaseClient";
-import DOMPurify from 'dompurify'; // Import DOMPurify
+import DOMPurify from "dompurify"; // Import DOMPurify
 
 const sanitizeHTML = (html: string) => {
   return {
-    __html: DOMPurify.sanitize(html)
+    __html: DOMPurify.sanitize(html),
   };
 };
 
@@ -409,7 +409,7 @@ const SupplyChain = () => {
                   </li>
                   <li>
                     <ServiceLink href="/service/b-corp-certification">
-                      B Corp Certification
+                      Freelance CSO
                     </ServiceLink>
                   </li>
                   <li>
@@ -429,7 +429,7 @@ const SupplyChain = () => {
                   </li>
                   <li>
                     <ServiceLink href="/service/other-services">
-                      Other Services
+                      Sustainability Strategy & Implementation
                     </ServiceLink>
                   </li>
                 </ul>
@@ -487,17 +487,34 @@ const SupplyChain = () => {
 
             {/* Right side content */}
             <div className="w-full pl-4 lg:w-2/3">
-              <h2 className="mb-6 text-5xl font-extrabold text-[#609641]">
-                {serviceProviderData?.heading || ''}
-              </h2>
-              <p className="mb-4" dangerouslySetInnerHTML={sanitizeHTML(serviceProviderData?.content || '')}></p> {/* Sanitize content */}
-
+              <h2
+                className="mb-6 text-5xl font-extrabold text-[#609641]"
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  serviceProviderData?.heading ?? "",
+                )}
+              ></h2>
+              <p
+                className="mb-4"
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  serviceProviderData?.content ?? "",
+                )}
+              ></p>{" "}
+              {/* Sanitize content */}
               <div className="flex flex-wrap">
                 <div className="w-full pr-4 lg:w-1/2">
-                  <h3 className="mb-4 text-3xl font-bold">
-                    {serviceProviderData?.significanceTitle || ''}
-                  </h3>
-                  <p className="mb-8" dangerouslySetInnerHTML={sanitizeHTML(serviceProviderData?.significance || '')}></p> {/* Sanitize significance */}
+                  <h3
+                    className="mb-4 text-3xl font-bold"
+                    dangerouslySetInnerHTML={sanitizeHTML(
+                      serviceProviderData?.significanceTitle ?? "",
+                    )}
+                  ></h3>
+                  <p
+                    className="mb-8"
+                    dangerouslySetInnerHTML={sanitizeHTML(
+                      serviceProviderData?.significance ?? "",
+                    )}
+                  ></p>{" "}
+                  {/* Sanitize significance */}
                 </div>
                 <div className="w-full pl-4 lg:w-1/2">
                   <div className="relative h-[300px] w-full overflow-hidden rounded-lg">
@@ -514,24 +531,35 @@ const SupplyChain = () => {
                 </div>
               </div>
               <div className="mt-8">
-                <h3 className="mb-4 text-3xl font-bold">
-                  {serviceProviderData?.planOfActionTitle}
-                </h3>
+                <h3
+                  className="mb-4 text-3xl font-bold"
+                  dangerouslySetInnerHTML={sanitizeHTML(
+                    serviceProviderData?.planOfActionTitle ?? "",
+                  )}
+                ></h3>
                 <div className="-mx-4 flex flex-wrap">
                   <div className="!w-full px-4 lg:w-1/2">
                     <ul className="grid !w-full list-none grid-cols-2 items-center space-y-4">
                       {serviceProviderData?.planOfAction
                         .split(".")
                         .filter((sentence) => sentence.trim() !== "")
-                        .map((sentence, index) => (
-                          <li
-                            key={index}
-                            className="col-span-1 flex items-start"
-                          >
-                            <span className="mr-2 text-[#609641]">✔</span>
-                            <span dangerouslySetInnerHTML={sanitizeHTML(sentence)}></span> {/* Sanitize planOfAction */}
-                          </li>
-                        ))}
+                        .map(
+                          (sentence, index) =>
+                            sanitizeHTML(sentence).__html !== "" && (
+                              <li
+                                key={index}
+                                className="col-span-1 flex items-start"
+                              >
+                                <span className="mr-2 text-[#609641]">✔</span>
+                                <span
+                                  dangerouslySetInnerHTML={sanitizeHTML(
+                                    sentence,
+                                  )}
+                                ></span>{" "}
+                                {/* Sanitize planOfAction */}
+                              </li>
+                            ),
+                        )}
                     </ul>
                   </div>
                 </div>
