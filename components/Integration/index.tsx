@@ -4,12 +4,12 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { supabase } from "../../supabase_config/supabaseClient";
+import DOMPurify from "dompurify";
 
 const Home = () => {
   const [hasMounted, setHasMounted] = useState(false);
 
   const [homeDetails, setHomeDetails] = useState({
-    service: "",
     contactheading: "",
     contactcontent: "",
     contactimage: "",
@@ -22,7 +22,6 @@ const Home = () => {
     } else {
       const HomeData = data[0]; // Assuming you only need the first row
       setHomeDetails({
-        service: HomeData.service,
         contactheading: HomeData.contact_heading,
         contactcontent: HomeData.contact_content,
         contactimage: HomeData.contact_image,
@@ -39,7 +38,11 @@ const Home = () => {
     return null;
   }
 
-  // ... rest of the component
+  const sanitizeHTML = (html: string) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  };
 
   return (
     <section className="bg-white py-20 lg:py-25 xl:py-30">
@@ -54,12 +57,18 @@ const Home = () => {
             className="flex items-center"
           >
             <div className="rounded-2xl p-8 pl-12 sm:pl-16 md:pl-20">
-              <h2 className="mb-6 text-3xl font-bold text-black dark:text-black xl:text-3xl">
-                {homeDetails.contactheading}
-              </h2>
-              <p className="mb-8 text-lg font-normal leading-relaxed text-[#0a0a0a]">
-                {homeDetails.contactcontent}{" "}
-              </p>
+              <h2
+                className="mb-6 text-3xl font-bold text-black dark:text-black xl:text-3xl"
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  homeDetails.contactheading,
+                )}
+              ></h2>
+              <p
+                className="mb-8 text-lg font-normal leading-relaxed text-[#0a0a0a]"
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  homeDetails.contactcontent,
+                )}
+              ></p>
               <a
                 href="/services"
                 className="inline-flex items-center gap-2.5 rounded-lg bg-[#609641] px-6 py-3 font-medium text-white hover:opacity-90"

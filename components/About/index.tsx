@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { supabase } from "../../supabase_config/supabaseClient";
+import DOMPurify from 'dompurify';
 import { useRouter } from "next/navigation";
 
 const About = () => {
@@ -40,6 +41,11 @@ const About = () => {
     return null;
   }
 
+  const sanitizeHTML = (html: string) => {
+    return {
+        __html: DOMPurify.sanitize(html)
+    };
+  };
   const navigateToContact = () => {
     if (hasMounted) {
       router.push("/contact");
@@ -101,15 +107,20 @@ const About = () => {
               viewport={{ once: true }}
               className="animate_right z-40 w-full lg:w-1/2"
             >
-              <span className="mb-4 block text-2xl font-semibold text-black dark:text-white">
-                {AboutDetails.abouttitle}
+              <span
+                className="mb-4 block text-2xl font-semibold text-black dark:text-white"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.abouttitle)}
+              >
               </span>
-              <h2 className="mb-6 text-4xl font-bold leading-tight text-black dark:text-white sm:text-5xl md:text-6xl">
-                {AboutDetails.aboutheading}
+              <h2 className="mb-6 text-4xl font-bold leading-tight text-black dark:text-white sm:text-5xl md:text-6xl"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.aboutheading)}
+              >
               </h2>
 
-              <p className="mb-6 text-base sm:text-lg md:text-xl">
-                {AboutDetails.aboutcontent}{" "}
+              <p
+                className="mb-6 text-base sm:text-lg md:text-xl"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.aboutcontent)}
+              >
               </p>
 
               <div className="flex items-center">

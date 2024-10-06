@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import { supabase } from "../../supabase_config/supabaseClient";
+import DOMPurify from 'dompurify';
 import { useRouter } from "next/navigation";
 
 // First, let's define the ServiceCard component
@@ -67,6 +68,9 @@ const ServiceCard = ({
       </div>
     </Link>
   );
+};
+const sanitizeHTML = (htmlContent) => {
+  return { __html: DOMPurify.sanitize(htmlContent) };
 };
 
 // Now, let's define the services data
@@ -276,18 +280,15 @@ const Home = () => {
     <>
       <div className="mx-auto mb-80 flex max-w-full flex-col items-center justify-between px-4 md:max-w-7xl md:flex-row md:px-8">
         <div className="mb-8 md:mb-0 md:w-1/2">
-          <h2 className="mb-4 text-4xl font-semibold text-[#0b0b0a] md:text-5xl">
-            {serviceDetails.serviceHeading}
+          <h2 className="mb-4 text-5xl font-semibold text-[#0b0b0a]">
+            <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.serviceHeading)} />
           </h2>
         </div>
         <div className="md:w-1/2">
-          <p className="mb-4 text-base md:text-lg">
-            {serviceDetails.serviceContent}
+          <p className="mb-4">
+            <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.serviceContent)} />
           </p>
-          <button
-            onClick={() => handleScroll("serviceProvider")}
-            className="flex items-center text-black hover:underline"
-          >
+          <button className="flex items-center text-black hover:underline">
             Our Services <FaArrowRight className="ml-2" />
           </button>
         </div>
@@ -303,68 +304,69 @@ const Home = () => {
           />
         </div>
         <div className="mt-12 flex flex-wrap justify-center">
-          <div className="mb-8 w-full text-center sm:w-1/2 md:w-1/4">
-            <p className="mb-4 text-6xl font-bold text-white sm:text-8xl">
-              {serviceDetails.yearsOfExperience}+
+          <div className="mb-8 w-1/2 text-center md:w-1/4">
+            <p className="mb-4 text-8xl font-bold text-white">
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.yearsOfExperience)} />
+              +
             </p>
             <p className="text-xl text-black">
-              {serviceDetails.yearsOfExperienceTitle}
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.yearsOfExperienceTitle)} />
             </p>
           </div>
-          <div className="mb-8 w-full text-center sm:w-1/2 md:w-1/4">
-            <p className="mb-4 text-6xl font-bold text-white sm:text-8xl">
-              {serviceDetails.satisfiedClients}+
+          <div className="mb-8 w-1/2 text-center md:w-1/4">
+            <p className="mb-4 text-8xl font-bold text-white">
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.satisfiedClients)} />
+              +
             </p>
             <p className="text-xl text-black">
-              {serviceDetails.satisfiedClientsTitle}
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.satisfiedClientsTitle)} />
             </p>
           </div>
-          <div className="mb-8 w-full text-center sm:w-1/2 md:w-1/4">
-            <p className="mb-4 text-6xl font-bold text-white sm:text-8xl">
-              {serviceDetails.serviceProvided}
+          <div className="mb-8 w-1/2 text-center md:w-1/4">
+            <p className="mb-4 text-8xl font-bold text-white">
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.serviceProvided)} />
             </p>
             <p className="text-xl text-black">
-              {serviceDetails.serviceProvidedTitle}
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.serviceProvidedTitle)} />
             </p>
           </div>
-          <div className="mb-8 w-full text-center sm:w-1/2 md:w-1/4">
-            <p className="mb-4 text-6xl font-bold text-white sm:text-8xl">
-              {serviceDetails.businessPortfolio}+
+          <div className="mb-8 w-1/2 text-center md:w-1/4">
+            <p className="mb-4 text-8xl font-bold text-white">
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.businessPortfolio)} />
+              +
             </p>
             <p className="text-xl text-black">
-              {serviceDetails.businessPortfolioTitle}
+              <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.businessPortfolioTitle)} />
             </p>
           </div>
         </div>
       </div>
-      <div id="serviceProvider">
-        <div className="px-4 py-8 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-black md:text-5xl">
-            {serviceDetails.serviceProvidedHeading}
-          </h2>
-        </div>
-        <div className="mb-16 grid grid-cols-1 gap-8 px-4 md:grid-cols-2">
-          {" "}
-          {/* Set to 1 column for specified range */}
-          {servicesData?.map((service, index) => (
-            <div
-              key={service.title + index}
-              className="mb-4 flex justify-center"
-            >
+      <div className="px-4 py-16 text-center">
+        <h2 className="mb-4 text-5xl font-bold text-black">
+          <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.serviceProvidedHeading)} />
+        </h2>
+      </div>
+      <div className="mb-16 grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
+        {" "}
+        {/* Set to 1 column for specified range */}
+        {servicesData?.map((service, index) => (
+          <div key={service.title + index} className="flex justify-center">
+            <div className="w-full !p-4">
               <ServiceCard {...service} />
             </div>
+          </div>
           ))}
-        </div>
+        
       </div>
       <div className="flex flex-col gap-10 px-4 md:flex-row md:justify-between md:px-20">
         <div className="mb-4 md:mb-0 md:w-1/2">
           <p className="mb-4 text-5xl font-semibold text-gray-900">
-            {serviceDetails.collectionHeading}
+            <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.collectionHeading)} />
           </p>
         </div>
-        <div className="mb-4 md:mb-0 md:w-1/2">
-          <p className="mb-4 text-base text-gray-900">
-            {serviceDetails.collectionContent}
+        <div className="pl-12 pr-16 md:w-1/2">
+          <p className="mb-4 text-base text-gray-900  ">
+            <span dangerouslySetInnerHTML={sanitizeHTML(serviceDetails.collectionContent)} />
           </p>
         </div>
       </div>

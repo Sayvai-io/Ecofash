@@ -3,30 +3,45 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import { setLanguage } from "../../store/userSlice";
+import { useSelector, useDispatch } from "react-redux";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
-
-const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
+import { supabase } from "@/supabase_config/supabaseClient";
+const Header = () => {
+  // Accept setLanguage as a prop
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [dropdownToggler, setDropdownToggler] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
+  const [logoImage, setLogoImage] = useState("");
   const pathUrl = usePathname();
-
+  const dispatch = useDispatch();
+  const lang = useSelector((state) => state.language.language);
   // Sticky menu
   const handleStickyMenu = () => {
     setStickyMenu(window.scrollY >= 80);
   };
 
   useEffect(() => {
+    fetchLogo();
     window.addEventListener("scroll", handleStickyMenu);
     return () => {
       window.removeEventListener("scroll", handleStickyMenu);
     };
   }, []);
 
-  const handleMakeACallClick = () => {
+  const fetchLogo = async () => {
+    const { data, error } = await supabase.from("home").select("logo_image");
+    if (error) {
+      console.error("Error fetching Hero details:", error);
+    } else {
+      const image: any = data[0];
+      setLogoImage(image.logo_image);
+    }
+  };
+  const handleMakeACallClick = ( ) => {
+   
     const makeACallSection = document.getElementById("makeACallSection");
     if (makeACallSection) {
       makeACallSection.scrollIntoView({ behavior: "smooth" });
@@ -35,6 +50,9 @@ const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
 
   const handleLinkClick = () => {
     setNavigationOpen(false);
+  };
+  const changeLanguage = (newLang) => {
+    dispatch(setLanguage(newLang));
   };
 
   const handleCombinedClick = () => {
@@ -51,20 +69,24 @@ const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
       <div className="relative mx-auto max-w-c-1390 items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
         <div className="flex w-full items-center justify-between xl:w-1/3 xl:pl-8">
           <a href="/" className="pl-4">
-            <Image
-              src="/images/logo/logo.png"
-              alt="logo"
-              width={80} // {{ edit_1 }}
-              height={20} // {{ edit_2 }}
-              className="hidden w-full dark:block"
-            />
-            <Image
-              src="/images/logo/logo.png"
-              alt="logo"
-              width={80} // {{ edit_1 }}
-              height={20} // {{ edit_2 }}
-              className="w-full dark:hidden"
-            />
+            {logoImage != "" && (
+              <Image
+                src={logoImage != "" ? logoImage : ""}
+                alt="logo"
+                width={80} // {{ edit_1 }}
+                height={20} // {{ edit_2 }}
+                className="hidden w-full dark:block"
+              />
+            )}
+            {logoImage != "" && (
+              <Image
+                src={logoImage != "" ? logoImage : ""}
+                alt="logo"
+                width={80} // {{ edit_1 }}
+                height={20} // {{ edit_2 }}
+                className="w-full dark:hidden"
+              />
+            )}
           </a>
 
           {/* Hamburger Toggle BTN */}
@@ -223,7 +245,7 @@ const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
                 <li
                   className="px-4 py-2 text-black hover:bg-gray-100"
                   onClick={() => {
-                    setLanguage("en");
+                    changeLanguage("en");
                     setLanguageDropdownOpen(false);
                     
                   }}
@@ -237,7 +259,7 @@ const Header = ({ setLanguage }) => { // Accept setLanguage as a prop
                 <li
                   className="px-4 py-2 text-black hover:bg-gray-100"
                   onClick={() => {
-                    setLanguage("zh");
+                    changeLanguage("zh");
                     setLanguageDropdownOpen(false);
                   }}
                 >

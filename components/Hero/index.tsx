@@ -166,16 +166,18 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { supabase } from "../../supabase_config/supabaseClient";
+import { useSelector } from "react-redux";
+import { getTranslation } from "../../translator/translateToChinese";
+import DOMPurify from 'dompurify';
 
-const Hero = ({language}) => {
+const Hero = () => {
   const [hasMounted, setHasMounted] = useState(false);
-
+  const language = useSelector((state) => state.language.language);
   const [HeroDetails, setHeroDetails] = useState({
     heading: "",
     headcontent: "",
     headimage: "",
   });
-
   const fetchHeroDetails = async () => {
     const { data, error } = await supabase.from("home").select("*");
     if (error) {
@@ -183,7 +185,10 @@ const Hero = ({language}) => {
     } else {
       const HeroData = data[0]; // Assuming you only need the first row
       setHeroDetails({
-        heading: HeroData.heading,
+        heading:
+          language === "en"
+            ? HeroData.heading
+            : getTranslation(HeroData.heading),
         headcontent: HeroData.head_content,
         headimage: HeroData.head_image,
       });
@@ -191,9 +196,8 @@ const Hero = ({language}) => {
   };
 
   useEffect(() => {
-    if (language === "en") {
-      fetchHeroDetails(); // Fetch details only for English
-    }
+    fetchHeroDetails(); // Fetch details only for English
+
     setHasMounted(true);
   }, [language]); // Dependency on language
 
@@ -202,12 +206,15 @@ const Hero = ({language}) => {
   }
 
   // Conditional rendering based on language
-  const displayContent = language === "en" ? {
+  const displayContent = {
     heading: HeroDetails.heading,
     content: HeroDetails.headcontent,
-  } : {
-    heading: "賦能永續時尚供應鏈",
-    content: "優化資源效率，從採購環保材料到最大限度地減少整個過程中的浪費。透過整合尖端技術和行業專業知識，Ecofash Services 推動可衡量的環境和社會影響，幫助品牌引領負責任的時尚之路。",
+  };
+
+  const sanitizeHTML = (html: string) => {
+    return {
+        __html: DOMPurify.sanitize(html)
+    };
   };
 
   return (
@@ -269,14 +276,18 @@ const Hero = ({language}) => {
                 </div>
 
                 <div className="mb-4 text-center sm:mb-5">
-                  <h1 className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
-                    {displayContent.heading} {/* Updated to use displayContent */}
+                  <h1 className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl"
+                  dangerouslySetInnerHTML={sanitizeHTML(displayContent.heading)}
+                  >
+                    {/* Updated to use displayContent */}
                   </h1>
                 </div>
 
                 <div className="mb-6 text-center sm:mb-8 md:mb-10">
-                  <p className="px-4 text-xs text-white sm:px-0 sm:text-sm md:text-base lg:text-lg">
-                    {displayContent.content}{" "} {/* Updated to use displayContent */}
+                  <p className="px-4 text-xs text-white sm:px-0 sm:text-sm md:text-base lg:text-lg"
+                  dangerouslySetInnerHTML={sanitizeHTML(displayContent.content)}
+                  >
+                    {/* Updated to use displayContent */}
                   </p>
                 </div>
 
