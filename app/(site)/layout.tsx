@@ -6,8 +6,9 @@ import Lines from "@/components/Lines";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import "../globals.css";
+import { Provider } from "react-redux";
 const inter = Inter({ subsets: ["latin"] });
-
+import store from "../../store/store";
 import ToasterContext from "../context/ToastContext";
 import Chatwidget from "@/components/Chatwidget/intex";
 
@@ -30,18 +31,20 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon-16x16.png" type="image/png" sizes="16x16" />
       </head>
       <body className={`dark:bg-black ${inter.className}`}>
-        <ThemeProvider
-          enableSystem={false}
-          attribute="class"
-          defaultTheme="light"
-        >
-          {/* <Lines /> */}
-          <Header setLanguage={setLanguage} /> {/* {{ edit_1 }} */}
-          <ToasterContext />
-          {children}
-          <Footer />
-          <Chatwidget /> 
-        </ThemeProvider>
+        <Provider store={store}>
+          <ThemeProvider
+            enableSystem={false}
+            attribute="class"
+            defaultTheme="light"
+          >
+            {/* <Lines /> */}
+            <Header setLanguage={setLanguage} /> {/* {{ edit_1 }} */}
+            <ToasterContext />
+            {children}
+            <Footer />
+            <Chatwidget />
+          </ThemeProvider>
+        </Provider>
       </body>
     </html>
   );

@@ -1,18 +1,21 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from 'next/navigation'; // Import useParams
-import { createClient } from '@supabase/supabase-js';
+import { useRouter, useParams } from "next/navigation"; // Import useParams
+import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { supabase } from "../../supabase_config/supabaseClient";
+import DOMPurify from "dompurify";
 
 const BlogDetailpage = () => {
+  const sanitizeHTML = (html: string) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  };
   const router = useRouter();
   const { id } = useParams();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -24,14 +27,14 @@ const BlogDetailpage = () => {
       if (id) {
         setIsLoading(true);
         const { data, error } = await supabase
-          .from('blogs')
-          .select('*')
-          .eq('id', id)
+          .from("blogs")
+          .select("*")
+          .eq("id", id)
           .single();
 
         if (error) {
-          console.error('Error fetching blog details:', error);
-          setError('Blog not found');
+          console.error("Error fetching blog details:", error);
+          setError("Blog not found");
         } else {
           setTitle(data.title);
           setContent(data.content);
@@ -53,26 +56,44 @@ const BlogDetailpage = () => {
   return (
     <>
       <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40">
-        <h1 className="font-bold text-[#0b0b0b] text-4xl sm:text-5xl md:text-6xl mb-6 sm:mb-10 text-center mt-10 sm:mt-6 md:mt-8">{title}</h1> {/* Responsive title */}
+        <h1
+          className="mb-6 mt-10 text-center text-4xl font-bold text-[#0b0b0b] sm:mb-10 sm:mt-6 sm:text-5xl md:mt-8 md:text-6xl"
+          dangerouslySetInnerHTML={sanitizeHTML(title)}
+        ></h1>{" "}
+        {/* Responsive title */}
         {imagePreview && ( // Display image if available
-          <div className="flex justify-center mb-4 px-4 sm:px-8 md:px-12 lg:px-32"> {/* Responsive padding on left and right */}
-            <img 
-              src={imagePreview} 
-              alt={title} 
-              className="max-w-full h-auto rounded-lg" // Responsive size with rounded corners
+          <div className="mb-4 flex justify-center px-4 sm:px-8 md:px-12 lg:px-32">
+            {" "}
+            {/* Responsive padding on left and right */}
+            <img
+              src={imagePreview}
+              alt={title}
+              className="h-auto max-w-full rounded-lg" // Responsive size with rounded corners
             />
           </div>
         )}
-        <h1 className="font-bold text-gray-700 text-3xl mt-10 mb-4 px-4 sm:px-8 md:px-12 lg:px-50">{title}</h1> {/* Bold title with responsive padding */}
-        <p className="text-lg text-gray-700 mb-4 px-4 sm:px-8 md:px-12 lg:px-50">{content}</p> {/* Content with larger font size and responsive padding */}
-        
+        <h1
+          className="mb-4 mt-10 px-4 text-3xl font-bold text-gray-700 sm:px-8 md:px-12 lg:px-50"
+          dangerouslySetInnerHTML={sanitizeHTML(title)}
+        ></h1>{" "}
+        {/* Bold title with responsive padding */}
+        <p
+          className="mb-4 px-4 text-lg text-gray-700 sm:px-8 md:px-12 lg:px-50"
+          dangerouslySetInnerHTML={sanitizeHTML(content)}
+        ></p>{" "}
+        {/* Content with larger font size and responsive padding */}
         {/* Display tags if available */}
         {tags.length > 0 && (
-          <div className="mt-4 px-4 sm:px-8 md:px-12 lg:px-50"> {/* Responsive padding for tags section */}
+          <div className="mt-4 px-4 sm:px-8 md:px-12 lg:px-50">
+            {" "}
+            {/* Responsive padding for tags section */}
             <h2 className="text-lg font-semibold">Tags:</h2>
-            <div className="flex flex-wrap mt-2">
+            <div className="mt-2 flex flex-wrap">
               {tags.map((tag: string) => (
-                <span key={tag} className="bg-gray-200 text-gray-700 px-2 py-1 rounded mr-2 mb-2">
+                <span
+                  key={tag}
+                  className="mb-2 mr-2 rounded bg-gray-200 px-2 py-1 text-gray-700"
+                >
                   {tag}
                 </span>
               ))}

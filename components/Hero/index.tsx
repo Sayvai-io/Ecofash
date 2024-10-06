@@ -165,21 +165,19 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { supabase } from "../../supabase_config/supabaseClient";
+import { useSelector } from "react-redux";
+import { getTranslation } from "../../translator/translateToChinese";
+import DOMPurify from "dompurify";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
-
-const Hero = ({ language }) => { // Accept language as a prop
+const Hero = () => {
   const [hasMounted, setHasMounted] = useState(false);
-
+  const language = useSelector((state) => state.language.language);
   const [HeroDetails, setHeroDetails] = useState({
     heading: "",
     headcontent: "",
     headimage: "",
   });
-
   const fetchHeroDetails = async () => {
     const { data, error } = await supabase.from("home").select("*");
     if (error) {
@@ -195,23 +193,25 @@ const Hero = ({ language }) => { // Accept language as a prop
   };
 
   useEffect(() => {
-    if (language === "en") {
-      fetchHeroDetails(); // Fetch details only for English
-    }
+    fetchHeroDetails(); // Fetch details only for English
+
     setHasMounted(true);
-  }, [language]); // Dependency on language
+  }, []); // Dependency on language
 
   if (!hasMounted) {
     return null;
   }
 
   // Conditional rendering based on language
-  const displayContent = language === "en" ? {
+  const displayContent = {
     heading: HeroDetails.heading,
     content: HeroDetails.headcontent,
-  } : {
-    heading: "賦能永續時尚供應鏈",
-    content: "優化資源效率，從採購環保材料到最大限度地減少整個過程中的浪費。透過整合尖端技術和行業專業知識，Ecofash Services 推動可衡量的環境和社會影響，幫助品牌引領負責任的時尚之路。",
+  };
+
+  const sanitizeHTML = (html: string) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
   };
 
   return (
@@ -273,14 +273,24 @@ const Hero = ({ language }) => { // Accept language as a prop
                 </div>
 
                 <div className="mb-4 text-center sm:mb-5">
-                  <h1 className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
-                    {displayContent.heading} {/* Updated to use displayContent */}
+                  <h1
+                    className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl"
+                    dangerouslySetInnerHTML={sanitizeHTML(
+                      displayContent.heading,
+                    )}
+                  >
+                    {/* Updated to use displayContent */}
                   </h1>
                 </div>
 
                 <div className="mb-6 text-center sm:mb-8 md:mb-10">
-                  <p className="px-4 text-xs text-white sm:px-0 sm:text-sm md:text-base lg:text-lg">
-                    {displayContent.content}{" "} {/* Updated to use displayContent */}
+                  <p
+                    className="px-4 text-xs text-white sm:px-0 sm:text-sm md:text-base lg:text-lg"
+                    dangerouslySetInnerHTML={sanitizeHTML(
+                      displayContent.content,
+                    )}
+                  >
+                    {/* Updated to use displayContent */}
                   </p>
                 </div>
 

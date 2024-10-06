@@ -1,19 +1,26 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { FaStar } from "react-icons/fa"; // Add this import
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
-const About = () => {
-  const [hasMounted, setHasMounted] = useState(false);
+import { supabase } from "../../supabase_config/supabaseClient";
+import { useSelector } from "react-redux";
+import { getTranslation } from "@/translator/translateToChinese";
+import DOMPurify from "dompurify";
+import Link from "next/link"; // {{ edit_1 }}
+import { useRouter } from "next/navigation";
 
+const About = () => {
+  const language = useSelector((state) => state.language.language);
+  const isInitialRender = useRef(true);
+  const [hasMounted, setHasMounted] = useState(false);
+  const [reviewDetails, setReviewDetails] = useState<any>([]);
+  const router = useRouter();
   const [AboutDetails, setAboutDetails] = useState({
     title: "",
     bgimage: "",
+    abouttitle: "",
     aboutheading: "",
     aboutcontent: "",
     aboutimage: "",
@@ -27,7 +34,26 @@ const About = () => {
     tcimage: "",
     reviewheading: "",
   });
-
+  const fetchReviewDetails = async () => {
+    const { data, error } = await supabase.from("about_review").select("*");
+    if (error) {
+      console.error("Error fetching about details:", error);
+    } else {
+      const reviewData = data;
+      data.forEach((review) => {
+        setReviewDetails((prev) => [
+          ...prev,
+          {
+            name: review.name,
+            designation: review.designation,
+            profile: review.profile_image,
+            comments: review.comments,
+            rating: review.rating,
+          },
+        ]);
+      });
+    }
+  };
   const fetchAboutDetails = async () => {
     const { data, error } = await supabase.from("about").select("*");
     if (error) {
@@ -37,8 +63,11 @@ const About = () => {
       setAboutDetails({
         title: AboutData.title,
         bgimage: AboutData.bg_image,
+        abouttitle: AboutData.about_title,
         aboutheading: AboutData.about_heading,
+        // aboutheading: AboutData.about_heading,
         aboutcontent: AboutData.about_content,
+        // aboutcontent: AboutData.about_content,
         aboutimage: AboutData.about_image,
         mvtitle: AboutData.mv_title,
         mvheading: AboutData.mv_heading,
@@ -52,7 +81,13 @@ const About = () => {
       });
     }
   };
-
+  useEffect(() => {
+    if (isInitialRender.current) {
+      fetchReviewDetails();
+      isInitialRender.current = false;
+      setHasMounted(true);
+    }
+  }, []);
   useEffect(() => {
     fetchAboutDetails();
     setHasMounted(true);
@@ -61,10 +96,23 @@ const About = () => {
   if (!hasMounted) {
     return null;
   }
+
+  const sanitizeHTML = (html: string) => {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  };
+
+  const navigateToContact = () => {
+    if (hasMounted) {
+      router.push("/contact");
+    }
+    // Change '/contact' to the desired route
+  };
   return (
     <>
       {/* Existing section */}
-      <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-44 -mt-14 sm:-mt-10 md:-mt-12 lg:-mt-14 xl:-mt-14">
+      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-14 xl:py-44">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           {AboutDetails.bgimage && (
@@ -87,19 +135,23 @@ const About = () => {
               alt="Line"
               width={14}
               height={40}
-              className="-ml-16 mt-19"
+              className="-ml-16 mt-5 lg:mt-19"
             />
             <div>
-              <h1 className="mb-4 text-4xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
-                {AboutDetails.title}
-              </h1>
+              <h1
+                className="mb-4 text-4xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.title)}
+              ></h1>
             </div>
           </div>
-          <div className="mt-8 flex space-x-4">
+          <div className="mt-3 flex space-x-4 md:mt-8">
             <button className="rounded-xl bg-white px-6 py-2 font-semibold text-black transition duration-300 hover:bg-gray-100">
               Get Started
             </button>
-            <button className="rounded-xl border-2 border-white px-6 py-2 font-semibold text-white transition duration-300 hover:bg-white hover:text-black">
+            <button
+              onClick={navigateToContact}
+              className="rounded-xl border-2 border-white px-6 py-2 font-semibold text-white transition duration-300 hover:bg-white hover:text-black"
+            >
               Contact Us
             </button>
           </div>
@@ -132,14 +184,25 @@ const About = () => {
                   />
                 )}
 
-                <span className="mr-2 text-lg text-[#4d4d4b]">About Us</span>
+                <span
+                  className="mr-2 text-lg text-[#4d4d4b]"
+                  dangerouslySetInnerHTML={sanitizeHTML(
+                    AboutDetails.abouttitle,
+                  )}
+                ></span>
               </div>
-              <h2 className="mb-6 text-3xl font-bold text-black sm:text-6xl">
-                {AboutDetails.aboutheading}
-              </h2>
-              <p className="mb-8 text-lg text-black">
-                {AboutDetails.aboutcontent}{" "}
-              </p>
+              <h2
+                className="mb-6 text-3xl font-bold text-black sm:text-6xl"
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  AboutDetails.aboutheading,
+                )}
+              ></h2>
+              <p
+                className="mb-8 text-lg text-black"
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  AboutDetails.aboutcontent,
+                )}
+              ></p>
               <button className="rounded-xl bg-[#609641] px-6 py-2 font-semibold text-white transition duration-300 hover:bg-[#4d7a33]">
                 Learn More
               </button>
@@ -164,17 +227,20 @@ const About = () => {
                   />
                 )}
 
-                <span className="text-lg text-[#4d4d4b]">
-                  Our Mission & Vision
-                </span>
+                <span
+                  className="text-lg text-[#4d4d4b]"
+                  dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.mvtitle)}
+                ></span>
               </div>
 
-              <h3 className="mb-12 text-3xl font-bold text-black sm:text-6xl">
-                {AboutDetails.mvtitle}
-              </h3>
-              <p className="mb-8 rounded-l-md border-l-4 border-[#609641] pl-6 text-lg text-black">
-                {AboutDetails.mvcontent}{" "}
-              </p>
+              <h3
+                className="mb-12 text-3xl font-bold text-black sm:text-6xl"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.mvheading)}
+              ></h3>
+              <p
+                className="mb-8 rounded-l-md border-l-4 border-[#609641] pl-6 text-lg text-black"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.mvcontent)}
+              ></p>
               <div className="mt-12 w-full border-b-2 border-gray-300"></div>
             </div>
 
@@ -218,17 +284,24 @@ const About = () => {
                   />
                 )}
 
-                <span className="mr-2 text-lg  text-[#4d4d4b]">Our Team</span>
+                <span
+                  className="mr-2 text-lg  text-[#4d4d4b]"
+                  dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.tctitle)}
+                ></span>
               </div>
-              <h2 className="mb-6 text-3xl font-bold text-black sm:text-5xl">
-                {AboutDetails.tctitle}
-              </h2>
-              <p className="mb-8 text-lg text-black">
-                {AboutDetails.tccontent}{" "}
-              </p>
-              <button className="rounded-xl bg-[#609641] px-6 py-2 font-semibold text-white transition duration-300 hover:bg-[#4d7a33]">
-                Learn More
-              </button>
+              <h2
+                className="mb-6 text-3xl font-bold text-black sm:text-5xl"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.tcheading)}
+              ></h2>
+              <p
+                className="mb-8 text-lg text-black"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.tccontent)}
+              ></p>
+              <Link href="/teams">
+                <button className="rounded-xl bg-[#609641] px-6 py-2 font-semibold text-white transition duration-300 hover:bg-[#4d7a33]">
+                  Learn More
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -237,32 +310,16 @@ const About = () => {
       {/* Testimonials Section */}
       <section className="py-16 sm:py-20 md:py-28 lg:py-32 xl:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-12 text-center text-3xl font-bold text-black sm:text-4xl">
-            <span className="block">Get to Know What Our</span>
-            <span className="block">Clients Think</span>
-          </h2>
+          <h2
+            className="mb-12 text-center text-3xl font-bold text-black sm:text-4xl"
+            dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.reviewheading)}
+          ></h2>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                name: "Sanjay Sagar",
-                company: "EcoSustain",
-                image: "/images/about/client1.png",
-              },
-              {
-                name: "Emily Chen",
-                company: "EcoStyle Co.",
-                image: "/images/about/client2.png",
-              },
-              {
-                name: "Michael Brown",
-                company: "Green Threads Inc.",
-                image: "/images/about/client3.png",
-              },
-            ].map((client, index) => (
+            {reviewDetails.map((client, index) => (
               <div
                 key={index}
-                className={`flex flex-col items-center rounded-xl p-6 text-center shadow-md transition-colors duration-300
+                className={`group flex flex-col items-center rounded-xl p-6 text-center shadow-md transition-colors duration-300 hover:!text-white
                   ${
                     index === 1
                       ? "bg-[#003F2E] text-white"
@@ -270,23 +327,20 @@ const About = () => {
                   }`}
               >
                 <div className="mb-4 flex justify-center">
-                  {[...Array(5)].map((_, i) => (
+                  {[...Array(client.rating)].map((_, i) => (
                     <FaStar key={i} className="mx-0.5 text-yellow-400" />
                   ))}
                 </div>
                 <p
                   className={`mb-6 ${
-                    index === 1
-                      ? "text-white"
-                      : "text-gray-700 group-hover:text-white"
-                  }`}
-                >
-                  {AboutDetails.reviewheading}{" "}
-                </p>
+                    index === 1 ? "text-white" : "text-gray-700 "
+                  } group-hover:!text-white`}
+                  dangerouslySetInnerHTML={sanitizeHTML(client.comments)}
+                ></p>
                 <div className="flex items-center">
-                  {client.image && (
+                  {client.profile && (
                     <Image
-                      src={client.image}
+                      src={client.profile}
                       alt={`${client.name} Profile`}
                       width={50}
                       height={50}
@@ -295,16 +349,18 @@ const About = () => {
                   )}
 
                   <div className="text-left">
-                    <p className="font-semibold">{client.name}</p>
+                    <p
+                      className="font-semibold"
+                      dangerouslySetInnerHTML={sanitizeHTML(client.name)}
+                    ></p>
                     <p
                       className={`text-sm ${
                         index === 1
                           ? "text-gray-300"
-                          : "text-gray-500 group-hover:text-gray-300"
+                          : "text-gray-500 hover:!text-gray-300"
                       }`}
-                    >
-                      {client.company}
-                    </p>
+                      dangerouslySetInnerHTML={sanitizeHTML(client.designation)}
+                    ></p>
                   </div>
                 </div>
               </div>

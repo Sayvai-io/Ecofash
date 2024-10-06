@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+import { supabase } from "../../supabase_config/supabaseClient";
+import DOMPurify from 'dompurify';
+import { useRouter } from "next/navigation";
+
 const About = () => {
   const [hasMounted, setHasMounted] = useState(false);
 
@@ -16,7 +16,7 @@ const About = () => {
     aboutcontent: "",
     aboutimage: "",
   });
-
+  const router = useRouter();
   const fetchAboutDetails = async () => {
     const { data, error } = await supabase.from("home").select("*");
     if (error) {
@@ -40,6 +40,18 @@ const About = () => {
   if (!hasMounted) {
     return null;
   }
+
+  const sanitizeHTML = (html: string) => {
+    return {
+        __html: DOMPurify.sanitize(html)
+    };
+  };
+  const navigateToContact = () => {
+    if (hasMounted) {
+      router.push("/contact");
+    }
+    // Change '/contact' to the desired route
+  };
 
   return (
     <>
@@ -95,19 +107,27 @@ const About = () => {
               viewport={{ once: true }}
               className="animate_right z-40 w-full lg:w-1/2"
             >
-              <span className="mb-4 block text-2xl font-semibold text-black dark:text-white">
-                {AboutDetails.abouttitle}
+              <span
+                className="mb-4 block text-2xl font-semibold text-black dark:text-white"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.abouttitle)}
+              >
               </span>
-              <h2 className="mb-6 text-4xl font-bold leading-tight text-black dark:text-white sm:text-5xl md:text-6xl">
-                {AboutDetails.aboutheading}
+              <h2 className="mb-6 text-4xl font-bold leading-tight text-black dark:text-white sm:text-5xl md:text-6xl"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.aboutheading)}
+              >
               </h2>
 
-              <p className="mb-6 text-base sm:text-lg md:text-xl">
-                {AboutDetails.aboutcontent}{" "}
+              <p
+                className="mb-6 text-base sm:text-lg md:text-xl"
+                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.aboutcontent)}
+              >
               </p>
 
               <div className="flex items-center">
-                <button className="flex items-center justify-center rounded-md bg-[#609641] px-6 py-3 text-base font-bold text-white transition duration-300 ease-in-out hover:bg-[#4d7a34]">
+                <button
+                  onClick={navigateToContact}
+                  className="flex items-center justify-center rounded-md bg-[#609641] px-6 py-3 text-base font-bold text-white transition duration-300 ease-in-out hover:bg-[#4d7a34]"
+                >
                   Contact Us
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
