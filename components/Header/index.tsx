@@ -17,7 +17,7 @@ const Header = () => {
   const [logoImage, setLogoImage] = useState("");
   const pathUrl = usePathname();
   const dispatch = useDispatch();
-  const lang = useSelector((state) => state.language.language);
+  const lang = useSelector((state: any) => state.language.language);
   // Sticky menu
   const handleStickyMenu = () => {
     setStickyMenu(window.scrollY >= 80);
@@ -40,8 +40,7 @@ const Header = () => {
       setLogoImage(image.logo_image);
     }
   };
-  const handleMakeACallClick = ( ) => {
-   
+  const handleMakeACallClick = () => {
     const makeACallSection = document.getElementById("makeACallSection");
     if (makeACallSection) {
       makeACallSection.scrollIntoView({ behavior: "smooth" });
@@ -202,7 +201,7 @@ const Header = () => {
           <div className="mt-7 flex flex-col gap-4 xl:mt-0 xl:flex-row">
             <div className="relative">
               <button
-                className="flex items-center text-regular font-semibold text-waterloo hover:text-[#609641] mt-2"
+                className="mt-2 flex items-center text-regular font-semibold text-waterloo hover:text-[#609641]"
                 onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
                 aria-expanded={languageDropdownOpen} // Accessibility enhancement
               >
@@ -247,12 +246,13 @@ const Header = () => {
                   onClick={() => {
                     changeLanguage("en");
                     setLanguageDropdownOpen(false);
-                    
                   }}
                 >
-                  <Link href="#" 
-                  className="block text-sm font-semibold"
-                  onClick={handleLinkClick}>
+                  <Link
+                    href="#"
+                    className="block text-sm font-semibold"
+                    onClick={handleLinkClick}
+                  >
                     English
                   </Link>
                 </li>
@@ -263,9 +263,11 @@ const Header = () => {
                     setLanguageDropdownOpen(false);
                   }}
                 >
-                  <Link href="#" 
-                  className="block text-sm font-semibold"
-                  onClick={handleLinkClick}>
+                  <Link
+                    href="#"
+                    className="block text-sm font-semibold"
+                    onClick={handleLinkClick}
+                  >
                     中文
                   </Link>
                 </li>

@@ -12,7 +12,7 @@ import Link from "next/link"; // {{ edit_1 }}
 import { useRouter } from "next/navigation";
 
 const About = () => {
-  const language = useSelector((state) => state.language.language);
+  const language = useSelector((state: any) => state.language.language);
   const isInitialRender = useRef(true);
   const [hasMounted, setHasMounted] = useState(false);
   const [reviewDetails, setReviewDetails] = useState<any>([]);

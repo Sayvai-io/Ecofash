@@ -172,7 +172,7 @@ import DOMPurify from "dompurify";
 
 const Hero = () => {
   const [hasMounted, setHasMounted] = useState(false);
-  const language = useSelector((state) => state.language.language);
+  const language = useSelector((state: any) => state.language.language);
   const [HeroDetails, setHeroDetails] = useState({
     heading: "",
     headcontent: "",
