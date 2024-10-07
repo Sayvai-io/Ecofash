@@ -237,13 +237,13 @@ const Hero = () => {
             <div className="w-full">
               <div className="mx-auto max-w-3xl">
                 {/* Left side content */}
-                <div className="absolute left-40 top-64 hidden lg:block">
+                <div className="absolute left-30 top-72 hidden lg:block">
                   <Image
                     src="/images/hero/star.png"
                     alt="Star"
                     width={48}
                     height={48}
-                    className="-ml-10 mb-10"
+                    className="-ml-10 mb-16"
                   />
                   <Image
                     src="/images/hero/roundframe1.png"
@@ -255,13 +255,13 @@ const Hero = () => {
                 </div>
 
                 {/* Right side content */}
-                <div className="absolute right-40 top-60 hidden lg:block">
+                <div className="absolute right-30 top-60 hidden lg:block">
                   <Image
                     src="/images/hero/roundframe2.png"
                     alt="Rounded Frame 3"
                     width={68}
                     height={68}
-                    className="mb-6  ml-10"
+                    className="mb-24  ml-6"
                   />
                   <Image
                     src="/images/hero/roundframe3.png"
@@ -324,7 +324,7 @@ const Hero = () => {
                   </div>
 
                   <div className="relative w-full">
-                    <div className="absolute -top-8 right-0 sm:right-10 md:right-20 lg:right-50">
+                    <div className="absolute -top-8 right-20 sm:right-10 md:right-20 lg:right-50">
                       <Image
                         src="/images/hero/dot-arrow.png"
                         alt="Dot Arrow"
