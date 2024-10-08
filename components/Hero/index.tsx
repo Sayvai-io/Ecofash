@@ -313,7 +313,6 @@ import { supabase } from "../../supabase_config/supabaseClient";
 import { useSelector } from "react-redux";
 import DOMPurify from "dompurify";
 import translationData from "../../app/store/translation.json";
-import { stripHTMLTags } from "../../app/utils/striptHtmlTags";
 
 const Hero = () => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -329,21 +328,25 @@ const Hero = () => {
     if (error) {
       console.error("Error fetching Hero details:", error);
     } else {
-      console.log(data[0].heading);
-      console.log(
-        translationData["Empowering Sustainable Fashion Supply Chains"],
-      );
       const HeroData = data[0]; // Assuming you only need the first row
       setHeroDetails({
         heading:
           language === "en"
             ? HeroData.heading
-            : translationData[stripHTMLTags(HeroData.heading)]
-            ? translationData[stripHTMLTags(HeroData.heading)]
+            : translationData["Empowering Sustainable Fashion Supply Chains"]
+            ? translationData["Empowering Sustainable Fashion Supply Chains"]
             : HeroData.heading,
 
         headcontent:
-          language == "en" ? HeroData.head_content : HeroData.head_content,
+          language == "en"
+            ? HeroData.head_content
+            : translationData[
+                "Ecofash Consulting Services Co. , Ltd is committed to transforming the fashion industry with sustainable solutions focusing on environmental and social responsibility. We offer services such as Freelance Chief Sustainability Officer, Sustainability Strategy & Implementation, Certification & Compliance, Outsourcing & Communication, Training & Capacity Building, Marketing & Brand Development, and Cost-Effective Solutions. Our goal is to help businesses achieve sustainability goals without compromising profitability or ethical standards. Join us in reshaping the fashion industry with sustainability as a core principle. Let's work together to create a future where profitability and eco-conscious practices go hand in hand. Connect with us to make a lasting impact."
+              ]
+            ? translationData[
+                "Ecofash Consulting Services Co. , Ltd is committed to transforming the fashion industry with sustainable solutions focusing on environmental and social responsibility. We offer services such as Freelance Chief Sustainability Officer, Sustainability Strategy & Implementation, Certification & Compliance, Outsourcing & Communication, Training & Capacity Building, Marketing & Brand Development, and Cost-Effective Solutions. Our goal is to help businesses achieve sustainability goals without compromising profitability or ethical standards. Join us in reshaping the fashion industry with sustainability as a core principle. Let's work together to create a future where profitability and eco-conscious practices go hand in hand. Connect with us to make a lasting impact."
+              ]
+            : HeroData.head_content,
         headimage: HeroData.head_image,
       });
     }
