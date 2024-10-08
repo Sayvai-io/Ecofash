@@ -311,8 +311,9 @@ import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { supabase } from "../../supabase_config/supabaseClient";
 import { useSelector } from "react-redux";
-import { getTranslation } from "../../translator/translateToChinese";
 import DOMPurify from "dompurify";
+import translationData from "../../app/store/translation.json";
+import { stripHTMLTags } from "../../app/utils/striptHtmlTags";
 
 const Hero = () => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -324,24 +325,26 @@ const Hero = () => {
   });
 
   const fetchHeroDetails = async () => {
-    if (language === 'en') {
-      const { data, error } = await supabase.from("home").select("*");
-      if (error) {
-        console.error("Error fetching Hero details:", error);
-      } else {
-        const HeroData = data[0]; // Assuming you only need the first row
-        setHeroDetails({
-          heading: HeroData.heading,
-          headcontent: HeroData.head_content,
-          headimage: HeroData.head_image,
-        });
-      }
+    const { data, error } = await supabase.from("home").select("*");
+    if (error) {
+      console.error("Error fetching Hero details:", error);
     } else {
-      // Chinese content only for non-English languages
+      console.log(data[0].heading);
+      console.log(
+        translationData["Empowering Sustainable Fashion Supply Chains"],
+      );
+      const HeroData = data[0]; // Assuming you only need the first row
       setHeroDetails({
-        heading: "賦能永續時尚供應鏈",
-        headcontent: "優化資源效率，從採購環保材料到最大限度地減少整個過程中的浪費。透過整合尖端技術和行業專業知識，Ecofash Services 推動可衡量的環境和社會影響，幫助品牌引領負責任的時尚之路。",
-        headimage: HeroDetails.headimage, // Keep the existing image or set a default
+        heading:
+          language === "en"
+            ? HeroData.heading
+            : translationData[stripHTMLTags(HeroData.heading)]
+            ? translationData[stripHTMLTags(HeroData.heading)]
+            : HeroData.heading,
+
+        headcontent:
+          language == "en" ? HeroData.head_content : HeroData.head_content,
+        headimage: HeroData.head_image,
       });
     }
   };
@@ -429,7 +432,9 @@ const Hero = () => {
                 <div className="mb-6 text-center sm:mb-8 md:mb-10">
                   <p
                     className="px-4 text-xs text-white sm:px-0 sm:text-sm md:text-base lg:text-lg"
-                    dangerouslySetInnerHTML={sanitizeHTML(HeroDetails.headcontent)}
+                    dangerouslySetInnerHTML={sanitizeHTML(
+                      HeroDetails.headcontent,
+                    )}
                   />
                 </div>
               </div>
