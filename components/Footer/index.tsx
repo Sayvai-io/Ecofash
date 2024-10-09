@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="mx-auto max-w-full px-4 md:max-w-c-1390 md:px-20 2xl:px-0">
           {/* <!-- Footer Top --> */}
           <div className="pb-10 pt-20 lg:pt-25">
-            <div className="flex flex-col items-center gap-8 md:flex-row md:justify-center lg:justify-between lg:gap-0">
+            <div className="mb-4 flex flex-col items-center gap-8 md:flex-row md:justify-center lg:justify-center lg:gap-0">
               <motion.div
                 variants={{
                   hidden: {
@@ -143,14 +143,13 @@ const Footer = () => {
                 </motion.div>
               </motion.div>
 
-              <div className="grid w-full grid-cols-2 gap-4 md:grid-cols-4">
+              <div className="grid w-full grid-cols-2 gap-4 md:grid-cols-4 pl-4"> {/* Adjusted gap and padding for mobile */}
                 <motion.div
                   variants={{
                     hidden: {
                       opacity: 0,
                       y: -20,
                     },
-
                     visible: {
                       opacity: 1,
                       y: 0,
@@ -160,13 +159,13 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top flex flex-col items-center"
+                  className="animate_top flex flex-col items-start pl-36" 
                 >
-                  <h4 className="mb-9 text-itemtitle2 font-medium text-white dark:text-white">
+                  <h4 className="mb-4 text-itemtitle2 font-medium text-white dark:text-white">  
                     Content
                   </h4>
 
-                  <ul className="space-y-6">
+                  <ul className="space-y-4"> {/* Reduced space for mobile */}
                     <li>
                       <a
                         href="/home"
@@ -216,7 +215,6 @@ const Footer = () => {
                       opacity: 0,
                       y: -20,
                     },
-
                     visible: {
                       opacity: 1,
                       y: 0,
@@ -226,13 +224,13 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top flex flex-col items-center"
+                  className="animate_top flex flex-col items-center pl-36" // Adjusted padding for mobile
                 >
-                  <h4 className="mb-9 text-itemtitle2 font-medium text-white dark:text-white">
+                  <h4 className="mb-4 text-itemtitle2 font-medium text-white dark:text-white"> {/* Reduced margin */}
                     Resource
                   </h4>
 
-                  <ul className="space-y-6">
+                  <ul className="space-y-4"> {/* Reduced space for mobile */}
                     <li>
                       <a
                         href="#"
@@ -246,7 +244,7 @@ const Footer = () => {
                         href="#"
                         className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
                       >
-                        Fasion
+                        Fashion
                       </a>
                     </li>
                     <li>
@@ -282,7 +280,6 @@ const Footer = () => {
                       opacity: 0,
                       y: -20,
                     },
-
                     visible: {
                       opacity: 1,
                       y: 0,
@@ -292,78 +289,13 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top flex flex-col items-center"
+                  className="animate_top flex flex-col items-end pl-36" // Adjusted padding for mobile
                 >
-                  <h4 className="mb-9 text-itemtitle2 font-medium text-white dark:text-white">
-                    Content
-                  </h4>
-
-                  <ul className="space-y-6">
-                    <li>
-                      <a
-                        href="/"
-                        className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
-                      >
-                        Home
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/about"
-                        className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
-                      >
-                        About us
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/services"
-                        className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
-                      >
-                        Service
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/blog"
-                        className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
-                      >
-                        Blog
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/contact"
-                        className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
-                      >
-                        Contact
-                      </a>
-                    </li>
-                  </ul>
-                </motion.div>
-                <motion.div
-                  variants={{
-                    hidden: {
-                      opacity: 0,
-                      y: -20,
-                    },
-
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                    },
-                  }}
-                  initial="hidden"
-                  whileInView="visible"
-                  transition={{ duration: 1, delay: 0.1 }}
-                  viewport={{ once: true }}
-                  className="animate_top flex flex-col items-center"
-                >
-                  <h4 className="mb-9 text-itemtitle2 font-medium text-white dark:text-white">
+                  <h4 className="mb-4 text-itemtitle2 font-medium text-white dark:text-white"> {/* Reduced margin */}
                     Socials
                   </h4>
 
-                  <ul className="space-y-6">
+                  <ul className="space-y-4"> {/* Reduced space for mobile */}
                     <li>
                       <a
                         href="#"
@@ -451,7 +383,7 @@ const Footer = () => {
               className="animate_top"
             >
               <p className="text-center">
-                &copy; {new Date().getFullYear()} Solid. All rights reserved
+                &copy; {new Date().getFullYear()} Ecofash. All rights reserved
               </p>
             </motion.div>
           </div>
