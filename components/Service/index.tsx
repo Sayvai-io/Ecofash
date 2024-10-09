@@ -3,11 +3,12 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
-
+import translationData from "../../app/store/translation.json";
 import { supabase } from "../../supabase_config/supabaseClient";
-
+import { useSelector } from "react-redux";
 
 const Services = () => {
+  const language = useSelector((state: any) => state.language.language);
   const [hasMounted, setHasMounted] = useState(false);
 
   const [ServicesDetails, setServicesDetails] = useState({
@@ -44,9 +45,12 @@ const Services = () => {
         <div className="container mx-auto">
           <h2 className="mb-15 mt-10 text-center text-4xl font-semibold">
             <span className="rounded-full border-2 border-white px-4 py-1 text-white">
-              Services
+              {language === "en" ? "Services" : translationData["Services"]}
             </span>
-            <span className="ml-2 text-black">We Offer</span>
+            <span className="ml-2 text-black">
+              {" "}
+              {language === "en" ? "We Offer" : translationData["We Offer"]}
+            </span>
           </h2>
           <div className="flex flex-wrap justify-center">
             {ServicesDetails.servicesimage && (

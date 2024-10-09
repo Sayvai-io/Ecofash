@@ -162,7 +162,7 @@ import { supabase } from "../../supabase_config/supabaseClient";
 import { useSelector } from "react-redux";
 import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
-
+import translationData from "../../app/store/translation.json";
 const About = () => {
   const [hasMounted, setHasMounted] = useState(false);
   const language = useSelector((state: any) => state.language.language);
@@ -181,7 +181,7 @@ const About = () => {
       console.error("Error fetching About details:", error);
     } else {
       const AboutData = data[0]; // Assuming you only need the first row
-      if (language === 'en') {
+      if (language === "en") {
         setAboutDetails({
           abouttitle: AboutData.about_title,
           aboutheading: AboutData.about_heading,
@@ -190,9 +190,12 @@ const About = () => {
         });
       } else {
         setAboutDetails({
-          abouttitle: "關於我們",
-          aboutheading: "永續性融入每一個開關",
-          aboutcontent: "擁有一支由專門的永續發展專家和行業資深人士組成的團隊。 Ecofash Services 致力於引導您完成永續發展之旅的每一步。我們相信每個時尚品牌都有能力產生正面影響，我們隨時幫助您引領潮流。加入我們，讓我們以目標、創新和誠信重新定義時尚。",
+          abouttitle: translationData["About us"],
+          aboutheading: translationData["Sustainability in Every Switch"],
+          aboutcontent:
+            translationData[
+              "With a team of dedicated sustainability experts and industry veterans, Ecofash Services is committed to guiding you through every step of your sustainability journey. We believe that every fashion brand has the power to make a positive impact, and we're here to help you lead the way. Join us as we redefine fashion with purpose, innovation, and integrity."
+            ],
           aboutimage: AboutData.about_image, // Use the same image for both languages
         });
       }
@@ -247,7 +250,7 @@ const About = () => {
                   src={AboutDetails.aboutimage}
                   alt="About Image"
                   fill
-                  className="object-cover rounded-lg"
+                  className="rounded-lg object-cover"
                 />
               )}
             </motion.div>
@@ -275,11 +278,15 @@ const About = () => {
               />
               <h2
                 className="mb-6 text-4xl font-bold leading-tight text-black dark:text-white sm:text-5xl md:text-6xl"
-                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.aboutheading)}
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  AboutDetails.aboutheading,
+                )}
               />
               <p
                 className="mb-6 text-base sm:text-lg md:text-xl"
-                dangerouslySetInnerHTML={sanitizeHTML(AboutDetails.aboutcontent)}
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  AboutDetails.aboutcontent,
+                )}
               />
 
               <div className="flex items-center">
@@ -287,7 +294,9 @@ const About = () => {
                   onClick={navigateToContact}
                   className="flex items-center justify-center rounded-md bg-[#609641] px-6 py-3 text-base font-bold text-white transition duration-300 ease-in-out hover:bg-[#4d7a34]"
                 >
-                  {language === 'en' ? 'Contact Us' : '聯絡我們'}
+                  {language === "en"
+                    ? "Contact Us"
+                    : translationData["Contact Us"]}
                   <svg
                     className="ml-2 h-5 w-5"
                     fill="none"
