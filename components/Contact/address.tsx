@@ -52,15 +52,11 @@ const Address = () => {
       <h1 className="pl-12 pt-24 text-2xl font-bold text-black">
         Our Office Across Globe.
       </h1>
-      <div className="grid grid-cols-2">
-        <div className=" col-span-2 grid w-full grid-flow-col grid-rows-4 gap-4 pl-14 pt-4 md:col-span-1 ">
+      <div className="grid grid-cols-1 gap-12 pl-12 pt-8 md:grid-cols-2">
+        <div>
+          <h2 className="mb-3 text-xl font-semibold text-black">India</h2>
           {indiaAddresses.map((item, index) => (
-            <ul key={index} className=" mb-6 text-lg text-black">
-              <li
-                dangerouslySetInnerHTML={sanitizeHTML(
-                  `${item.country.country_name}`,
-                )}
-              ></li>
+            <ul key={index} className="mb-6 text-lg text-black">
               <li
                 style={{ paddingLeft: "7.5rem" }}
                 dangerouslySetInnerHTML={sanitizeHTML(`${item.full_address}`)}
@@ -75,35 +71,14 @@ const Address = () => {
               ></li>
             </ul>
           ))}
-          {/* <ul className="mb-6 text-lg text-black">
-            <li>Head Office : China</li>
-            <li style={{ paddingLeft: "7.5rem" }}>China Address</li>
-            <li style={{ paddingLeft: "7.5rem" }}>China Email </li>
-            <li style={{ paddingLeft: "7.5rem" }}>Contact No.</li>
-          </ul>
-          <ul className="mb-6 text-lg text-black">
-            <li>Hong Kong : </li>
-            <li style={{ paddingLeft: "7.5rem" }}>Hong Kong Address</li>
-            <li style={{ paddingLeft: "7.5rem" }}>Hong Kong Email </li>
-            <li style={{ paddingLeft: "7.5rem" }}>Contact No.</li>
-          </ul>
-          <ul className="mb-6 text-lg text-black">
-            <li>Dubai : </li>
-            <li style={{ paddingLeft: "7.5rem" }}>Dubai Address</li>
-            <li style={{ paddingLeft: "7.5rem" }}>Dubai Email </li>
-            <li style={{ paddingLeft: "7.5rem" }}>Contact No.</li>
-          </ul>
-          <ul className="mb-6 text-lg text-black">
-            <li>Bangladesh : </li>
-            <li style={{ paddingLeft: "7.5rem" }}>Bangladesh Address</li>
-            <li style={{ paddingLeft: "7.5rem" }}>Bangladesh Email </li>
-            <li style={{ paddingLeft: "7.5rem" }}>Contact No.</li>
-          </ul> */}
         </div>
 
-        <div className=" col-span-2 grid w-full grid-flow-col grid-rows-4 gap-4 pl-14 pt-4 md:col-span-1 ">
+        <div>
+          <h2 className="mb-3 text-xl font-semibold text-black">
+            Global Offices
+          </h2>
           {globalAddresses.map((item, index) => (
-            <ul key={index} className=" mb-6 text-lg text-black">
+            <ul key={index} className="mb-6 text-lg text-black">
               <li
                 dangerouslySetInnerHTML={sanitizeHTML(
                   `${item.country.country_name}`,
@@ -124,24 +99,6 @@ const Address = () => {
             </ul>
           ))}
         </div>
-        {/* <div className="flex flex-col  ">
-          <ul className="mb-6 pt-4  text-lg text-black">
-            India
-            <li style={{ paddingLeft: "7.5rem" }}>India Address</li>
-            <li style={{ paddingLeft: "7.5rem" }}>Email Address</li>
-            <li style={{ paddingLeft: "7.5rem" }}>Contact No.</li>
-          </ul>
-          <ul className="mb-6 pt-4 text-lg text-black">
-            <li style={{ paddingLeft: "7.5rem" }}>India Address</li>
-            <li style={{ paddingLeft: "7.5rem" }}>Email Address</li>
-            <li style={{ paddingLeft: "7.5rem" }}>Contact No.</li>
-          </ul>
-          <ul className="mb-6 pt-4 text-lg text-black">
-            <li style={{ paddingLeft: "7.5rem" }}>India Address</li>
-            <li style={{ paddingLeft: "7.5rem" }}>Email Address</li>
-            <li style={{ paddingLeft: "7.5rem" }}>Contact No.</li>
-          </ul>
-        </div> */}
       </div>
     </div>
   );
