@@ -144,23 +144,33 @@ const SeparateService = () => {
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-20">
           <div className="rounded-sm border-l-8 border-[#609641] px-5">
-            <h1 className="mb-4 text-4xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
-              <span className="mb-4 block">
-                Transforming <span className="text-[#609641]">Fashion</span>{" "}
-                with Ethical
-              </span>
-              and <span className="text-[#609641]">Sustainable</span> Practices
-            </h1>
+            {language === "en" && (
+              <h1 className="mb-4 text-4xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
+                <span className="mb-4 block">
+                  Transforming <span className="text-[#609641]">Fashion</span>{" "}
+                  with Ethical
+                </span>
+                and <span className="text-[#609641]">Sustainable</span>{" "}
+                Practices
+              </h1>
+            )}
+            {language !== "en" && (
+              <h1 className="mb-4 text-4xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
+                通过道德和可持续实践改变时尚
+              </h1>
+            )}
           </div>
           <div className="mt-8 flex space-x-4">
             <button className="rounded-lg bg-white px-6 py-2 font-semibold text-black transition duration-300 hover:bg-gray-100">
-              Get Started
+              {language === "en"
+                ? "Get Started"
+                : translationData["Get Started"]}
             </button>
             <button
               onClick={navigateToContact}
               className="rounded-lg border-2 border-white px-6 py-2 font-semibold text-white transition duration-300 hover:bg-white hover:text-black"
             >
-              Contact Us
+              {language === "en" ? "Contact Us" : translationData["Contact Us"]}
             </button>
           </div>
         </div>
@@ -256,17 +266,24 @@ const SeparateService = () => {
                   className="text-center"
                 >
                   <h2 className="mb-2 text-3xl font-bold text-black dark:text-black xl:text-xl">
-                    Let's make things happen
+                    {language === "en"
+                      ? "Let's make things happen"
+                      : translationData["Let's make things happen"]}
                   </h2>
                   <p className="text-body-color mx-auto mb-4 max-w-2xl p-4 text-sm font-medium leading-relaxed">
-                    Contact us today to learn more about how our services can
-                    help your business grow sustainably and make a difference.
+                    {language === "en"
+                      ? "Contact us today to learn more about how our services can help your business grow sustainably and make a difference."
+                      : translationData[
+                          "Contact us today to learn more about how our services can help your business grow sustainably and make a difference."
+                        ]}
                   </p>
                   <a
                     href="/contact"
                     className="mb-6 inline-flex items-center justify-center gap-2 rounded-xl bg-[#609641] px-6 py-2 font-medium text-white hover:opacity-90"
                   >
-                    contact us
+                    {language === "en"
+                      ? "Contact Us"
+                      : translationData["Contact Us"]}
                   </a>
                 </motion.div>
               </div>
