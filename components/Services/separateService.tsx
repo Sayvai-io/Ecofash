@@ -5,14 +5,20 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { supabase } from "../../supabase_config/supabaseClient";
-import DOMPurify from "dompurify";
+import DOMPurify from "dompurify"; // {{ edit_1 }}
+import { useSelector } from "react-redux";
+import ServiceContent from "./ServiceContent";
+import { useDispatch } from "react-redux";
+import { setTitle } from "../../store/userSlice";
 
-const BCorpCertification = () => {
+
+const SeparateService = () => {
   const pathname = usePathname();
   const [hasMounted, setHasMounted] = useState(false);
-  const isInitialRender = useRef(true);
-  const [email, setEmail] = useState("");
   const router = useRouter();
+  const isInitialRender = useRef(true);
+  const dispatch=useDispatch();
+  const [email, setEmail] = useState("");
   const [serviceProviderData, setProviderData] = useState<{
     title: string;
     heading: "";
@@ -23,9 +29,11 @@ const BCorpCertification = () => {
     significanceTitle: "";
     planOfActionTitle: "";
   }>();
+  const title=useSelector((state:any)=>state.language.title)
+  const [serviceTitle,setServiceTitle]=useState<any[]>([]);
 
   const sanitizeHTML = (html: string) => {
-    // {{ edit_1 }}
+    // {{ edit_2 }}
     return {
       __html: DOMPurify.sanitize(html),
     };
@@ -35,7 +43,7 @@ const BCorpCertification = () => {
     const { data, error } = await supabase
       .from("seperate_service")
       .select("*")
-      .eq("title", "Freelance CSO");
+      .eq("title", "Sustainability Strategy & Implementation");
     if (error) {
       console.error("Error fetching service data details:", error);
     } else {
@@ -51,8 +59,20 @@ const BCorpCertification = () => {
       });
     }
   };
+  const fetchServices = async () => {
+    const { data, error } = await supabase
+      .from("service_provided")
+      .select("title");
+  
+    if (error) {
+      console.error("Error fetching service details:", error.message);
+    } else {
+        setServiceTitle(data)
+    }
+  };
 
   useEffect(() => {
+    fetchServices()
     if (isInitialRender.current) {
       fetchProviderData();
       isInitialRender.current = false;
@@ -69,10 +89,10 @@ const BCorpCertification = () => {
     }
     // Change '/contact' to the desired route
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
 
   const ServiceLink = ({ href, children }) => {
     const isActive = pathname === href;
@@ -88,6 +108,10 @@ const BCorpCertification = () => {
       </Link>
     );
   };
+
+    const handleTitle=(title)=>{
+        dispatch(setTitle(title))
+    }
 
   return (
     <>
@@ -139,7 +163,12 @@ const BCorpCertification = () => {
                   Services
                 </h2>
                 <ul className="space-y-4">
-                  <li>
+                    {serviceTitle.map((service, index) => (
+                        <li key={index} onClick={()=>handleTitle(service.title)}>
+                            {service.title}
+                        </li>
+                    ))}
+                  {/* <li>
                     <ServiceLink href="/service/supply-chain-mapping">
                       Supply Chain Mapping
                     </ServiceLink>
@@ -168,9 +197,10 @@ const BCorpCertification = () => {
                     <ServiceLink href="/service/other-services">
                       Sustainability Strategy & Implementation
                     </ServiceLink>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
+
               {/* Image */}
               <div className="rounded-lg bg-[#F3F3F3]">
                 <motion.div
@@ -222,83 +252,7 @@ const BCorpCertification = () => {
             </div>
 
             {/* Right side content */}
-            <div className="w-full pl-4 lg:w-2/3">
-              <h2
-                className="mb-6 text-5xl font-extrabold text-[#609641]"
-                dangerouslySetInnerHTML={sanitizeHTML(
-                  serviceProviderData?.heading ?? "",
-                )}
-              ></h2>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={sanitizeHTML(
-                  serviceProviderData?.content ?? "",
-                )}
-              ></p>{" "}
-              {/* {{ edit_2 }} */}
-              <div className="flex flex-wrap">
-                <div className="w-full pr-4 lg:w-1/2">
-                  <h3
-                    className="mb-4 text-3xl font-bold"
-                    dangerouslySetInnerHTML={sanitizeHTML(
-                      serviceProviderData?.significanceTitle ?? "",
-                    )}
-                  ></h3>
-                  <p
-                    className="mb-8"
-                    dangerouslySetInnerHTML={sanitizeHTML(
-                      serviceProviderData?.significance ?? "",
-                    )}
-                  ></p>
-                </div>
-                <div className="w-full pl-4 lg:w-1/2">
-                  <div className="relative h-[300px] w-full overflow-hidden rounded-lg">
-                    {serviceProviderData?.significanceBgImage && (
-                      <Image
-                        src={serviceProviderData?.significanceBgImage ?? ""}
-                        alt="Service Hero"
-                        layout="fill"
-                        objectFit="cover"
-                        quality={100}
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="mt-8">
-                <h3
-                  className="mb-4 text-3xl font-bold"
-                  dangerouslySetInnerHTML={sanitizeHTML(
-                    serviceProviderData?.planOfActionTitle ?? "",
-                  )}
-                ></h3>
-                <div className="-mx-4 flex flex-wrap">
-                  <div className="!w-full px-4 lg:w-1/2">
-                    <ul className="grid !w-full list-none grid-cols-2 items-center space-y-4">
-                      {serviceProviderData?.planOfAction
-                        .split(".")
-                        .filter((sentence) => sentence.trim() !== "")
-                        .map(
-                          (sentence, index) =>
-                            sanitizeHTML(sentence).__html != "" && (
-                              <li
-                                key={index}
-                                className="col-span-1 flex items-start"
-                              >
-                                <span className="mr-2 text-[#609641]">✔</span>
-                                <span
-                                  dangerouslySetInnerHTML={sanitizeHTML(
-                                    sentence ?? "",
-                                  )}
-                                ></span>
-                              </li>
-                            ),
-                        )}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ServiceContent title={title}/>
           </div>
         </div>
       </section>
@@ -306,4 +260,4 @@ const BCorpCertification = () => {
   );
 };
 
-export default BCorpCertification;
+export default SeparateService;
