@@ -168,9 +168,8 @@ const SeparateService = () => {
                             key={index} 
                             onClick={() => handleTitle(service.title)}
                             className={`cursor-pointer ${title === service.title ? "text-[#609641]" : "text-gray-600"} border-b-2 border-gray-200 pb-4 font-semibold`}
-                        >
-                            {service.title}
-                        </li>
+                            dangerouslySetInnerHTML={sanitizeHTML(service.title)} // {{ edit_1 }}: Added sanitizeHTML to service.title
+                        />
                     ))}
                   {/* <li>
                     <ServiceLink href="/service/supply-chain-mapping">

@@ -63,16 +63,14 @@ const ServiceCard = ({
             className={`mb-4 text-2xl font-bold ${
               bg_image ? "text-white" : "text-[#609641]"
             }`}
-          >
-            {title}
-          </h3>
+            dangerouslySetInnerHTML={sanitizeHTML(title)}
+          />
           <p
             className={`mb-4 text-sm ${
               bg_image ? "text-white" : "text-gray-700"
             }`}
-          >
-            {content}
-          </p>
+            dangerouslySetInnerHTML={sanitizeHTML(content)}
+          />
         </div>
       </div>
     // </Link>
