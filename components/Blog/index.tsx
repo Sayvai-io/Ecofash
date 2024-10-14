@@ -118,7 +118,6 @@
 
 // export default Blog;
 
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -155,7 +154,7 @@ const Blog: React.FC = () => {
     } catch (error) {
       setPosts([]);
       setError(
-        error instanceof Error ? error.message : "An unknown error occurred"
+        error instanceof Error ? error.message : "An unknown error occurred",
       );
     } finally {
       setIsLoading(false);
@@ -172,11 +171,16 @@ const Blog: React.FC = () => {
 
   return (
     <div className="!h-full px-17 py-30 md:px-30">
-      {error && <div className="mb-4 text-red-500">{translateContent(error)}</div>}
+      {error && (
+        <div className="mb-4 text-red-500">{translateContent(error)}</div>
+      )}
       {isLoading && (
         <div className="grid h-full grid-cols-3 gap-4">
           {[...Array(3)].map((_, index) => (
-            <div key={index} className="col-span-3 h-[500px] animate-pulse cursor-pointer rounded-lg p-4 shadow-md transition-shadow duration-200 hover:shadow-lg md:col-span-2 lg:col-span-1">
+            <div
+              key={index}
+              className="col-span-3 h-[500px] animate-pulse cursor-pointer rounded-lg p-4 shadow-md transition-shadow duration-200 hover:shadow-lg md:col-span-2 lg:col-span-1"
+            >
               <div className="h-3/4 rounded bg-gray-100"></div>
             </div>
           ))}
@@ -202,11 +206,17 @@ const Blog: React.FC = () => {
                 )}
                 <h2
                   className="mb-2 text-xl font-bold text-[#030303]"
-                  dangerouslySetInnerHTML={sanitizeHTML(translateContent(post.title))}
+                  dangerouslySetInnerHTML={sanitizeHTML(
+                    translateContent(post.title),
+                  )}
                 ></h2>
                 <p
                   className="line-clamp-3 flex-grow text-gray-700"
-                  dangerouslySetInnerHTML={sanitizeHTML(translateContent(post.content) + "...")}
+                  dangerouslySetInnerHTML={sanitizeHTML(
+                    translateContent(
+                      "Ecofash is dedicated to transforming the fashion industry through innovative, sustainable solutions prioritising environmental and social responsibility. With a core focus on educating the fashion supply chain about cost-effective and eco-friendly practices, we ensure brands, buying houses, and manufacturers achieve sustainability without compromising profitability or ethical standards. Our Key Services Include Fractional Chief Sustainability Officer (CSO): Offering part-time strategic advice on sustainability and ESG issues, allowing businesses to access top-level insights without the cost of a full-time hire. Sustainability Strategy & Implementation: From supply chain mapping to decarbonization, circular economy solutions, and responsible chemical management, we help clients achieve their sustainability goals efficiently. Certification & Compliance: We assist brands in aligning with global sustainability standards such as GRI, SASB, Ecovadis, and Higg, providing comprehensive reporting and performance improvements. Outsourcing & Communication: We manage all aspects of sustainability for clients, including external communication with buyers and stakeholders, ensuring seamless integration of sustainability efforts. Training & Capacity Building: Educating and empowering teams and supply chain partners to implement and uphold sustainable practices. Marketing & Brand Development: Crafting compelling sustainability narratives and building eco-friendly brand identities through strategic storytelling and website development. Cost-Effective Solutions: From securing green funding to offering affordable audit services, we make sustainability accessible and financially viable. Join us in redefining fashion with sustainability at its core. Together, we can build a future where profitability and planet-conscious practices coexist. Let's connect and explore how we can make a lasting impact. Website https://ecofash.life/ Phone 008615384141861Phone number is 008615384141861 Industry Operations Consulting Company size 11-50 employees 1 associated member LinkedIn members who’ve listed EcoFash as their current workplace on their profile. Headquarters Shaoxing, Zhejiang Founded 2023",
+                    ) + "...",
+                  )}
                 ></p>
                 <div className="tags mt-2 flex flex-wrap">
                   {post.tags.map((tag: string) => (
