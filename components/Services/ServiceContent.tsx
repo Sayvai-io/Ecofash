@@ -64,6 +64,182 @@ const ServiceContent = () => {
             significanceTitle: translationData["Why is it important?"],
             planOfActionTitle: translationData["What will We do?"],
           });
+        } else if (data[0].title === "Freelance CSO") {
+          setProviderData({
+            title: translationData["Freelance CSO"],
+            heading:
+              translationData["Excellence through B Corp Certification."],
+            content:
+              translationData[
+                "At Ecofash Services, we offer comprehensive guidance through on-demand strategic advice for sustainability and ESG consulting."
+              ],
+            significanceBgImage: data[0].why_content_image,
+            significance:
+              translationData[
+                "Supply chain mapping is crucial for promoting sustainability and transparency in fashion. It helps brands identify and address environmental and social impacts, leading to eco-friendly practices and greater consumer trust. This visibility into the supply chain enhances accountability by revealing the origins and production processes of products"
+              ],
+            planOfAction:
+              "Review B Corp criteria and assess current practices.Fill out and submit the B Impact Assessment to evaluate social and environmental performance.Adjust policies and operations to meet B Corp requirements.Submit required documentation and undergo the verification process to achieve B Corp certification",
+            significanceTitle: translationData["Why is it important?"],
+            planOfActionTitle: translationData["What will We do?"],
+          });
+        } else if (data[0].title === "Sustainability Outsourcing") {
+          setProviderData({
+            title: translationData["Sustainability Outsourcing"],
+            heading:
+              translationData["Outsource for a Greener, Sustainable Tomorrow."],
+            content:
+              translationData[
+                "Outsource your sustainability needs to us and benefit from cost savings on maintaining an in-house team. We offer a full range of services, including sustainability reporting, sustainable material sourcing, and strategy development."
+              ],
+            significanceBgImage: data[0].why_content_image,
+            significance:
+              translationData[
+                "Supply chain mapping is crucial for promoting sustainability and transparency in fashion. It helps brands identify and address environmental and social impacts, leading to eco-friendly practices and greater consumer trust. This visibility into the supply chain enhances accountability by revealing the origins and production processes of products"
+              ],
+            planOfAction:
+              "Review B Corp criteria and assess current practices.Fill out and submit the B Impact Assessment to evaluate social and environmental performance.Adjust policies and operations to meet B Corp requirements.Submit required documentation and undergo the verification process to achieve B Corp certification",
+            significanceTitle: translationData["Why is it important?"],
+            planOfActionTitle: translationData["What will We do?"],
+          });
+        } else if (data[0].title === "Carbon Neutral Planning") {
+          setProviderData({
+            title: translationData["Carbon Neutral Planning"],
+            heading:
+              translationData["Charting Your Path to Carbon Neutrality."],
+            content:
+              translationData[
+                "Achieve carbon neutrality with our comprehensive planning services. We start by assessing your current carbon footprint, evaluating emissions throughout your supply chain. Based on this assessment, we create a customized plan to reduce and offset emissions, including energy efficiency improvements and sustainable practices."
+              ],
+            significanceBgImage: data[0].why_content_image,
+            significance:
+              translationData[
+                "Supply chain mapping is crucial for promoting sustainability and transparency in fashion. It helps brands identify and address environmental and social impacts, leading to eco-friendly practices and greater consumer trust. This visibility into the supply chain enhances accountability by revealing the origins and production processes of products"
+              ],
+            planOfAction:
+              "Review B Corp criteria and assess current practices.Fill out and submit the B Impact Assessment to evaluate social and environmental performance.Adjust policies and operations to meet B Corp requirements.Submit required documentation and undergo the verification process to achieve B Corp certification",
+            significanceTitle: translationData["Why is it important?"],
+            planOfActionTitle: translationData["What will We do?"],
+          });
+        } else if (data[0].title === "Sustainable Supply Chain Mapping") {
+          setProviderData({
+            title: translationData["Sustainable Supply Chain Mapping"],
+            heading:
+              translationData[
+                "Mapping Your Path to Sustainable Supply Chains."
+              ],
+            content:
+              translationData[
+                "We help you map your entire supply chain to identify areas where sustainability can be improved. Our experts work closely with you to ensure every step of your supply chain is optimized for environmental responsibility."
+              ],
+            significanceBgImage: data[0].why_content_image,
+            significance:
+              translationData[
+                "Supply chain mapping is crucial for promoting sustainability and transparency in fashion. It helps brands identify and address environmental and social impacts, leading to eco-friendly practices and greater consumer trust. This visibility into the supply chain enhances accountability by revealing the origins and production processes of products"
+              ],
+            planOfAction:
+              "Review B Corp criteria and assess current practices.Fill out and submit the B Impact Assessment to evaluate social and environmental performance.Adjust policies and operations to meet B Corp requirements.Submit required documentation and undergo the verification process to achieve B Corp certification",
+            significanceTitle: translationData["Why is it important?"],
+            planOfActionTitle: translationData["What will We do?"],
+          });
+        } else if (
+          data[0].title === "Sustainability Strategy & Implementation"
+        ) {
+          setProviderData({
+            title: translationData["Sustainability Strategy & Implementation"],
+            heading:
+              translationData["Empowering Solutions for a Sustainable Future."],
+            content:
+              translationData[
+                "Supply chain mapping, decarbonization strategies, circular economy, and chemical policy creation."
+              ],
+            significanceBgImage: data[0].why_content_image,
+            significance:
+              translationData[
+                "Supply chain mapping is crucial for promoting sustainability and transparency in fashion. It helps brands identify and address environmental and social impacts, leading to eco-friendly practices and greater consumer trust. This visibility into the supply chain enhances accountability by revealing the origins and production processes of products"
+              ],
+            planOfAction:
+              "Review B Corp criteria and assess current practices.Fill out and submit the B Impact Assessment to evaluate social and environmental performance.Adjust policies and operations to meet B Corp requirements.Submit required documentation and undergo the verification process to achieve B Corp certification",
+            significanceTitle: translationData["Why is it important?"],
+            planOfActionTitle: translationData["What will We do?"],
+          });
+        } else if (data[0].title === "Circular Economy Implementation") {
+          setProviderData({
+            title: translationData["Circular Economy Implementation"],
+            heading:
+              translationData[
+                "Turning Waste into Wealth with Circular Economy."
+              ],
+            content:
+              translationData[
+                "Transition to a circular economy with our expert guidance. We help you implement systems that minimize waste, enhance recycling practices, and integrate sustainability into every aspect of your business operations."
+              ],
+            significanceBgImage: data[0].why_content_image,
+            significance:
+              translationData[
+                "Supply chain mapping is crucial for promoting sustainability and transparency in fashion. It helps brands identify and address environmental and social impacts, leading to eco-friendly practices and greater consumer trust. This visibility into the supply chain enhances accountability by revealing the origins and production processes of products"
+              ],
+            planOfAction:
+              "Review B Corp criteria and assess current practices.Fill out and submit the B Impact Assessment to evaluate social and environmental performance.Adjust policies and operations to meet B Corp requirements.Submit required documentation and undergo the verification process to achieve B Corp certification",
+            significanceTitle: translationData["Why is it important?"],
+            planOfActionTitle: translationData["What will We do?"],
+          });
+        } else if (data[0].title === "Training & Capacity Building") {
+          setProviderData({
+            title: translationData["Training & Capacity Building"],
+            heading: translationData["Training & Capacity Building"],
+            content:
+              translationData[
+                "Educating teams and suppliers on sustainability best practices."
+              ],
+            significanceBgImage: data[0].why_content_image,
+            significance:
+              translationData[
+                "Supply chain mapping is crucial for promoting sustainability and transparency in fashion. It helps brands identify and address environmental and social impacts, leading to eco-friendly practices and greater consumer trust. This visibility into the supply chain enhances accountability by revealing the origins and production processes of products"
+              ],
+            planOfAction:
+              "Review B Corp criteria and assess current practices.Fill out and submit the B Impact Assessment to evaluate social and environmental performance.Adjust policies and operations to meet B Corp requirements.Submit required documentation and undergo the verification process to achieve B Corp certification",
+            significanceTitle: translationData["Why is it important?"],
+            planOfActionTitle: translationData["What will We do?"],
+          });
+        } else if (data[0].title === "Certification and Compliance") {
+          setProviderData({
+            title: translationData["Certification and Compliance"],
+            heading: translationData["Certification and Compliance"],
+            content:
+              translationData[
+                "Support for aligning with global standards like GRI, SASB, EU CSRD, SBTi, etc."
+              ],
+            significanceBgImage: data[0].why_content_image,
+            significance:
+              translationData[
+                "Supply chain mapping is crucial for promoting sustainability and transparency in fashion. It helps brands identify and address environmental and social impacts, leading to eco-friendly practices and greater consumer trust. This visibility into the supply chain enhances accountability by revealing the origins and production processes of products"
+              ],
+            planOfAction:
+              "Review B Corp criteria and assess current practices.Fill out and submit the B Impact Assessment to evaluate social and environmental performance.Adjust policies and operations to meet B Corp requirements.Submit required documentation and undergo the verification process to achieve B Corp certification",
+            significanceTitle: translationData["Why is it important?"],
+            planOfActionTitle: translationData["What will We do?"],
+          });
+        } else if (
+          data[0].title === "<p>Marketing &amp; Brand Development</p>"
+        ) {
+          setProviderData({
+            title: translationData["Marketing & Brand Development"],
+            heading: translationData["Marketing & Brand Development"],
+            content:
+              translationData[
+                "Crafting sustainability-focused brand narratives and websites."
+              ],
+            significanceBgImage: data[0].why_content_image,
+            significance:
+              translationData[
+                "Supply chain mapping is crucial for promoting sustainability and transparency in fashion. It helps brands identify and address environmental and social impacts, leading to eco-friendly practices and greater consumer trust. This visibility into the supply chain enhances accountability by revealing the origins and production processes of products"
+              ],
+            planOfAction:
+              "Review B Corp criteria and assess current practices.Fill out and submit the B Impact Assessment to evaluate social and environmental performance.Adjust policies and operations to meet B Corp requirements.Submit required documentation and undergo the verification process to achieve B Corp certification",
+            significanceTitle: translationData["Why is it important?"],
+            planOfActionTitle: translationData["What will We do?"],
+          });
         }
       }
     }
