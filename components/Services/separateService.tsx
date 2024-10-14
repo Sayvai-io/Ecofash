@@ -10,14 +10,14 @@ import { useSelector } from "react-redux";
 import ServiceContent from "./ServiceContent";
 import { useDispatch } from "react-redux";
 import { setTitle } from "../../store/userSlice";
-
+import translationData from "../../app/store/translation.json";
 
 const SeparateService = () => {
   const pathname = usePathname();
   const [hasMounted, setHasMounted] = useState(false);
   const router = useRouter();
   const isInitialRender = useRef(true);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [serviceProviderData, setProviderData] = useState<{
     title: string;
@@ -29,8 +29,10 @@ const SeparateService = () => {
     significanceTitle: "";
     planOfActionTitle: "";
   }>();
-  const title=useSelector((state:any)=>state.language.title)
-  const [serviceTitle,setServiceTitle]=useState<any[]>([]);
+  const title = useSelector((state: any) => state.language.title);
+  const language = useSelector((state: any) => state.language.language);
+
+  const [serviceTitle, setServiceTitle] = useState<any[]>([]);
 
   const sanitizeHTML = (html: string) => {
     // {{ edit_2 }}
@@ -47,38 +49,51 @@ const SeparateService = () => {
     if (error) {
       console.error("Error fetching service data details:", error);
     } else {
-      setProviderData({
-        title: data[0].title,
-        heading: data[0].heading,
-        content: data[0].content,
-        significanceBgImage: data[0].why_content_image,
-        significance: data[0].significance,
-        planOfAction: data[0].plan_of_action,
-        significanceTitle: data[0].significance_title,
-        planOfActionTitle: data[0].plan_of_action_title,
-      });
+      if (language === "en") {
+        setProviderData({
+          title: data[0].title,
+          heading: data[0].heading,
+          content: data[0].content,
+          significanceBgImage: data[0].why_content_image,
+          significance: data[0].significance,
+          planOfAction: data[0].plan_of_action,
+          significanceTitle: data[0].significance_title,
+          planOfActionTitle: data[0].plan_of_action_title,
+        });
+      } else {
+        if (data[0].title == "<p>Cost-Effective Solutions</p>") {
+          setProviderData({
+            title: translationData["Cost-Effective Solutions"],
+            heading: data[0].heading,
+            content: data[0].content,
+            significanceBgImage: data[0].why_content_image,
+            significance: data[0].significance,
+            planOfAction: data[0].plan_of_action,
+            significanceTitle: data[0].significance_title,
+            planOfActionTitle: data[0].plan_of_action_title,
+          });
+        }
+      }
     }
   };
   const fetchServices = async () => {
     const { data, error } = await supabase
       .from("service_provided")
       .select("title");
-  
+
     if (error) {
       console.error("Error fetching service details:", error.message);
     } else {
-        setServiceTitle(data)
+      setServiceTitle(data);
     }
   };
 
   useEffect(() => {
-    fetchServices()
-    if (isInitialRender.current) {
-      fetchProviderData();
-      isInitialRender.current = false;
-      setHasMounted(true);
-    }
-  }, []);
+    fetchServices();
+    fetchProviderData();
+
+    setHasMounted(true);
+  }, [language]);
 
   if (!hasMounted) {
     return null;
@@ -92,7 +107,6 @@ const SeparateService = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-
 
   const ServiceLink = ({ href, children }) => {
     const isActive = pathname === href;
@@ -109,9 +123,9 @@ const SeparateService = () => {
     );
   };
 
-    const handleTitle=(title)=>{
-        dispatch(setTitle(title))
-    }
+  const handleTitle = (title) => {
+    dispatch(setTitle(title));
+  };
 
   return (
     <>
@@ -163,14 +177,18 @@ const SeparateService = () => {
                   Services
                 </h2>
                 <ul className="space-y-4">
-                    {serviceTitle.map((service, index) => (
-                        <li 
-                            key={index} 
-                            onClick={()=>handleTitle(service.title)}
-                            className={`cursor-pointer ${title === service.title ? "text-[#609641]" : "text-gray-600"} border-b-2 border-gray-200 pb-4 font-semibold`}
-                            dangerouslySetInnerHTML={sanitizeHTML(service.title)} // {{ edit_1 }}: Added sanitizeHTML to service.title
-                        />
-                    ))}
+                  {serviceTitle.map((service, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleTitle(service.title)}
+                      className={`cursor-pointer ${
+                        title === service.title
+                          ? "text-[#609641]"
+                          : "text-gray-600"
+                      } border-b-2 border-gray-200 pb-4 font-semibold`}
+                      dangerouslySetInnerHTML={sanitizeHTML(service.title)} // {{ edit_1 }}: Added sanitizeHTML to service.title
+                    />
+                  ))}
                   {/* <li>
                     <ServiceLink href="/service/supply-chain-mapping">
                       Supply Chain Mapping
@@ -255,7 +273,7 @@ const SeparateService = () => {
             </div>
 
             {/* Right side content */}
-            <ServiceContent/>
+            <ServiceContent />
           </div>
         </div>
       </section>

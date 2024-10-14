@@ -9,8 +9,6 @@ import { useSelector } from "react-redux";
 import translationData from "../../app/store/translation.json";
 import Address from "./address";
 
-import { useSelector } from "react-redux";
-import translationData from "../../app/store/translation.json";
 const Contact = () => {
   const [hasMounted, setHasMounted] = useState(false);
   const language = useSelector((state: any) => state.language.language);

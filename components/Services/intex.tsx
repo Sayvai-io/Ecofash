@@ -1,13 +1,14 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import { supabase } from "../../supabase_config/supabaseClient";
 import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTitle } from "../../store/userSlice";
+import translationData from "../../app/store/translation.json";
 
 // First, let's define the ServiceCard component
 const ServiceCard = ({
@@ -30,49 +31,49 @@ const ServiceCard = ({
     : "bg-white shadow-[0_0_15px_rgba(96,150,65,0.5)]";
 
   const handleClick = () => {
-    router.push('/service/separate-services')  
+    router.push("/service/separate-services");
   };
 
   return (
     // <Link className="block">
-      <div
-        onClick={handleClick}
-        className={`relative mx-auto flex h-[350px] w-[400px] items-center justify-center overflow-hidden rounded-lg p-4 transition-transform hover:scale-105 md:w-[390px] lg:w-[500px]  ${cardStyle}`}
-      >
-        {bg_image && (
-          <>
-            <Image
-              src={bg_image}
-              alt={title}
-              layout="fill"
-              objectFit="cover"
-              className="absolute inset-0 z-0"
-            />
-            <div className="absolute inset-0 z-10 bg-black opacity-50"></div>
-          </>
+    <div
+      onClick={handleClick}
+      className={`relative mx-auto flex h-[350px] w-[400px] items-center justify-center overflow-hidden rounded-lg p-4 transition-transform hover:scale-105 md:w-[390px] lg:w-[500px]  ${cardStyle}`}
+    >
+      {bg_image && (
+        <>
+          <Image
+            src={bg_image}
+            alt={title}
+            layout="fill"
+            objectFit="cover"
+            className="absolute inset-0 z-0"
+          />
+          <div className="absolute inset-0 z-10 bg-black opacity-50"></div>
+        </>
+      )}
+
+      <div className="relative z-20 w-full max-w-xs p-2 text-[#609641]">
+        {icon && (
+          <div className="mb-4 mt-4">
+            <Image src={icon} alt={`${title} Icon`} width={40} height={40} />
+          </div>
         )}
 
-        <div className="relative z-20 w-full max-w-xs p-2 text-[#609641]">
-          {icon && (
-            <div className="mb-4 mt-4">
-              <Image src={icon} alt={`${title} Icon`} width={40} height={40} />
-            </div>
-          )}
-
-          <h3
-            className={`mb-4 text-2xl font-bold ${
-              bg_image ? "text-white" : "text-[#609641]"
-            }`}
-            dangerouslySetInnerHTML={sanitizeHTML(title)}
-          />
-          <p
-            className={`mb-4 text-sm ${
-              bg_image ? "text-white" : "text-gray-700"
-            }`}
-            dangerouslySetInnerHTML={sanitizeHTML(content)}
-          />
-        </div>
+        <h3
+          className={`mb-4 text-2xl font-bold ${
+            bg_image ? "text-white" : "text-[#609641]"
+          }`}
+          dangerouslySetInnerHTML={sanitizeHTML(title)}
+        />
+        <p
+          className={`mb-4 text-sm ${
+            bg_image ? "text-white" : "text-gray-700"
+          }`}
+          dangerouslySetInnerHTML={sanitizeHTML(content)}
+        />
       </div>
+    </div>
     // </Link>
   );
 };
@@ -83,6 +84,7 @@ const sanitizeHTML = (htmlContent) => {
 const Home = () => {
   const [hasMounted, setHasMounted] = React.useState(false);
   const isInitialRender = React.useRef(true);
+  const language = useSelector((state: any) => state.language.language);
   const router = useRouter();
   const [servicesData, setServiceData] = React.useState<
     {
@@ -112,12 +114,12 @@ const Home = () => {
   });
   const dispatch = useDispatch();
 
-
   const fetchServiceDataDetails = async () => {
     const { data, error } = await supabase.from("service_provided").select("*");
     if (error) {
       console.error("Error fetching service data details:", error);
     } else {
+      console.log(data);
       setServiceData(data);
       data.forEach((servData) => {
         let sampleData = {
@@ -178,7 +180,6 @@ const Home = () => {
             bgImage: servData.bg_image,
           };
         }
-        
 
         setServiceData((prevData) => [...prevData, sampleData]);
       });
@@ -192,33 +193,82 @@ const Home = () => {
     } else {
       const serviceData = data[0]; // Assuming you only need the first row
       setServiceDetails({
-        serviceHeading: serviceData.service_heading,
-        serviceContent: serviceData.service_content,
+        serviceHeading:
+          language === "en"
+            ? serviceData.service_heading
+            : translationData["Guiding Brands to a Greener Future"],
+        serviceContent:
+          language === "en"
+            ? serviceData.service_content
+            : translationData[
+                "Ecofash Services emerged from a deep commitment to revolutionize the fashion industry, placing sustainability and ethics at the forefront of our mission. What began as a small initiative driven by passion and a vision for change quickly evolved into"
+              ],
         serviceImage: serviceData.service_image,
-        yearsOfExperienceTitle: serviceData.years_of_experience_title,
+
+        yearsOfExperienceTitle:
+          language === "en"
+            ? serviceData.years_of_experience_title
+            : translationData["Years of Experience"],
+
         yearsOfExperience: serviceData.years_of_experience,
-        satisfiedClientsTitle: serviceData.satisfied_clients_title,
+
+        satisfiedClientsTitle:
+          language === "en"
+            ? serviceData.satisfied_clients_title
+            : translationData["Satisfied Clients"],
+
         satisfiedClients: serviceData.satisfied_clients,
-        serviceProvidedTitle: serviceData.services_provided_title,
+
+        serviceProvidedTitle:
+          language === "en"
+            ? serviceData.services_provided_title
+            : translationData["Services Provided"],
+
         serviceProvided: serviceData.services_provided,
-        businessPortfolioTitle: serviceData.business_portfolios_title,
+
+        businessPortfolioTitle:
+          language === "en"
+            ? serviceData.business_portfolios_title
+            : translationData["Business Portfolios"],
+
         businessPortfolio: serviceData.business_portfolios,
-        collectionHeading: serviceData.collection_heading,
-        collectionContent: serviceData.collection_content,
+
+        collectionHeading:
+          language === "en"
+            ? serviceData.collection_heading
+            : translationData["Let’s see a collection of our Works"],
+
+        collectionContent:
+          language === "en"
+            ? serviceData.collection_content
+            : translationData[
+                "Discover a curated collection of our work, showcasing our expertise in driving sustainability and transforming businesses. Our portfolio highlights successful projects across various industries, demonstrating our commitment to environmental and social responsibility."
+              ],
+
         collectionImage: serviceData.collection_image,
-        serviceProvidedHeading: serviceData.service_provided_heading,
+
+        serviceProvidedHeading:
+          language === "en"
+            ? serviceData.service_provided_heading
+            : translationData[
+                "Sustainable Strategy, Ethical Supply Chains, Fashion Innovation"
+              ],
       });
     }
   };
-
   React.useEffect(() => {
-    if (isInitialRender.current) {
-      fetchServiceDetails();
-      fetchServiceDataDetails();
-      isInitialRender.current = false;
-      setHasMounted(true);
-    }
-  }, []);
+    fetchServiceDetails();
+    fetchServiceDataDetails();
+    setHasMounted(true);
+  }, [language]);
+  // React.useEffect(() => {
+  //   if (isInitialRender.current) {
+  //     fetchServiceDetails();
+  //     fetchServiceDataDetails();
+  //     isInitialRender.current = false;
+  //     setHasMounted(true);
+  //   }
+  // }, []);
 
   if (!hasMounted) {
     return null;
@@ -245,9 +295,9 @@ const Home = () => {
     }
   };
 
-  const handleTitle=(title)=>{
-    dispatch(setTitle(title))
-  }
+  const handleTitle = (title) => {
+    dispatch(setTitle(title));
+  };
 
   return (
     <>
@@ -273,7 +323,10 @@ const Home = () => {
             onClick={handleMakeACallClick}
             className="flex items-center text-black hover:underline"
           >
-            Our Services <FaArrowRight className="ml-2" />
+            {language === "en"
+              ? "Our Services"
+              : translationData["Our Services"]}{" "}
+            <FaArrowRight className="ml-2" />
           </button>
         </div>
       </div>
@@ -372,7 +425,10 @@ const Home = () => {
           {/* Set to 1 column for specified range */}
           {servicesData?.map((service, index) => (
             <div key={service.title + index} className="flex justify-center">
-              <div className="cursor-pointer w-full !p-4" onClick={() => handleTitle(service.title)}>
+              <div
+                className="w-full cursor-pointer !p-4"
+                onClick={() => handleTitle(service.title)}
+              >
                 <ServiceCard {...service} />
               </div>
             </div>

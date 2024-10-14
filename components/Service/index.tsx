@@ -52,7 +52,7 @@ const Services = () => {
               {language === "en" ? "We Offer" : translationData["We Offer"]}
             </span>
           </h2>
-          <div className="cursor-pointer flex flex-wrap justify-center">
+          <div className="flex cursor-pointer flex-wrap justify-center">
             {ServicesDetails.servicesimage && (
               <div className="relative m-2 h-[300px] w-[250px]">
                 <Image
