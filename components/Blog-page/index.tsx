@@ -147,9 +147,23 @@ const BlogDetailpage = () => {
           console.error("Error fetching blog details:", error);
           setError("Blog not found");
         } else {
-          setTitle(language === "en" ? data.title : translationData[data.title] || data.title);
-          setContent(language === "en" ? data.content : translationData[data.content] || data.content);
-          setTags(data.tags.map((tag: string) => language === "en" ? tag : translationData[tag] || tag));
+          setTitle(
+            language === "en"
+              ? data.title
+              : translationData[data.title] || data.title,
+          );
+          setContent(
+            language === "en"
+              ? data.content
+              : translationData[
+                  "Ecofash is dedicated to transforming the fashion industry through innovative, sustainable solutions prioritising environmental and social responsibility. With a core focus on educating the fashion supply chain about cost-effective and eco-friendly practices, we ensure brands, buying houses, and manufacturers achieve sustainability without compromising profitability or ethical standards. Our Key Services Include Fractional Chief Sustainability Officer (CSO): Offering part-time strategic advice on sustainability and ESG issues, allowing businesses to access top-level insights without the cost of a full-time hire. Sustainability Strategy & Implementation: From supply chain mapping to decarbonization, circular economy solutions, and responsible chemical management, we help clients achieve their sustainability goals efficiently. Certification & Compliance: We assist brands in aligning with global sustainability standards such as GRI, SASB, Ecovadis, and Higg, providing comprehensive reporting and performance improvements. Outsourcing & Communication: We manage all aspects of sustainability for clients, including external communication with buyers and stakeholders, ensuring seamless integration of sustainability efforts. Training & Capacity Building: Educating and empowering teams and supply chain partners to implement and uphold sustainable practices. Marketing & Brand Development: Crafting compelling sustainability narratives and building eco-friendly brand identities through strategic storytelling and website development. Cost-Effective Solutions: From securing green funding to offering affordable audit services, we make sustainability accessible and financially viable. Join us in redefining fashion with sustainability at its core. Together, we can build a future where profitability and planet-conscious practices coexist. Let's connect and explore how we can make a lasting impact. Website https://ecofash.life/ Phone 008615384141861Phone number is 008615384141861 Industry Operations Consulting Company size 11-50 employees 1 associated member LinkedIn members who’ve listed EcoFash as their current workplace on their profile. Headquarters Shaoxing, Zhejiang Founded 2023"
+                ] || data.content,
+          );
+          setTags(
+            data.tags.map((tag: string) =>
+              language === "en" ? tag : translationData[tag] || tag,
+            ),
+          );
           setImagePreview(data.image_url);
         }
         setIsLoading(false);
@@ -159,8 +173,18 @@ const BlogDetailpage = () => {
     fetchBlog();
   }, [id, language]);
 
-  if (isLoading) return <div>{language === "en" ? "Loading..." : translationData["Loading..."] || "Loading..."}</div>;
-  if (error) return <div>{language === "en" ? error : translationData[error] || error}</div>;
+  if (isLoading)
+    return (
+      <div>
+        {language === "en"
+          ? "Loading..."
+          : translationData["Loading..."] || "Loading..."}
+      </div>
+    );
+  if (error)
+    return (
+      <div>{language === "en" ? error : translationData[error] || error}</div>
+    );
 
   return (
     <>
@@ -189,7 +213,9 @@ const BlogDetailpage = () => {
         {tags.length > 0 && (
           <div className="mt-4 px-4 sm:px-8 md:px-12 lg:px-50">
             <h2 className="text-lg font-semibold">
-              {language === "en" ? "Tags:" : translationData["Tags:"] || "Tags:"}
+              {language === "en"
+                ? "Tags:"
+                : translationData["Tags:"] || "Tags:"}
             </h2>
             <div className="mt-2 flex flex-wrap">
               {tags.map((tag: string) => (
