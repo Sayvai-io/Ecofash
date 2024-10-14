@@ -87,7 +87,7 @@ const Home = () => {
   const [servicesData, setServiceData] = React.useState<
     {
       title: string;
-      description: string;
+      content: string;
       link: string;
       bgImage: string;
       icon: string;
@@ -122,7 +122,7 @@ const Home = () => {
       data.forEach((servData) => {
         let sampleData = {
           title: "",
-          description: "",
+          content: "",
           link: "",
           bgImage: "",
           icon: "",
@@ -130,7 +130,7 @@ const Home = () => {
         if (servData.title == "Freelance CSO") {
           sampleData = {
             title: servData.title,
-            description: servData.content,
+            content: servData.content,
             link: "/service/b-corp-certification",
             icon: "/images/service/Bcorp.png",
             bgImage: servData.bg_image,
@@ -138,7 +138,7 @@ const Home = () => {
         } else if (servData.title == "Sustainability Outsourcing") {
           sampleData = {
             title: servData.title,
-            description: servData.content,
+            content: servData.content,
             link: "/service/sustainability-outsourcing",
             icon: "/images/service/Oursource.png",
             bgImage: servData.bg_image,
@@ -146,7 +146,7 @@ const Home = () => {
         } else if (servData.title == "Circular Economy Implementation") {
           sampleData = {
             title: servData.title,
-            description: servData.content,
+            content: servData.content,
             link: "/service/circular-economy-implementation",
             icon: "/images/service/circular.png",
             bgImage: servData.bg_image,
@@ -154,7 +154,7 @@ const Home = () => {
         } else if (servData.title == "Sustainable Supply Chain Mapping") {
           sampleData = {
             title: servData.title,
-            description: servData.content,
+            content: servData.content,
             link: "/service/supply-chain-mapping",
             icon: "/images/service/Chainmapping.png",
             bgImage: servData.bg_image,
@@ -162,7 +162,7 @@ const Home = () => {
         } else if (servData.title == "Carbon Neutral Planning") {
           sampleData = {
             title: servData.title,
-            description: servData.content,
+            content: servData.content,
             link: "/service/carbon-neutral-planning",
             icon: "/images/service/carbo.png",
             bgImage: servData.bg_image,
@@ -172,7 +172,7 @@ const Home = () => {
         ) {
           sampleData = {
             title: servData.title,
-            description: servData.content,
+            content: servData.content,
             link: "/service/other-services",
             icon: "/images/service/other.png",
             bgImage: servData.bg_image,
