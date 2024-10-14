@@ -166,7 +166,7 @@ const SeparateService = () => {
                     {serviceTitle.map((service, index) => (
                         <li 
                             key={index} 
-                            onClick={() => handleTitle(service.title)}
+                            onClick={()=>handleTitle(service.title)}
                             className={`cursor-pointer ${title === service.title ? "text-[#609641]" : "text-gray-600"} border-b-2 border-gray-200 pb-4 font-semibold`}
                             dangerouslySetInnerHTML={sanitizeHTML(service.title)} // {{ edit_1 }}: Added sanitizeHTML to service.title
                         />
@@ -255,7 +255,7 @@ const SeparateService = () => {
             </div>
 
             {/* Right side content */}
-            <ServiceContent title={title}/>
+            <ServiceContent/>
           </div>
         </div>
       </section>

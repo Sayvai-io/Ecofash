@@ -2,13 +2,12 @@ import React,{useState,useEffect} from 'react';
 import DOMPurify from "dompurify";
 import { supabase } from "../../supabase_config/supabaseClient";
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
-interface title{
-    title:string;
-}
 
-const ServiceContent=({title})=> {
 
+const ServiceContent=()=> {
+    const title=useSelector((state:any)=>state.language.title)
     const [serviceProviderData, setProviderData] = useState<{
         title: string;
         heading: "";
@@ -22,7 +21,7 @@ const ServiceContent=({title})=> {
 
     useEffect(() => {
         fetchData();
-    })
+    },[title])
 
     const fetchData= async () => {
         const { data, error } = await supabase
