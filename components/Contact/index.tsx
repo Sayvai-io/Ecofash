@@ -5,11 +5,13 @@ import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { supabase } from "../../supabase_config/supabaseClient";
 import DOMPurify from "dompurify";
+import { useSelector } from "react-redux";
+import translationData from "../../app/store/translation.json";
 import Address from "./address";
 
 const Contact = () => {
   const [hasMounted, setHasMounted] = useState(false);
-
+  const language = useSelector((state: any) => state.language.language);
   const [contactDetails, setContactDetails] = useState({
     title: "",
     subquotes: "",
@@ -29,14 +31,36 @@ const Contact = () => {
     } else {
       const contactData = data[0]; // Assuming you only need the first row
       setContactDetails({
-        title: contactData.title,
-        subquotes: contactData.subquotes,
+        title:
+          language === "en"
+            ? contactData.title
+            : translationData["We’d Love to Hear From You"],
+        subquotes:
+          language === "en"
+            ? contactData.subquotes
+            : translationData["Reach out for any assistance or information."],
         bgImage: contactData.bg_image,
-        contactTitle: contactData.contact_title,
-        contactContent: contactData.contact_content,
+        contactTitle:
+          language === "en"
+            ? contactData.contact_title
+            : translationData["Talk To Us"],
+        contactContent:
+          language === "en"
+            ? contactData.contact_content
+            : translationData[
+                "Got a question or assistance? We're here to help! Whether you have an inquiry, need support, or just want to share your thoughts, feel free to get in touch."
+              ],
         contactPhone: contactData.contact_phone,
-        emailTitle: contactData.email_title,
-        emailContent: contactData.email_content,
+        emailTitle:
+          language === "en"
+            ? contactData.email_title
+            : translationData["Email your queries"],
+        emailContent:
+          language === "en"
+            ? contactData.email_content
+            : translationData[
+                "Got a question or assistance? We're here to help! Whether you have an inquiry, need support, or just want to share your thoughts, feel free to get in touch."
+              ],
         email: contactData.email,
       });
     }
@@ -44,7 +68,7 @@ const Contact = () => {
   useEffect(() => {
     setHasMounted(true);
     fecthContactDetails();
-  }, []);
+  }, [language]);
   if (!hasMounted) {
     return null;
   }
@@ -162,7 +186,9 @@ const Contact = () => {
             {/* Right Side - Contact Form */}
             <div className="flex flex-col justify-center md:w-1/2">
               <h1 className="mb-4 text-4xl font-bold text-black">
-                Contact <span className="text-[#609641]">Us</span>
+                {language === "en"
+                  ? "Contact Us"
+                  : translationData["Contact Us"]}
               </h1>
               <form className="flex flex-col space-y-4">
                 <input
@@ -197,7 +223,9 @@ const Contact = () => {
                   type="submit"
                   className="flex h-10 w-50 items-center justify-center rounded-md bg-[#F9C06A] px-4 py-4 text-[15px] text-black transition-colors"
                 >
-                  Send Us An Email
+                  {language === "en"
+                    ? "Send Us An Email"
+                    : translationData["Send Us An Email"]}
                 </button>
               </form>
             </div>

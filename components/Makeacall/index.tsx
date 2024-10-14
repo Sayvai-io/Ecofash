@@ -5,6 +5,8 @@ import PhoneInput, { PhoneInputProps } from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "./customPhoneInput.css"; // Your custom styles
 import { PhoneIcon } from "@heroicons/react/24/solid"; // Add this import
+import { useSelector } from "react-redux";
+import translationData from "../../app/store/translation.json";
 
 // Step 1: Define the extended type and custom component
 interface ExtendedPhoneInputProps extends PhoneInputProps {
@@ -16,6 +18,7 @@ const CustomPhoneInput: React.FC<ExtendedPhoneInputProps> = (props) => {
 };
 
 const Makeacall = () => {
+  const language = useSelector((state: any) => state.language.language);
   const [phone, setPhone] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -61,13 +64,31 @@ const Makeacall = () => {
             <div className="dark:bg-dark mx-auto max-w-[500px] rounded-lg border border-gray-200 bg-white px-6 py-6 shadow-lg dark:border-gray-700 dark:shadow-gray-800 sm:p-[60px]">
               <div className="mb-3 flex items-center justify-center">
                 <PhoneIcon className="mr-2 h-8 w-8 text-[#609641]" />
-                <h3 className="text-center text-4xl font-bold text-black dark:text-white sm:text-4xl">
-                  Request a <span className="text-[#609641]">Call</span>
-                </h3>
+                {language === "en" && (
+                  <h3 className="text-center text-4xl font-bold text-black dark:text-white sm:text-4xl">
+                    Request a <span className="text-[#609641]">Call</span>
+                  </h3>
+                )}
+                {language !== "en" && (
+                  <h3 className="text-center text-4xl font-bold text-black dark:text-white sm:text-4xl">
+                    {translationData["Request a Call"]}
+                  </h3>
+                )}
               </div>
-              <p className="text-body-color mb-11 text-center text-base font-medium">
-                Feel the state-of-the-art Voice Interaction
-              </p>
+              {language == "en" && (
+                <p className="text-body-color mb-11 text-center text-base font-medium">
+                  Feel the state-of-the-art Voice Interaction
+                </p>
+              )}
+              {language != "en" && (
+                <p className="text-body-color mb-11 text-center text-base font-medium">
+                  {
+                    translationData[
+                      "Feel the state-of-the-art Voice Interaction"
+                    ]
+                  }
+                </p>
+              )}
 
               <form onSubmit={handleSubmit}>
                 <div className="group mb-8">
@@ -120,7 +141,9 @@ const Makeacall = () => {
 
                 <div className="flex items-center justify-center">
                   <button className="flex items-center justify-center rounded-xl bg-[#609641] px-6 py-3 text-base font-bold text-white transition duration-300 ease-in-out hover:bg-[#4d7a34]">
-                    Request a Call
+                    {language === "en"
+                      ? "Request a Call"
+                      : translationData["Request a Call"]}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
