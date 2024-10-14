@@ -48,7 +48,7 @@ const Services = () => {
             </span>
             <span className="ml-2 text-black">We Offer</span>
           </h2>
-          <div className="flex flex-wrap justify-center">
+          <div className="cursor-pointer flex flex-wrap justify-center">
             {ServicesDetails.servicesimage && (
               <div className="relative m-2 h-[300px] w-[250px]">
                 <Image

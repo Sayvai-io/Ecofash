@@ -164,7 +164,11 @@ const SeparateService = () => {
                 </h2>
                 <ul className="space-y-4">
                     {serviceTitle.map((service, index) => (
-                        <li key={index} onClick={()=>handleTitle(service.title)}>
+                        <li 
+                            key={index} 
+                            onClick={() => handleTitle(service.title)}
+                            className={`cursor-pointer ${title === service.title ? "text-[#609641]" : "text-gray-600"} border-b-2 border-gray-200 pb-4 font-semibold`}
+                        >
                             {service.title}
                         </li>
                     ))}

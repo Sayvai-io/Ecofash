@@ -374,7 +374,7 @@ const Home = () => {
           {/* Set to 1 column for specified range */}
           {servicesData?.map((service, index) => (
             <div key={service.title + index} className="flex justify-center">
-              <div className="w-full !p-4" onClick={()=>handleTitle(service.title)}>
+              <div className="cursor-pointer w-full !p-4" onClick={() => handleTitle(service.title)}>
                 <ServiceCard {...service} />
               </div>
             </div>
