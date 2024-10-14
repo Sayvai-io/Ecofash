@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { supabase } from "../../supabase_config/supabaseClient";
 import DOMPurify from "dompurify";
+import { useSelector } from "react-redux";
+import translationData from "../../app/store/translation.json";
 import Address from "./address";
 
 import { useSelector } from "react-redux";
