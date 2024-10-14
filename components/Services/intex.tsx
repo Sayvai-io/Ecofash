@@ -1,39 +1,48 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import { supabase } from "../../supabase_config/supabaseClient";
 import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setTitle } from "../../store/userSlice";
 
 // First, let's define the ServiceCard component
 const ServiceCard = ({
   title,
-  description,
+  content,
   link,
-  bgImage,
+  bg_image,
   icon,
 }: {
   title: string;
-  description: string;
+  content: string;
   link: string;
-  bgImage?: string;
+  bg_image?: string;
   icon?: string;
 }) => {
-  const cardStyle = bgImage
+  const router = useRouter();
+
+  const cardStyle = bg_image
     ? "bg-cover bg-center"
     : "bg-white shadow-[0_0_15px_rgba(96,150,65,0.5)]";
 
+  const handleClick = () => {
+    router.push('/service/separate-services')  
+  };
+
   return (
-    <Link href={link} className="block">
+    // <Link className="block">
       <div
+        onClick={handleClick}
         className={`relative mx-auto flex h-[350px] w-[400px] items-center justify-center overflow-hidden rounded-lg p-4 transition-transform hover:scale-105 md:w-[390px] lg:w-[500px]  ${cardStyle}`}
       >
-        {bgImage && (
+        {bg_image && (
           <>
             <Image
-              src={bgImage}
+              src={bg_image}
               alt={title}
               layout="fill"
               objectFit="cover"
@@ -52,78 +61,27 @@ const ServiceCard = ({
 
           <h3
             className={`mb-4 text-2xl font-bold ${
-              bgImage ? "text-white" : "text-[#609641]"
+              bg_image ? "text-white" : "text-[#609641]"
             }`}
           >
             {title}
           </h3>
           <p
             className={`mb-4 text-sm ${
-              bgImage ? "text-white" : "text-gray-700"
+              bg_image ? "text-white" : "text-gray-700"
             }`}
           >
-            {description}
+            {content}
           </p>
         </div>
       </div>
-    </Link>
+    // </Link>
   );
 };
 const sanitizeHTML = (htmlContent) => {
   return { __html: DOMPurify.sanitize(htmlContent) };
 };
 
-// Now, let's define the services data
-
-// const servicesData = [
-//   {
-//     title: "Sustainable Supply Chain Mapping",
-//     description:
-//       "We help you map your entire supply chain to identify areas where sustainability can be improved. Our experts work closely with you to ensure every step of your supply chain is optimized for environmental responsibility.",
-//     link: "/service/supply-chain-mapping",
-//     bgImage: "/images/service/chain.png",
-//     icon: "/images/service/Chainmapping.png",
-//   },
-//   {
-//     title: "B Corp Certification",
-//     description:
-//       "At Ecofash Services, we offer comprehensive guidance through the certification process, helping you understand and meet the rigorous standards required. Our team of experts will assist you in evaluating and improving your social and environmental practices, ensuring your business not only meets but exceeds B Corp criteria.",
-//     link: "/service/b-corp-certification",
-//     icon: "/images/service/Bcorp.png",
-//   },
-//   {
-//     title: "Carbon Neutral Planning",
-//     description:
-//       "Achieve carbon neutrality with our comprehensive planning services. We start by assessing your current carbon footprint, evaluating emissions throughout your supply chain. Based on this assessment, we create a customized plan to reduce and offset emissions, including energy efficiency improvements and sustainable practices.",
-//     link: "/service/carbon-neutral-planning",
-//     icon: "/images/service/carbo.png",
-//   },
-//   {
-//     title: "Circular Economy Implementation",
-//     description:
-//       "Transition to a circular economy with our expert guidance. We help you implement systems that minimize waste, enhance recycling practices, and integrate sustainability into every aspect of your business operations.",
-//     link: "/service/circular-economy-implementation",
-//     bgImage: "/images/service/circulareconomy.png",
-//     icon: "/images/service/circular.png",
-//   },
-//   {
-//     title: "Sustainability Outsourcing",
-//     bgImage: "/images/service/OUtsourcing.png",
-//     description:
-//       "Outsource your sustainability needs to us and benefit from cost savings on maintaining an in-house team. We offer a full range of services, including sustainability reporting, sustainable material sourcing, and strategy development.",
-//     link: "/service/sustainability-outsourcing",
-//     icon: "/images/service/Oursource.png",
-//   },
-//   {
-//     title: "Other Services",
-//     description:
-//       "In addition to our core services, we offer Sustainability Communication to effectively share your environmental efforts, Training and Capacity Building to empower your team with essential skills, Green Funding Assistance to help you secure financial support for sustainability projects, and ESG Reporting.",
-//     link: "/service/other-services",
-//     icon: "/images/service/other.png",
-//   },
-// ];
-
-// Main Home component
 const Home = () => {
   const [hasMounted, setHasMounted] = React.useState(false);
   const isInitialRender = React.useRef(true);
@@ -154,13 +112,15 @@ const Home = () => {
     collectionImage: "",
     serviceProvidedHeading: "",
   });
+  const dispatch = useDispatch();
+
 
   const fetchServiceDataDetails = async () => {
     const { data, error } = await supabase.from("service_provided").select("*");
     if (error) {
       console.error("Error fetching service data details:", error);
     } else {
-      setServiceData([]);
+      setServiceData(data);
       data.forEach((servData) => {
         let sampleData = {
           title: "",
@@ -220,9 +180,11 @@ const Home = () => {
             bgImage: servData.bg_image,
           };
         }
+        
 
         setServiceData((prevData) => [...prevData, sampleData]);
       });
+      setServiceData(data);
     }
   };
   const fetchServiceDetails = async () => {
@@ -284,6 +246,11 @@ const Home = () => {
       });
     }
   };
+
+  const handleTitle=(title)=>{
+    dispatch(setTitle(title))
+  }
+
   return (
     <>
       <div className="mx-auto mb-80 flex max-w-full flex-col items-center justify-between px-4 md:max-w-7xl md:flex-row md:px-8">
@@ -407,7 +374,7 @@ const Home = () => {
           {/* Set to 1 column for specified range */}
           {servicesData?.map((service, index) => (
             <div key={service.title + index} className="flex justify-center">
-              <div className="w-full !p-4">
+              <div className="cursor-pointer w-full !p-4" onClick={() => handleTitle(service.title)}>
                 <ServiceCard {...service} />
               </div>
             </div>
