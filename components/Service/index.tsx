@@ -12,6 +12,9 @@ const Services = () => {
 
   const [ServicesDetails, setServicesDetails] = useState({
     servicesimage: "",
+    service_image1: "",
+    service_image2: "",
+    service_image3: "",
   });
 
   const fetchServicesDetails = async () => {
@@ -22,6 +25,9 @@ const Services = () => {
       const ServicesData = data[0];
       setServicesDetails({
         servicesimage: ServicesData.services_image,
+        service_image1: ServicesData.service_image1,
+        service_image2: ServicesData.service_image2,
+        service_image3: ServicesData.service_image3,
       });
     }
   };
@@ -36,7 +42,7 @@ const Services = () => {
   }
 
   // Define images array here
-  const images = ServicesDetails.servicesimage;
+  const images = [ServicesDetails.servicesimage, ServicesDetails.service_image1, ServicesDetails.service_image2, ServicesDetails.service_image3];
 
   return (
     <>
@@ -60,30 +66,44 @@ const Services = () => {
               </div>
             )}
 
-            <div className="relative m-2 h-[300px] w-[250px]">
-              <Image
-                src="/images/service/Recycle.png"
-                alt="carbon img"
-                layout="fill"
-                className="rounded-[20px] object-cover"
-              />
-            </div>
-            <div className="relative m-2 h-[300px] w-[250px]">
-              <Image
-                src="/images/service/Ecofashservices.png"
-                alt="carbon img"
-                layout="fill"
-                className="rounded-[20px] object-cover"
-              />
-            </div>
-            <div className="relative m-2 h-[300px] w-[250px]">
-              <Image
-                src="/images/service/file.png"
-                alt="carbon img"
-                layout="fill"
-                className="rounded-[20px] object-cover"
-              />
-            </div>
+          {ServicesDetails.service_image1 && (
+              <div className="relative m-2 h-[300px] w-[250px]">
+                <Image
+                  src={ServicesDetails.service_image1}
+                  alt={ServicesDetails.service_image1}
+                  layout="fill"
+                  className="rounded-[20px] object-cover"
+                />
+              </div>
+            )}
+
+          {ServicesDetails.service_image2  && (
+              <div className="relative m-2 h-[300px] w-[250px]">
+                <Image
+                  src={ServicesDetails.service_image2}
+                  alt={ServicesDetails.service_image2}
+                  layout="fill"
+                  className="rounded-[20px] object-cover"
+                />
+              </div>
+            )}
+
+          {ServicesDetails.service_image3 && (
+              <div className="relative m-2 h-[300px] w-[250px]">
+                <Image
+                  src={ServicesDetails.service_image3}
+                  alt={ServicesDetails.service_image3}
+                  layout="fill"
+                  className="rounded-[20px] object-cover"
+                />
+              </div>
+          )}
+
+
+
+
+
+           
           </div>
         </div>
       </section>
