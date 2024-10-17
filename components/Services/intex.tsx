@@ -88,14 +88,14 @@ const Home = () => {
   const router = useRouter();
   const [servicesData, setServiceData] = React.useState<
     {
-      title: string;
-      content: string;
-      link: string;
-      bgImage: string;
-      icon: string;
+      title: any;
+      content: any;
+      link: any;
+      bgImage: any;
+      icon: any;
     }[]
   >([]);
-  const [serviceDetails, setServiceDetails] = React.useState({
+  const [serviceDetails, setServiceDetails] = React.useState<any>({
     serviceHeading: "",
     serviceContent: "",
     serviceImage: "",
@@ -110,6 +110,9 @@ const Home = () => {
     collectionHeading: "",
     collectionContent: "",
     collectionImage: "",
+    collectionImage1: "",
+    collectionImage2: "",
+    collectionImage3: "",
     serviceProvidedHeading: "",
   });
   const dispatch = useDispatch();
@@ -470,24 +473,29 @@ const Home = () => {
           </div>
         )}
 
-        <div className="relative flex justify-center">
-          <Image
-            src="/images/service/OUtsourcing.png"
-            alt="Example Image 2"
-            width={300}
-            height={400} // Height is twice the width
-            className="rounded-lg shadow-lg"
-          />
-        </div>
-        <div className="relative flex justify-center">
-          <Image
-            src="/images/service/chain.png"
-            alt="Example Image 3"
-            width={300}
-            height={400} // Height is twice the width
-            className="rounded-lg shadow-lg"
-          />
-        </div>
+        {serviceDetails.collectionImage1 && (
+          <div className="relative flex justify-center">
+            <Image
+              src={serviceDetails.collectionImage1}
+              alt="Example Image 1"
+              width={300}
+              height={400} // Height is twice the width
+              className="rounded-lg shadow-lg"
+            />
+          </div>
+        )}
+
+        {serviceDetails.collectionImage2 && (
+          <div className="relative flex justify-center">
+            <Image
+              src={serviceDetails.collectionImage2}
+              alt="Example Image 1"
+              width={300}
+              height={400} // Height is twice the width
+              className="rounded-lg shadow-lg"
+            />
+          </div>
+        )}
       </div>
     </>
   );
