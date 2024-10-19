@@ -5,7 +5,9 @@ import Image from "next/image"; // Assuming you're using Next.js
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<{ role: String; content: String }[]>(
+    [],
+  );
   const [inputMessage, setInputMessage] = useState("");
   const [activeButton, setActiveButton] = useState<"comment" | "mic">(
     "comment",
@@ -20,7 +22,7 @@ const ChatWidget = () => {
 
   const handleSendMessage = async () => {
     if (inputMessage.trim()) {
-      setMessages([...messages, inputMessage]);
+      setMessages([...messages, { role: "user", content: inputMessage }]);
 
       try {
         const response = await fetch(
@@ -42,18 +44,21 @@ const ChatWidget = () => {
 
         const data = await response.json();
         console.log(data);
-        const aiMessage = data.choices[0].text.trim();
-
+        const aiMessage = data.choices[0].message.content.trim();
+        console.log(aiMessage);
         // Add the AI response to the chat
-        setMessages((prev) => [...prev, aiMessage]);
+        setMessages((prev) => [...prev, { role: "AI", content: aiMessage }]);
       } catch (error) {
         console.error("Error fetching OpenAI API:", error);
-        setMessages((prev) => [...prev, "Error in getting a response"]);
+        setMessages((prev) => [
+          ...prev,
+          { role: "AI", content: "Error in getting response" },
+        ]);
       }
       setInputMessage("");
-      setTimeout(() => {
-        setMessages((prev) => [...prev, "Thanks for your message!"]);
-      }, 1000);
+      // setTimeout(() => {
+      //   setMessages((prev) => [...prev, "Thanks for your message!"]);
+      // }, 1000);
     }
   };
 
@@ -109,8 +114,21 @@ const ChatWidget = () => {
               </div>
             ) : (
               messages.map((msg, index) => (
-                <div key={index} className="mb-2">
-                  <span className="rounded bg-gray-200 px-2 py-1">{msg}</span>
+                <div
+                  key={index}
+                  className={`mb-2 flex ${
+                    msg.role == "user" ? "justify-end " : "justify-start"
+                  }`}
+                >
+                  <span
+                    className={` rounded  px-2 py-1 ${
+                      msg.role == "user"
+                        ? "bg-[#609641] text-white"
+                        : "bg-gray-200"
+                    }`}
+                  >
+                    {msg.content}
+                  </span>
                 </div>
               ))
             )}
@@ -125,6 +143,7 @@ const ChatWidget = () => {
                     type="text"
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
+                    onKeyDown={handleKeyPress}
                     placeholder="Type your message here..."
                     className="w-full border-b border-stroke bg-transparent pb-3.5 focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white"
                   />
