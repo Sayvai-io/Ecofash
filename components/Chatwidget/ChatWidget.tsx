@@ -23,6 +23,8 @@ const ChatWidget = () => {
   const handleSendMessage = async () => {
     if (inputMessage.trim()) {
       setMessages([...messages, { role: "user", content: inputMessage }]);
+      const currMessage = inputMessage;
+      setInputMessage("");
 
       try {
         const response = await fetch(
@@ -35,7 +37,7 @@ const ChatWidget = () => {
             },
             body: JSON.stringify({
               model: "gpt-3.5-turbo",
-              messages: [{ role: "user", content: inputMessage }],
+              messages: [{ role: "user", content: currMessage }],
               temperature: 0.7,
               max_tokens: 150,
             }),
@@ -55,7 +57,7 @@ const ChatWidget = () => {
           { role: "AI", content: "Error in getting response" },
         ]);
       }
-      setInputMessage("");
+
       // setTimeout(() => {
       //   setMessages((prev) => [...prev, "Thanks for your message!"]);
       // }, 1000);
