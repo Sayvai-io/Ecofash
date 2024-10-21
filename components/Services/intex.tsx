@@ -8,7 +8,7 @@ import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setTitle } from "../../store/userSlice";
-import translationData from "../../app/store/translation.json";
+import translationData from "../../app/store/translation.json"; // {{ edit_1 }}: Ensure translationData is imported
 
 // First, let's define the ServiceCard component
 const ServiceCard = ({
@@ -25,6 +25,7 @@ const ServiceCard = ({
   icon?: string;
 }) => {
   const router = useRouter();
+  const language = useSelector((state: any) => state.language.language); // {{ edit_2 }}: Get the current language
 
   const cardStyle = bg_image
     ? "bg-cover bg-center"
@@ -35,7 +36,6 @@ const ServiceCard = ({
   };
 
   return (
-    // <Link className="block">
     <div
       onClick={handleClick}
       className={`relative mx-auto flex h-[350px] w-[400px] items-center justify-center overflow-hidden rounded-lg p-4 transition-transform hover:scale-105 md:w-[390px] lg:w-[500px]  ${cardStyle}`}
@@ -64,19 +64,23 @@ const ServiceCard = ({
           className={`mb-4 text-2xl font-bold ${
             bg_image ? "text-white" : "text-[#609641]"
           }`}
-          dangerouslySetInnerHTML={sanitizeHTML(title)}
+          dangerouslySetInnerHTML={sanitizeHTML(
+            language === "en" ? title : translationData[title] || title // {{ edit_3 }}: Use translationData for title
+          )}
         />
         <p
           className={`mb-4 text-sm ${
             bg_image ? "text-white" : "text-gray-700"
           }`}
-          dangerouslySetInnerHTML={sanitizeHTML(content)}
+          dangerouslySetInnerHTML={sanitizeHTML(
+            language === "en" ? content : translationData[content] || content // {{ edit_4 }}: Use translationData for content
+          )}
         />
       </div>
     </div>
-    // </Link>
   );
 };
+
 const sanitizeHTML = (htmlContent) => {
   return { __html: DOMPurify.sanitize(htmlContent) };
 };
@@ -189,6 +193,7 @@ const Home = () => {
       setServiceData(data);
     }
   };
+
   const fetchServiceDetails = async () => {
     const { data, error } = await supabase.from("service").select("*");
     if (error) {
@@ -259,35 +264,30 @@ const Home = () => {
       });
     }
   };
+
   React.useEffect(() => {
     fetchServiceDetails();
     fetchServiceDataDetails();
     setHasMounted(true);
   }, [language]);
-  // React.useEffect(() => {
-  //   if (isInitialRender.current) {
-  //     fetchServiceDetails();
-  //     fetchServiceDataDetails();
-  //     isInitialRender.current = false;
-  //     setHasMounted(true);
-  //   }
-  // }, []);
 
   if (!hasMounted) {
     return null;
   }
+  
   const navigateToServices = () => {
     if (hasMounted) {
       router.push("/services");
     }
-    // Change '/contact' to the desired route
   };
+
   const handleMakeACallClick = () => {
     const serviceSection = document.getElementById("serviceSection");
     if (serviceSection) {
       serviceSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   const handleScroll = (targetId) => {
     const targetSection = document.getElementById(targetId);
     if (targetSection) {
@@ -424,8 +424,6 @@ const Home = () => {
           </h2>
         </div>
         <div className="mb-16 grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
-          {" "}
-          {/* Set to 1 column for specified range */}
           {servicesData?.map((service, index) => (
             <div key={service.title + index} className="flex justify-center">
               <div

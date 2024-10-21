@@ -187,7 +187,7 @@ const SeparateService = () => {
                   Services
                 </h2>
                 <ul className="space-y-4">
-                  {serviceTitle.map((service, index) => (
+                  {/* {serviceTitle.map((service, index) => (
                     <li
                       key={index}
                       onClick={() => handleTitle(service.title)}
@@ -197,6 +197,22 @@ const SeparateService = () => {
                           : "text-gray-600"
                       } border-b-2 border-gray-200 pb-4 font-semibold`}
                       dangerouslySetInnerHTML={sanitizeHTML(service.title)} // {{ edit_1 }}: Added sanitizeHTML to service.title
+                    />
+                  ))} */}
+                  {serviceTitle.map((service, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleTitle(service.title)}
+                      className={`cursor-pointer ${
+                        title === service.title
+                          ? "text-[#609641]"
+                          : "text-gray-600"
+                      } border-b-2 border-gray-200 pb-4 font-semibold`}
+                      dangerouslySetInnerHTML={sanitizeHTML(
+                        language === "zh"
+                          ? translationData[service.title] || service.title // {{ edit_1 }}: Use translationData for Chinese titles
+                          : service.title // {{ edit_2 }}: Default to original title
+                      )}
                     />
                   ))}
                   {/* <li>
