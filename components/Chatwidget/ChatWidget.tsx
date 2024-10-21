@@ -69,8 +69,12 @@ const ChatWidget = () => {
 
   const startWebCall = async () => {
     try {
-      // Call your server endpoint to create a web call and get the access token
-      const response = await fetch("/api/create-web-call"); // Ensure this endpoint is correct
+      const response = await fetch("/api/create-web-call", {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       const createCallResponse = await response.json();
 
       // Check if the response contains the access token
