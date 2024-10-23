@@ -633,12 +633,14 @@ const About = () => {
             </div>
 
             <div className="lg:w-1/2">
-              <Image
-                src="/images/about/feature.png"
-                alt="Nature"
-                width={600}
-                height={400}
-              />
+            {AboutDetails.mvimage && (
+                  <Image
+                    src={AboutDetails.mvimage}
+                    alt="Our Mission & Vision"
+                    width={600}
+                    height={400}
+                  />
+                )}
             </div>
           </div>
         </div>
@@ -648,13 +650,14 @@ const About = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-20">
           <div className="flex flex-col items-center gap-12 lg:flex-row">
             <div className="lg:w-1/2">
-              <Image
-                src="/images/about/allies.png"
-                alt="Allies in Sustainable Fashion"
-                width={500}
-                height={333}
-                className="rounded-lg shadow-lg"
-              />
+               {AboutDetails.tcimage && (
+                  <Image
+                    src={AboutDetails.tcimage}
+                    alt="Allies in Sustainable Fashion"
+                    width={500}
+                    height={333}
+                  />
+                )}
             </div>
 
             <div className="lg:w-1/2">

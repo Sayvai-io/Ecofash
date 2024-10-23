@@ -1,17 +1,11 @@
-import { useState, useRef,useEffect } from "react";
+import { useState, useRef } from "react";
 import { FiSend } from "react-icons/fi";
 import { FaComment, FaTimes, FaMicrophone } from "react-icons/fa";
 import Image from "next/image"; // Assuming you're using Next.js
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
-import { RetellWebClient } from "retell-client-js-sdk"; 
-import Retell from 'retell-sdk';
-
-const client = new Retell({
-  apiKey: 'Bearer ed089878-7699-4429-a4b6-341f8679de34',
-});
+import { RetellWebClient } from "retell-client-js-sdk"; // Import Retell SDK
 
 const ChatWidget = () => {
-  const [callId, setCallId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ role: String; content: String }[]>([]);
   const [inputMessage, setInputMessage] = useState("");
@@ -21,14 +15,6 @@ const ChatWidget = () => {
   const [isCallActive, setIsCallActive] = useState(false); // Track call status
 
   const toggleChat = () => setIsOpen(!isOpen);
-
-  useEffect(() => {
-    if (callId) {
-      // Initiate the voice call once the callId is available
-      client.voice.start({ callId });
-      console.log('Voice call started with callId:', callId);
-    }
-  }, [callId]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputMessage(e.target.value);
@@ -81,57 +67,36 @@ const ChatWidget = () => {
     setActiveButton((prev) => (prev === "comment" ? "mic" : "comment"));
   };
 
-  
   const startWebCall = async () => {
-  try {
-    // Directly call the Retell SDK client on the frontend
-    if (retellWebClient?.call?.createWebCall) {
-      const webCallResponse = await retellWebClient.call.createWebCall({
-        agent_id: 'agent_393310f9c5127777604c1077dc',  // Replace with your agent_id
-      });
+    try {
+      // Call your server endpoint to create a web call and get the access token
+      const response = await fetch("/api/create-web-call"); // Replace with your server endpoint
+      const createCallResponse = await response.json();
 
-    console.log("Web Call Response:", webCallResponse);
-
-    // Check if access_token is received
-    if (webCallResponse) {
-      // Start the web call using the access token
+      // Start the call with the access token
       await retellWebClient.startCall({
-        accessToken: webCallResponse.access_token,
+        accessToken: createCallResponse.access_token,
       });
 
+      setIsCallActive(true); // Update call status
       console.log("Call started");
 
       // Listen to call events
       retellWebClient.on("call_started", () => {
-        console.log("Call started event");
+        console.log("Call started");
       });
 
       retellWebClient.on("call_ended", () => {
         console.log("Call ended");
+        setIsCallActive(false);
       });
 
       retellWebClient.on("error", (error) => {
         console.error("An error occurred:", error);
         retellWebClient.stopCall();
       });
-    }else {
-      console.error("No access token received");
-    }
-    } else {
-      console.error("No access token received");
-    }
-  } catch (error) {
-    console.error("Error creating web call:", error);
-  }
-}
-
-  const stopWebCall = async () => {
-    try {
-      await retellWebClient.stopCall();
-      setIsCallActive(false);
-      console.log("Call stopped");
     } catch (error) {
-      console.error("Error stopping web call:", error);
+      console.error("Error starting web call:", error);
     }
   };
 
@@ -151,13 +116,13 @@ const ChatWidget = () => {
                 <div className="absolute right-4 top-4 text-xs">
                   Powered by <span className="font-semibold text-[#609641]">Ecofash</span>
                 </div>
-                <div className="flex flex-col items-center mt-10">
-                  <FaMicrophone className="text-4xl text-[#609641]" />
-                  <button onClick={startWebCall} className="mt-10 bg-green-500 text-white rounded px-2 py-1">Start Call</button>
-                  {isCallActive && (
-                    <button onClick={stopWebCall} className="mt-2 bg-red-500 text-white rounded px-2 py-1">Stop Call</button>
-                  )}
-                </div>
+                <Image
+                  src="/images/chatwidget/sound.png"
+                  alt="Microphone"
+                  width={200}
+                  height={200}
+                  onClick={startWebCall} // Start web call on click
+                />
               </div>
             ) : activeButton === "comment" && messages.length === 0 ? (
               <div className="flex h-full items-center justify-center">
