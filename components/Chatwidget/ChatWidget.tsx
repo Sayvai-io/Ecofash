@@ -1,11 +1,17 @@
-import { useState, useRef } from "react";
+import { useState, useRef,useEffect } from "react";
 import { FiSend } from "react-icons/fi";
 import { FaComment, FaTimes, FaMicrophone } from "react-icons/fa";
 import Image from "next/image"; // Assuming you're using Next.js
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
-import { RetellWebClient } from "retell-client-js-sdk"; // Import Retell SDK
+import { RetellWebClient } from "retell-client-js-sdk"; 
+import Retell, { WebCallResponse } from 'retell-sdk';
+
+const client = new Retell({
+  apiKey: 'Bearer ed089878-7699-4429-a4b6-341f8679de34',
+});
 
 const ChatWidget = () => {
+  const [callId, setCallId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ role: String; content: String }[]>([]);
   const [inputMessage, setInputMessage] = useState("");
@@ -15,6 +21,14 @@ const ChatWidget = () => {
   const [isCallActive, setIsCallActive] = useState(false); // Track call status
 
   const toggleChat = () => setIsOpen(!isOpen);
+
+  useEffect(() => {
+    if (callId) {
+      // Initiate the voice call once the callId is available
+      client.voice.start({ callId });
+      console.log('Voice call started with callId:', callId);
+    }
+  }, [callId]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputMessage(e.target.value);
@@ -67,47 +81,49 @@ const ChatWidget = () => {
     setActiveButton((prev) => (prev === "comment" ? "mic" : "comment"));
   };
 
+  
   const startWebCall = async () => {
-    try {
-      const response = await fetch("/api/create-web-call", {
-        method: 'POST', 
-        headers: {
-          'Content-Type': 'application/json',
-        },
+  try {
+    // Directly call the Retell SDK client on the frontend
+    if (retellWebClient?.call?.createWebCall) {
+      const webCallResponse:WebCallResponse = await retellWebClient.call.createWebCall({
+        agent_id: 'agent_393310f9c5127777604c1077dc',  // Replace with your agent_id
       });
-      const createCallResponse = await response.json();
 
-      // Check if the response contains the access token
-      if (createCallResponse.access_token) {
-        // Start the call with the access token
-        await retellWebClient.startCall({
-          accessToken: createCallResponse.access_token,
-        });
+    console.log("Web Call Response:", webCallResponse);
 
-        setIsCallActive(true); // Update call status
-        console.log("Call started");
+    // Check if access_token is received
+    if (webCallResponse) {
+      // Start the web call using the access token
+      await retellWebClient.startCall({
+        accessToken: webCallResponse.access_token,
+      });
 
-        // Listen to call events
-        retellWebClient.on("call_started", () => {
-          console.log("Call started");
-        });
+      console.log("Call started");
 
-        retellWebClient.on("call_ended", () => {
-          console.log("Call ended");
-          setIsCallActive(false);
-        });
+      // Listen to call events
+      retellWebClient.on("call_started", () => {
+        console.log("Call started event");
+      });
 
-        retellWebClient.on("error", (error) => {
-          console.error("An error occurred:", error);
-          retellWebClient.stopCall();
-        });
-      } else {
-        console.error("No access token received");
-      }
-    } catch (error) {
-      console.error("Error starting web call:", error);
+      retellWebClient.on("call_ended", () => {
+        console.log("Call ended");
+      });
+
+      retellWebClient.on("error", (error) => {
+        console.error("An error occurred:", error);
+        retellWebClient.stopCall();
+      });
+    }else {
+      console.error("No access token received");
     }
-  };
+    } else {
+      console.error("No access token received");
+    }
+  } catch (error) {
+    console.error("Error creating web call:", error);
+  }
+}
 
   const stopWebCall = async () => {
     try {
