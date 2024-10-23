@@ -4,7 +4,7 @@ import { FaComment, FaTimes, FaMicrophone } from "react-icons/fa";
 import Image from "next/image"; // Assuming you're using Next.js
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { RetellWebClient } from "retell-client-js-sdk"; 
-import Retell, { WebCallResponse } from 'retell-sdk';
+import Retell from 'retell-sdk';
 
 const client = new Retell({
   apiKey: 'Bearer ed089878-7699-4429-a4b6-341f8679de34',
@@ -86,7 +86,7 @@ const ChatWidget = () => {
   try {
     // Directly call the Retell SDK client on the frontend
     if (retellWebClient?.call?.createWebCall) {
-      const webCallResponse:WebCallResponse = await retellWebClient.call.createWebCall({
+      const webCallResponse = await retellWebClient.call.createWebCall({
         agent_id: 'agent_393310f9c5127777604c1077dc',  // Replace with your agent_id
       });
 
