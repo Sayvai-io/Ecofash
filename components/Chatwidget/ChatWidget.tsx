@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FiSend } from "react-icons/fi";
 import { FaComment, FaTimes } from "react-icons/fa";
 import Image from "next/image"; // Assuming you're using Next.js
@@ -8,19 +8,15 @@ import { ChatOpenAI } from "@langchain/openai";
 import { ConversationChain } from "langchain/chains";
 import { BufferMemory } from "langchain/memory";
 import { SystemMessage } from "@langchain/core/messages";
+import { supabase } from "@/supabase_config/supabaseClient";
 
 // // Add memory for conversation history
 // const memory = new MemorySaver();
 // const app = workflow.compile({ checkpointer: memory });
 
-const model = new ChatOpenAI({
-  openAIApiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-  model: "gpt-3.5-turbo",
-  temperature: 0.7,
-});
-const memory = new BufferMemory();
-const chain = new ConversationChain({ llm: model, memory: memory });
 const ChatWidget = () => {
+  const [customPrompt, setPrompt] = useState("");
+  const [openAIKey, setOpenAIkey] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ role: string; content: string }[]>(
     [],
@@ -32,6 +28,20 @@ const ChatWidget = () => {
   );
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const fetchChatBotDetails = async () => {
+    const { data, error } = await supabase.from("aichatbot").select("*");
+    if (error) {
+      console.error("Error fetching about details:", error);
+    } else {
+      const chatBotData = data[0];
+      setOpenAIkey(chatBotData.apikey);
+      setPrompt(chatBotData.custom_prompt);
+    }
+  };
+
+  useEffect(() => {
+    fetchChatBotDetails();
+  }, []);
   const toggleChat = () => setIsOpen(!isOpen);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,15 +108,20 @@ const ChatWidget = () => {
   // };
 
   const handleSendMessage = async () => {
+    const model = new ChatOpenAI({
+      openAIApiKey: openAIKey,
+      model: "gpt-3.5-turbo",
+      temperature: 0.7,
+    });
+    const memory = new BufferMemory();
+    const chain = new ConversationChain({ llm: model, memory: memory });
     setLoading(true);
     if (inputMessage.trim()) {
       setMessages([...messages, { role: "user", content: inputMessage }]);
       const currMessage = inputMessage;
       setInputMessage("");
 
-      const systemMessage = new SystemMessage(
-        "You are a helpful assistant representing the organization Ecofash. If someone asks about the organization name, always respond with 'Ecofash'.",
-      );
+      const systemMessage = new SystemMessage(customPrompt);
 
       try {
         const response = await chain.call({
