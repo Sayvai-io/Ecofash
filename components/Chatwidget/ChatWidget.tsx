@@ -4,10 +4,32 @@ import { FaComment, FaTimes } from "react-icons/fa";
 import Image from "next/image"; // Assuming you're using Next.js
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
+import { ChatOpenAI } from "@langchain/openai";
+import { ConversationChain } from "langchain/chains";
+import { BufferMemory } from "langchain/memory";
+import { SystemMessage } from "@langchain/core/messages";
+
+// // Add memory for conversation history
+// const memory = new MemorySaver();
+// const app = workflow.compile({ checkpointer: memory });
+
+const model = new ChatOpenAI({
+  openAIApiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+  model: "gpt-3.5-turbo",
+  temperature: 0.7,
+});
+const memory = new BufferMemory();
+const chain = new ConversationChain({ llm: model, memory: memory });
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<{ role: String; content: String }[]>([]);
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>(
+    [],
+  );
   const [inputMessage, setInputMessage] = useState("");
+  const [isLoading, setLoading] = useState(false);
+  const [activeButton, setActiveButton] = useState<"comment" | "mic">(
+    "comment",
+  );
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const toggleChat = () => setIsOpen(!isOpen);
@@ -16,38 +38,95 @@ const ChatWidget = () => {
     setInputMessage(e.target.value);
   };
 
+  // const handleSendMessage = async () => {
+  //   setLoading(true);
+  //   if (inputMessage.trim()) {
+  //     setMessages([...messages, { role: "user", content: inputMessage }]);
+  //     const currMessage = inputMessage;
+  //     setInputMessage("");
+  //     const systemMessage = {
+  //       role: "system",
+  //       content:
+  //         "You are a helpful assistant representing the organization Ecofash. If someone asks about the organization name, always respond with 'Ecofash'.",
+  //     };
+
+  //     try {
+  //       const response = await fetch(
+  //         "https://api.openai.com/v1/chat/completions",
+  //         {
+  //           method: "POST",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
+  //           },
+  //           body: JSON.stringify({
+  //             model: "gpt-3.5-turbo",
+  //             messages: [
+  //               systemMessage,
+  //               ...messages,
+  //               { role: "user", content: currMessage },
+  //             ],
+  //             temperature: 0.7,
+  //             max_tokens: 150,
+  //           }),
+  //         },
+  //       );
+
+  //       const data = await response.json();
+  //       console.log(data);
+  //       const aiMessage = data.choices[0].message.content.trim();
+  //       console.log(aiMessage);
+  //       // Add the assistant response to the chat
+  //       setLoading(false);
+  //       setMessages((prev) => [
+  //         ...prev,
+  //         { role: "assistant", content: aiMessage },
+  //       ]);
+  //     } catch (error) {
+  //       console.error("Error fetching OpenAI API:", error);
+  //       setLoading(false);
+  //       setMessages((prev) => [
+  //         ...prev,
+  //         { role: "assistant", content: "Error in getting response" },
+  //       ]);
+  //     }
+
+  //     // setTimeout(() => {
+  //     //   setMessages((prev) => [...prev, "Thanks for your message!"]);
+  //     // }, 1000);
+  //   }
+  // };
+
   const handleSendMessage = async () => {
+    setLoading(true);
     if (inputMessage.trim()) {
       setMessages([...messages, { role: "user", content: inputMessage }]);
       const currMessage = inputMessage;
       setInputMessage("");
 
-      try {
-        const response = await fetch(
-          "https://api.openai.com/v1/chat/completions",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
-            },
-            body: JSON.stringify({
-              model: "gpt-3.5-turbo",
-              messages: [{ role: "user", content: currMessage }],
-              temperature: 0.7,
-              max_tokens: 150,
-            }),
-          }
-        );
+      const systemMessage = new SystemMessage(
+        "You are a helpful assistant representing the organization Ecofash. If someone asks about the organization name, always respond with 'Ecofash'.",
+      );
 
-        const data = await response.json();
-        const aiMessage = data.choices[0].message.content.trim();
-        setMessages((prev) => [...prev, { role: "AI", content: aiMessage }]);
-      } catch (error) {
-        console.error("Error fetching OpenAI API:", error);
+      try {
+        const response = await chain.call({
+          input: [systemMessage, currMessage],
+        });
+
+        const aiMessage = response.response;
+
+        // Add the assistant response to the chat
+        setLoading(false);
         setMessages((prev) => [
           ...prev,
-          { role: "AI", content: "Error in getting response" },
+          { role: "assistant", content: aiMessage },
+        ]);
+      } catch (error) {
+        console.error("Error fetching OpenAI API:", error);
+        setLoading(false);
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: "Error in getting response" },
         ]);
       }
     }
@@ -63,9 +142,15 @@ const ChatWidget = () => {
     <div className="fixed bottom-6 right-6">
       <button
         onClick={toggleChat}
-        className={`relative z-10 p-3 text-white transition-all duration-300 ${isOpen ? "rounded-full bg-[#609641]" : "rounded-sm bg-[#609641]"}`}
+        className={`relative z-10 p-3 text-white transition-all duration-300 ${
+          isOpen ? "rounded-full bg-[#609641]" : "rounded-sm bg-[#609641]"
+        }`}
       >
-        {isOpen ? <FaTimes className="text-xl" /> : <FaComment className="text-xl" />}
+        {isOpen ? (
+          <FaTimes className="text-xl" />
+        ) : (
+          <FaComment className="text-xl" />
+        )}
       </button>
       {isOpen && (
         <div className="absolute bottom-0 right-0 mb-12 w-80 rounded-lg bg-white shadow-md">
@@ -80,13 +165,31 @@ const ChatWidget = () => {
                 />
               </div>
             ) : (
-              messages.map((msg, index) => (
-                <div key={index} className={`mb-2 flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                  <span className={`rounded px-2 py-1 ${msg.role === "user" ? "bg-[#609641] text-white" : "bg-gray-200"}`}>
-                    {msg.content}
-                  </span>
-                </div>
-              ))
+              <div>
+                {messages.map((msg, index) => (
+                  <div
+                    key={index}
+                    className={`mb-2 flex ${
+                      msg.role == "user" ? "justify-end " : "justify-start"
+                    }`}
+                  >
+                    <span
+                      className={` rounded  px-2 py-1 ${
+                        msg.role == "user"
+                          ? "bg-[#609641] text-white"
+                          : "bg-gray-200"
+                      }`}
+                    >
+                      {msg.content}
+                    </span>
+                  </div>
+                ))}
+                {isLoading && (
+                  <div className="w-10 animate-pulse rounded bg-gray-300 text-center text-gray-400">
+                    ...
+                  </div>
+                )}
+              </div>
             )}
             <div ref={messagesEndRef} />
           </div>
@@ -100,14 +203,15 @@ const ChatWidget = () => {
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyDown={handleKeyPress}
                   placeholder="Type your message here..."
-                  className="w-full border rounded-lg border-gray-300 bg-gray-100 p-2 focus:outline-none focus:ring-2 focus:ring-[#609641] focus:border-transparent"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-100 p-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#609641]"
                 />
                 <button onClick={handleSendMessage} className="ml-2">
                   <PaperAirplaneIcon className="h-6 w-6 text-[#609641]" />
                 </button>
               </div>
               <div className="mt-2 text-right text-xs">
-                Powered by <span className="font-semibold text-[#609641]">Ecofash</span>
+                Powered by{" "}
+                <span className="font-semibold text-[#609641]">Ecofash</span>
               </div>
             </div>
           </div>
