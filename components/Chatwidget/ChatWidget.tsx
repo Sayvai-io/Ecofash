@@ -1,34 +1,16 @@
-import { useState, useRef,useEffect } from "react";
+import { useState, useRef } from "react";
 import { FiSend } from "react-icons/fi";
-import { FaComment, FaTimes, FaMicrophone } from "react-icons/fa";
+import { FaComment, FaTimes } from "react-icons/fa";
 import Image from "next/image"; // Assuming you're using Next.js
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
-import { RetellWebClient } from "retell-client-js-sdk"; 
-import Retell from 'retell-sdk';
-
-const client = new Retell({
-  apiKey: 'Bearer ed089878-7699-4429-a4b6-341f8679de34',
-});
 
 const ChatWidget = () => {
-  const [callId, setCallId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ role: String; content: String }[]>([]);
   const [inputMessage, setInputMessage] = useState("");
-  const [activeButton, setActiveButton] = useState<"comment" | "mic">("comment");
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const retellWebClient = new RetellWebClient(); // Initialize Retell Web Client
-  const [isCallActive, setIsCallActive] = useState(false); // Track call status
 
   const toggleChat = () => setIsOpen(!isOpen);
-
-  useEffect(() => {
-    if (callId) {
-      // Initiate the voice call once the callId is available
-      client.voice.start({ callId });
-      console.log('Voice call started with callId:', callId);
-    }
-  }, [callId]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputMessage(e.target.value);
@@ -77,64 +59,6 @@ const ChatWidget = () => {
     }
   };
 
-  const toggleActiveButton = () => {
-    setActiveButton((prev) => (prev === "comment" ? "mic" : "comment"));
-  };
-
-  
-  const startWebCall = async () => {
-  try {
-    // Directly call the Retell SDK client on the frontend
-    if (retellWebClient?.call?.createWebCall) {
-      const webCallResponse = await retellWebClient.call.createWebCall({
-        agent_id: 'agent_393310f9c5127777604c1077dc',  // Replace with your agent_id
-      });
-
-    console.log("Web Call Response:", webCallResponse);
-
-    // Check if access_token is received
-    if (webCallResponse) {
-      // Start the web call using the access token
-      await retellWebClient.startCall({
-        accessToken: webCallResponse.access_token,
-      });
-
-      console.log("Call started");
-
-      // Listen to call events
-      retellWebClient.on("call_started", () => {
-        console.log("Call started event");
-      });
-
-      retellWebClient.on("call_ended", () => {
-        console.log("Call ended");
-      });
-
-      retellWebClient.on("error", (error) => {
-        console.error("An error occurred:", error);
-        retellWebClient.stopCall();
-      });
-    }else {
-      console.error("No access token received");
-    }
-    } else {
-      console.error("No access token received");
-    }
-  } catch (error) {
-    console.error("Error creating web call:", error);
-  }
-}
-
-  const stopWebCall = async () => {
-    try {
-      await retellWebClient.stopCall();
-      setIsCallActive(false);
-      console.log("Call stopped");
-    } catch (error) {
-      console.error("Error stopping web call:", error);
-    }
-  };
-
   return (
     <div className="fixed bottom-6 right-6">
       <button
@@ -145,21 +69,8 @@ const ChatWidget = () => {
       </button>
       {isOpen && (
         <div className="absolute bottom-0 right-0 mb-12 w-80 rounded-lg bg-white shadow-md">
-          <div className="relative h-72 overflow-y-auto p-4">
-            {activeButton === "mic" ? (
-              <div className="flex h-full items-center justify-center">
-                <div className="absolute right-4 top-4 text-xs">
-                  Powered by <span className="font-semibold text-[#609641]">Ecofash</span>
-                </div>
-                <div className="flex flex-col items-center mt-10">
-                  <FaMicrophone className="text-4xl text-[#609641]" />
-                  <button onClick={startWebCall} className="mt-10 bg-green-500 text-white rounded px-2 py-1">Start Call</button>
-                  {isCallActive && (
-                    <button onClick={stopWebCall} className="mt-2 bg-red-500 text-white rounded px-2 py-1">Stop Call</button>
-                  )}
-                </div>
-              </div>
-            ) : activeButton === "comment" && messages.length === 0 ? (
+          <div className="relative h-80 overflow-y-auto p-4">
+            {messages.length === 0 ? (
               <div className="flex h-full items-center justify-center">
                 <Image
                   src="/images/chatwidget/chat.png"
@@ -170,8 +81,8 @@ const ChatWidget = () => {
               </div>
             ) : (
               messages.map((msg, index) => (
-                <div key={index} className={`mb-2 flex ${msg.role == "user" ? "justify-end " : "justify-start"}`}>
-                  <span className={`rounded px-2 py-1 ${msg.role == "user" ? "bg-[#609641] text-white" : "bg-gray-200"}`}>
+                <div key={index} className={`mb-2 flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                  <span className={`rounded px-2 py-1 ${msg.role === "user" ? "bg-[#609641] text-white" : "bg-gray-200"}`}>
                     {msg.content}
                   </span>
                 </div>
@@ -180,64 +91,24 @@ const ChatWidget = () => {
             <div ref={messagesEndRef} />
           </div>
           <div className="border-t p-4">
-            {activeButton === "comment" ? (
-              <div className="flex h-8 w-full flex-col">
-                <div className="-mt-2 mb-2 flex w-full items-center text-sm text-gray-500">
-                  <input
-                    name="msg"
-                    type="text"
-                    value={inputMessage}
-                    onChange={(e) => setInputMessage(e.target.value)}
-                    onKeyDown={handleKeyPress}
-                    placeholder="Type your message here..."
-                    className="w-full border-b border-stroke bg-transparent pb-3.5 focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white"
-                  />
-                  <button onClick={handleSendMessage} className="ml-2">
-                    <PaperAirplaneIcon className="h-6 w-6 text-[#609641]" />
-                  </button>
-                </div>
-                <div className="mt-2 text-right text-xs">
-                  Powered by <span className="font-semibold text-[#609641]">Ecofash</span>
-                </div>
+            <div className="flex h-8 w-full flex-col">
+              <div className="-mt-2 mb-2 flex w-full items-center text-sm text-gray-500">
+                <input
+                  name="msg"
+                  type="text"
+                  value={inputMessage}
+                  onChange={(e) => setInputMessage(e.target.value)}
+                  onKeyDown={handleKeyPress}
+                  placeholder="Type your message here..."
+                  className="w-full border rounded-lg border-gray-300 bg-gray-100 p-2 focus:outline-none focus:ring-2 focus:ring-[#609641] focus:border-transparent"
+                />
+                <button onClick={handleSendMessage} className="ml-2">
+                  <PaperAirplaneIcon className="h-6 w-6 text-[#609641]" />
+                </button>
               </div>
-            ) : (
-              <div className="flex h-8 items-center justify-between">
-                <div className="-mt-2 mb-2 text-sm text-gray-500">
-                  I'm listening....
-                </div>
+              <div className="mt-2 text-right text-xs">
+                Powered by <span className="font-semibold text-[#609641]">Ecofash</span>
               </div>
-            )}
-          </div>
-          <div className="relative flex h-16 items-center justify-between rounded-b-lg border-t bg-[#609641] p-2">
-            <div className="flex flex-col items-center">
-              <div className={`absolute -top-7 left-4 ${activeButton === "mic" ? "hidden" : ""}`}>
-                <div className="rounded-full bg-white p-2">
-                  <button className="rounded-full bg-[#609641] p-3 text-white">
-                    <FaComment className="text-xl" />
-                  </button>
-                </div>
-              </div>
-              <button
-                onClick={toggleActiveButton}
-                className={`mt-2 rounded-full p-6 text-white ${activeButton === "mic" ? "" : "hidden"}`}
-              >
-                <FaComment className="text-xl" />
-              </button>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className={`absolute -top-7 right-4 ${activeButton === "comment" ? "hidden" : ""}`}>
-                <div className="rounded-full bg-white p-2">
-                  <button className="rounded-full bg-[#609641] p-3 text-white">
-                    <FaMicrophone className="text-xl" />
-                  </button>
-                </div>
-              </div>
-              <button
-                onClick={toggleActiveButton}
-                className={`mt-2 rounded-full p-6 text-white ${activeButton === "comment" ? "" : "hidden"}`}
-              >
-                <FaMicrophone className="text-xl" />
-              </button>
             </div>
           </div>
         </div>

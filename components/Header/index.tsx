@@ -274,13 +274,13 @@ const Header = () => {
               </ul>
             </div>
 
-            <Link
+            {/* <Link
               href="/#makeACallSection"
               onClick={handleCombinedClick} // Use the combined function
               className="flex items-start justify-center rounded-full bg-[#609641] px-4 py-2 text-regular font-semibold text-white duration-300 ease-in-out hover:bg-[#609641] md:px-5.5"
             >
               Request a Call
-            </Link>
+            </Link> */}
 
             <button
               aria-label="Search"
