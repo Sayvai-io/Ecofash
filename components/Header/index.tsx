@@ -198,7 +198,7 @@ const Header = () => {
             </ul>
           </nav>
 
-          <div className="mt-7 flex flex-col gap-4 xl:mt-0 xl:flex-row">
+          <div className="mt-7 flex flex-col gap-4 xl:-mt-2 xl:flex-row">
             <div className="relative">
               <button
                 className="mt-2 flex items-center text-regular font-semibold text-waterloo hover:text-[#609641]"
@@ -274,17 +274,17 @@ const Header = () => {
               </ul>
             </div>
 
-            <Link
+            {/* <Link
               href="/#makeACallSection"
               onClick={handleCombinedClick} // Use the combined function
               className="flex items-start justify-center rounded-full bg-[#609641] px-4 py-2 text-regular font-semibold text-white duration-300 ease-in-out hover:bg-[#609641] md:px-5.5"
             >
               Request a Call
-            </Link>
+            </Link> */}
 
             <button
               aria-label="Search"
-              className="text-waterloo transition-colors duration-300 hover:text-[#609641]"
+              className="text-waterloo transition-colors duration-300 hover:text-[#609641] mt-2"
               onClick={handleLinkClick}
             >
               <svg

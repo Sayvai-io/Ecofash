@@ -203,7 +203,7 @@ const Footer = () => {
                         href="/contact"
                         className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
                       >
-                        Content
+                        Contact
                       </a>
                     </li>
                   </ul>

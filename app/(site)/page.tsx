@@ -69,7 +69,7 @@ export default function Home() {
       <Header /> {/* Pass setLanguage to Header */}
       <Hero />
       <Brands />
-      <Makeacall />
+      {/* <Makeacall /> */}
       <About />
       <Services />
       <Integration />
