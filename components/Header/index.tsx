@@ -198,7 +198,7 @@ const Header = () => {
             </ul>
           </nav>
 
-          <div className="mt-7 flex flex-col gap-4 xl:mt-0 xl:flex-row">
+          <div className="mt-7 flex flex-col gap-4 xl:-mt-2 xl:flex-row">
             <div className="relative">
               <button
                 className="mt-2 flex items-center text-regular font-semibold text-waterloo hover:text-[#609641]"
@@ -284,7 +284,7 @@ const Header = () => {
 
             <button
               aria-label="Search"
-              className="text-waterloo transition-colors duration-300 hover:text-[#609641]"
+              className="text-waterloo transition-colors duration-300 hover:text-[#609641] mt-2"
               onClick={handleLinkClick}
             >
               <svg
