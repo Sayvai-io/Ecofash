@@ -5,7 +5,8 @@ import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { supabase } from "../../supabase_config/supabaseClient";
 import DOMPurify from "dompurify";
-
+import translationData from "../../app/store/translation.json";
+import { useSelector } from "react-redux";
 const Home = () => {
   const [hasMounted, setHasMounted] = useState(false);
 
@@ -14,7 +15,7 @@ const Home = () => {
     contactcontent: "",
     contactimage: "",
   });
-
+  const language = useSelector((state: any) => state.language.language);
   const fetchHomeDetails = async () => {
     const { data, error } = await supabase.from("home").select("*");
     if (error) {
@@ -22,8 +23,16 @@ const Home = () => {
     } else {
       const HomeData = data[0]; // Assuming you only need the first row
       setHomeDetails({
-        contactheading: HomeData.contact_heading,
-        contactcontent: HomeData.contact_content,
+        contactheading:
+          language === "en"
+            ? HomeData.contact_heading
+            : translationData["Let's make things happen"],
+        contactcontent:
+          language === "en"
+            ? HomeData.contact_content
+            : translationData[
+                "Contact us today to learn more about how our services can help your business grow sustainably and make a difference."
+              ],
         contactimage: HomeData.contact_image,
       });
     }
@@ -32,7 +41,7 @@ const Home = () => {
   useEffect(() => {
     fetchHomeDetails();
     setHasMounted(true);
-  }, []);
+  }, [language]);
 
   if (!hasMounted) {
     return null;
@@ -73,7 +82,11 @@ const Home = () => {
                 href="/services"
                 className="inline-flex items-center gap-2.5 rounded-lg bg-[#609641] px-6 py-3 font-medium text-white hover:opacity-90"
               >
-                <h1>Checkout our services</h1>
+                <h1>
+                  {language === "en"
+                    ? "Checkout our services"
+                    : translationData["Checkout our services"]}
+                </h1>
                 <svg
                   className="fill-white"
                   width="14"

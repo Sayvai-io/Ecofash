@@ -14,7 +14,7 @@ export const fetchTranslation = async (query) => {
   return data.responseData.translatedText;
 };
 
-export const getTranslation = async (query) => {
+export const getTranslation1 = async (query) => {
   if (translationCache[query]) {
     return translationCache[query];
   } else {
