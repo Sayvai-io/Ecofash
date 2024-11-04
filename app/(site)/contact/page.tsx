@@ -3,8 +3,8 @@ import Contact from "@/components/Contact";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Support Page - EcoFash",
-  description: "This is Support page for EcoFash",
+  title: "Contact Page - EcoFash",
+  description: "This is Contact page for EcoFash",
   // other metadata
 };
 
