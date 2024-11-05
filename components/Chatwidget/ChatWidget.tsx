@@ -17,6 +17,15 @@ import { supabase } from "@/supabase_config/supabaseClient";
 const ChatWidget = () => {
   const [customPrompt, setPrompt] = useState("");
   const [openAIKey, setOpenAIkey] = useState("");
+  const [model, setModel] = useState<ChatOpenAI | null>(null);
+  const [chain, setChain] = useState<ConversationChain | null>(null);
+  // let model = new ChatOpenAI({
+  //   openAIApiKey: openAIKey,
+  //   model: "gpt-3.5-turbo",
+  //   temperature: 0.7,
+  // });
+  const memory = new BufferMemory();
+
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ role: string; content: string }[]>(
     [],
@@ -42,6 +51,19 @@ const ChatWidget = () => {
   useEffect(() => {
     fetchChatBotDetails();
   }, []);
+
+  useEffect(() => {
+    if (openAIKey) {
+      const newModel = new ChatOpenAI({
+        openAIApiKey: openAIKey,
+        model: "gpt-3.5-turbo",
+        temperature: 0.7,
+      });
+      const newChain = new ConversationChain({ llm: newModel, memory: memory });
+      setModel(newModel);
+      setChain(newChain);
+    }
+  }, [openAIKey]);
   const toggleChat = () => setIsOpen(!isOpen);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,13 +130,6 @@ const ChatWidget = () => {
   // };
 
   const handleSendMessage = async () => {
-    const model = new ChatOpenAI({
-      openAIApiKey: openAIKey,
-      model: "gpt-3.5-turbo",
-      temperature: 0.7,
-    });
-    const memory = new BufferMemory();
-    const chain = new ConversationChain({ llm: model, memory: memory });
     setLoading(true);
     if (inputMessage.trim()) {
       setMessages([...messages, { role: "user", content: inputMessage }]);
@@ -124,18 +139,20 @@ const ChatWidget = () => {
       const systemMessage = new SystemMessage(customPrompt);
 
       try {
-        const response = await chain.call({
-          input: [systemMessage, currMessage],
-        });
+        if (chain) {
+          const response = await chain.call({
+            input: [systemMessage, currMessage],
+          });
 
-        const aiMessage = response.response;
+          const aiMessage = response.response;
 
-        // Add the assistant response to the chat
-        setLoading(false);
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", content: aiMessage },
-        ]);
+          // Add the assistant response to the chat
+          setLoading(false);
+          setMessages((prev) => [
+            ...prev,
+            { role: "assistant", content: aiMessage },
+          ]);
+        }
       } catch (error) {
         console.error("Error fetching OpenAI API:", error);
         setLoading(false);
