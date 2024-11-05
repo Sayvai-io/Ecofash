@@ -12,15 +12,8 @@ const Footer = () => {
             <div className="mb-4 flex flex-col items-center gap-8 md:flex-row md:justify-center lg:justify-center lg:gap-0">
               <motion.div
                 variants={{
-                  hidden: {
-                    opacity: 0,
-                    y: -20,
-                  },
-
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                  },
+                  hidden: { opacity: 0, y: -20 },
+                  visible: { opacity: 1, y: 0 },
                 }}
                 initial="hidden"
                 whileInView="visible"
@@ -44,7 +37,7 @@ const Footer = () => {
                     className="hidden dark:block"
                   />
                 </a>
-                <p className="mb-6 mt-10 text-xl text-white">
+                <p className="mb-6 mt-10 text-xl text-white text-center">
                   Get the freshest news
                   <br />
                   <span className="text-xl text-white">on sustainability</span>
@@ -54,14 +47,8 @@ const Footer = () => {
                 </button>
                 <motion.div
                   variants={{
-                    hidden: {
-                      opacity: 0,
-                      y: -20,
-                    },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                    },
+                    hidden: { opacity: 0, y: -20 },
+                    visible: { opacity: 1, y: 0 },
                   }}
                   initial="hidden"
                   whileInView="visible"
@@ -69,7 +56,7 @@ const Footer = () => {
                   viewport={{ once: true }}
                   className="animate_top"
                 >
-                  <ul className="-ml-8 flex items-center gap-5 p-8">
+                  <ul className="flex justify-center gap-5 p-8 md:justify-start">
                     <li>
                       <a href="#" aria-label="social icon">
                         <div className="rounded-full border-2 border-white p-2 transition-all duration-300 hover:border-green-500 hover:bg-green-500">
@@ -143,7 +130,7 @@ const Footer = () => {
                 </motion.div>
               </motion.div>
 
-              <div className="grid w-full grid-cols-2 gap-4 md:grid-cols-4 pl-4"> {/* Adjusted gap and padding for mobile */}
+              <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3 pl-4 md:pl-30"> {/* Adjusted gap and padding for mobile */}
                 <motion.div
                   variants={{
                     hidden: {
@@ -159,13 +146,13 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top flex flex-col items-start pl-36" 
+                  className="animate_top flex flex-col items-center" // Centered for mobile
                 >
-                  <h4 className="mb-4 text-itemtitle2 font-medium text-white dark:text-white">  
+                  <h4 className="mb-4 text-itemtitle2 font-medium text-white dark:text-white text-center"> {/* Reduced margin */}
                     Content
                   </h4>
 
-                  <ul className="space-y-4"> {/* Reduced space for mobile */}
+                  <ul className="space-y-4 text-center md:text-left"> {/* Centered text for mobile */}
                     <li>
                       <a
                         href="/home"
@@ -224,13 +211,13 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top flex flex-col items-center pl-36" // Adjusted padding for mobile
+                  className="animate_top flex flex-col items-center" // Centered for mobile
                 >
-                  <h4 className="mb-4 text-itemtitle2 font-medium text-white dark:text-white"> {/* Reduced margin */}
+                  <h4 className="mb-4 md:mt-0 mt-8 text-itemtitle2 font-medium text-white dark:text-white text-center"> {/* Reduced margin */}
                     Resource
                   </h4>
 
-                  <ul className="space-y-4"> {/* Reduced space for mobile */}
+                  <ul className="space-y-4 text-center md:text-left"> {/* Centered text for mobile */}
                     <li>
                       <a
                         href="#"
@@ -289,13 +276,13 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top flex flex-col items-end pl-36" // Adjusted padding for mobile
+                  className="animate_top flex flex-col items-center" // Centered for mobile
                 >
-                  <h4 className="mb-4 text-itemtitle2 font-medium text-white dark:text-white"> {/* Reduced margin */}
+                  <h4 className="mb-4 md:mt-0 mt-8 text-itemtitle2 font-medium text-white dark:text-white text-center"> {/* Reduced margin */}
                     Socials
                   </h4>
 
-                  <ul className="space-y-4"> {/* Reduced space for mobile */}
+                  <ul className="space-y-4 text-center md:text-left"> {/* Centered text for mobile */}
                     <li>
                       <a
                         href="#"
