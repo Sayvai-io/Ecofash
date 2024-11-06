@@ -120,17 +120,17 @@ const ChatWidget = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-6">
+    <div className="fixed bottom-4 right-6 w-full max-w-xs md:max-w-md lg:max-w-[30%]">
       {!isOpen && ( // Show the comment button only when the chat is closed
         <button
           onClick={toggleChat}
-          className={`relative z-10 rounded-sm bg-[#609641] p-3 text-white transition-all duration-300`}
+          className={`fixed bottom-4 right-6 z-10 rounded-sm bg-[#609641] p-3 text-white transition-all duration-300`}
         >
           <FaComment className="text-xl" />
         </button>
       )}
       {isOpen && ( // Chat widget
-        <div className="w-90 rounded-lg bg-white p-4 shadow-lg">
+        <div className="w-full rounded-lg bg-white p-4 shadow-lg">
           <div className="mb-2 flex items-center justify-between border-b pb-2">
             <h2 className="ml-2 text-lg font-bold text-[#609641]">
               Ecofash Chatbot
@@ -140,7 +140,7 @@ const ChatWidget = () => {
             </button>
           </div>
           <div
-            className={`hide-scrollbar custom-scrollbar h-80 overflow-y-scroll`}
+            className={`hide-scrollbar custom-scrollbar h-96 md:h-80 overflow-y-scroll`}
           >
             {/* Render messages or image here */}
             {messages.length === 0 ? ( // Check if there are no messages
@@ -150,6 +150,7 @@ const ChatWidget = () => {
                   alt="Chat"
                   width={150}
                   height={150}
+                  className="object-contain"
                 />
               </div>
             ) : (
