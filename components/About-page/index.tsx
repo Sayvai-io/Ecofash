@@ -538,9 +538,9 @@ const About = () => {
             </div>
           </div>
           <div className="mt-3 flex space-x-4 md:mt-8">
-            <button className="rounded-xl bg-white px-6 py-2 font-semibold text-black transition duration-300 hover:bg-gray-100">
+            {/* <button className="rounded-xl bg-white px-6 py-2 font-semibold text-black transition duration-300 hover:bg-gray-100">
               {language === "en" ? "Get Started" : "開始使用"}
-            </button>
+            </button> */}
             <button
               onClick={navigateToContact}
               className="rounded-xl border-2 border-white px-6 py-2 font-semibold text-white transition duration-300 hover:bg-white hover:text-black"
@@ -593,9 +593,9 @@ const About = () => {
                   AboutDetails.aboutcontent,
                 )}
               ></p>
-              <button className="rounded-xl bg-[#609641] px-6 py-2 font-semibold text-white transition duration-300 hover:bg-[#4d7a33]">
+              {/* <button className="rounded-xl bg-[#609641] px-6 py-2 font-semibold text-white transition duration-300 hover:bg-[#4d7a33]">
                 {language === "en" ? "Learn More" : "了解更多"}
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
