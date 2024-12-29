@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const Footer = () => {
+
+  
   return (
     <>
       <footer className="border-t border-stroke bg-[#131312] dark:border-strokedark dark:bg-blacksection">
@@ -351,7 +353,9 @@ const Footer = () => {
             >
               {/* Add any content here */}
             </motion.div>
-
+            <a href="/privacy" className="mb-2  transition duration-300 hover:underline"> {/* Added link to privacy center */}
+              Privacy
+            </a>
             <motion.div
               variants={{
                 hidden: {
@@ -369,6 +373,7 @@ const Footer = () => {
               viewport={{ once: true }}
               className="animate_top"
             >
+              
               <p className="text-center">
                 &copy; {new Date().getFullYear()} Ecofash. All rights reserved
               </p>
