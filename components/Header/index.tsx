@@ -61,31 +61,33 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed left-0 top-0 z-[100] w-full bg-white py-4 ${
-        stickyMenu ? "!py-4 shadow transition duration-100 dark:bg-black" : ""
+      className={`fixed left-0 top-0 z-[100] w-full bg-white py-2 ${
+        stickyMenu ? "!py-2 shadow transition duration-100 dark:bg-black" : ""
       }`}
     >
       <div className="relative mx-auto max-w-c-1390 items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
         <div className="flex w-full items-center justify-between xl:w-1/3 xl:pl-8">
           <a href="/" className="pl-4">
-            {logoImage != "" && (
-              <Image
-                src={logoImage != "" ? logoImage : ""}
-                alt="logo"
-                width={80} // {{ edit_1 }}
-                height={20} // {{ edit_2 }}
-                className="hidden w-full dark:block"
-              />
-            )}
-            {logoImage != "" && (
-              <Image
-                src={logoImage != "" ? logoImage : ""}
-                alt="logo"
-                width={80} // {{ edit_1 }}
-                height={20} // {{ edit_2 }}
-                className="w-full dark:hidden"
-              />
-            )}
+            <div className="h-18">
+              {logoImage != "" && (
+                <Image
+                  src={logoImage != "" ? logoImage : ""}
+                  alt="logo"
+                  width={80}
+                  height={20}
+                  className="hidden w-full dark:block"
+                />
+              )}
+              {logoImage != "" && (
+                <Image
+                  src={logoImage != "" ? logoImage : ""}
+                  alt="logo"
+                  width={80}
+                  height={20}
+                  className="w-full dark:hidden"
+                />
+              )}
+            </div>
           </a>
 
           {/* Hamburger Toggle BTN */}
@@ -219,7 +221,7 @@ const Header = () => {
                     d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                Language
+                {lang === "en" ? "English" : "中文"}
                 <svg
                   className="ml-2 h-4 w-4"
                   fill="none"
@@ -242,7 +244,7 @@ const Header = () => {
                 }`}
               >
                 <li
-                  className="px-4 py-2 text-black hover:bg-gray-100"
+                  className={`px-4 py-2 text-black hover:bg-gray-100 ${lang === "en" ? "bg-gray-200" : ""}`}
                   onClick={() => {
                     changeLanguage("en");
                     setLanguageDropdownOpen(false);
@@ -257,7 +259,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li
-                  className="px-4 py-2 text-black hover:bg-gray-100"
+                  className={`px-4 py-2 text-black hover:bg-gray-100 ${lang === "zh" ? "bg-gray-200" : ""}`}
                   onClick={() => {
                     changeLanguage("zh");
                     setLanguageDropdownOpen(false);
