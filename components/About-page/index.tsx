@@ -134,7 +134,7 @@ const About = () => {
 
   return (
     <>
-      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-14 xl:py-44">
+      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-44">
         <div className="absolute inset-0 z-0">
           {AboutDetails.bgimage && (
             <Image

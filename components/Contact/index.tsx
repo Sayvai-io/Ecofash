@@ -81,7 +81,7 @@ const Contact = () => {
 
   return (
     <>
-      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-14 xl:py-40">
+      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-36">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           {contactDetails.bgImage !== "" && (
@@ -96,8 +96,10 @@ const Contact = () => {
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-20">
+        <h1 className="mb-4 text-4xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">Contact Us</h1>
+
           <h5
-            className="mb-15 text-white"
+            className="mb-10 text-white"
             dangerouslySetInnerHTML={sanitizeHTML(contactDetails.subquotes)}
           ></h5>
           <div className="rounded-md border-l-8 border-[#101010] px-5">
@@ -221,7 +223,7 @@ const Contact = () => {
                 ></textarea>
                 <button
                   type="submit"
-                  className="flex h-10 w-50 items-center justify-center rounded-md bg-[#F9C06A] px-4 py-4 text-[15px] text-black transition-colors"
+                  className="flex h-10 w-50 items-center justify-center rounded-md bg-[#609641] px-4 py-4 text-[15px] text-white transition-colors hover:bg-[#4d7a34]"
                 >
                   {language === "en"
                     ? "Send Us An Email"

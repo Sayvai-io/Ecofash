@@ -195,7 +195,7 @@ const ChatWidget = () => {
                 value={inputMessage}
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
-                className="ml-2 w-full rounded border p-1 focus:outline-none focus:ring-1 focus:ring-[#609641]"
+                className="ml-2 w-full rounded border p-1 focus:outline-none focus:ring-1 focus:ring-[#609641] pr-10"
                 placeholder="Type a message..."
               />
               <button
