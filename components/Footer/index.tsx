@@ -3,12 +3,14 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const Footer = () => {
+
+  
   return (
     <>
       <footer className="border-t border-stroke bg-[#131312] dark:border-strokedark dark:bg-blacksection">
         <div className="mx-auto max-w-full px-4 md:max-w-c-1390 md:px-20 2xl:px-0">
           {/* <!-- Footer Top --> */}
-          <div className="pb-10 pt-20 lg:pt-25">
+          <div className="pb-2 pt-10 lg:pt-10">
             <div className="mb-4 flex flex-col items-center gap-8 md:flex-row md:justify-center lg:justify-center lg:gap-0">
               <motion.div
                 variants={{
@@ -37,7 +39,7 @@ const Footer = () => {
                     className="hidden dark:block"
                   />
                 </a>
-                <p className="mb-6 mt-10 text-xl text-white text-center">
+                <p className="mb-6 mt-2 text-xl text-white text-center">
                   Get the freshest news
                   <br />
                   <span className="text-xl text-white">on sustainability</span>
@@ -45,6 +47,11 @@ const Footer = () => {
                 <button className="justify-center rounded-full bg-green-500 px-8 py-2 text-white transition-all duration-300 hover:bg-green-600">
                   Subscribe
                 </button>
+                <p className="mt-4 text-white text-center">
+                  <span>Phone: +91 7339544953</span>
+                  <br />
+                  <span>Email: mohan@ecofash.life</span>
+                </p>
                 <motion.div
                   variants={{
                     hidden: { opacity: 0, y: -20 },
@@ -56,7 +63,7 @@ const Footer = () => {
                   viewport={{ once: true }}
                   className="animate_top"
                 >
-                  <ul className="flex justify-center gap-5 p-8 md:justify-start">
+                  <ul className="flex justify-center gap-5 p-4 md:justify-start">
                     <li>
                       <a href="#" aria-label="social icon">
                         <div className="rounded-full border-2 border-white p-2 transition-all duration-300 hover:border-green-500 hover:bg-green-500">
@@ -166,7 +173,7 @@ const Footer = () => {
                         href="/about"
                         className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
                       >
-                        About us
+                        About Us
                       </a>
                     </li>
                     <li>
@@ -190,7 +197,7 @@ const Footer = () => {
                         href="/contact"
                         className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
                       >
-                        Contact
+                        Contact Us
                       </a>
                     </li>
                   </ul>
@@ -351,7 +358,9 @@ const Footer = () => {
             >
               {/* Add any content here */}
             </motion.div>
-
+            <a href="/privacy" className="mb-2  transition duration-300 hover:underline"> {/* Added link to privacy center */}
+              Privacy
+            </a>
             <motion.div
               variants={{
                 hidden: {
@@ -369,6 +378,7 @@ const Footer = () => {
               viewport={{ once: true }}
               className="animate_top"
             >
+              
               <p className="text-center">
                 &copy; {new Date().getFullYear()} Ecofash. All rights reserved
               </p>

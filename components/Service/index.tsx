@@ -49,7 +49,7 @@ const Services = () => {
     <>
       <section className="overflow-hidden bg-[#609641] pb-20 pt-15 lg:pb-25 xl:pb-30">
         <div className="container mx-auto">
-          <h2 className="mb-15 mt-10 text-center text-4xl font-semibold">
+          <h1 className="mb-15 mt-10 text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">
             <span className="rounded-full border-2 border-white px-4 py-1 text-white">
               {language === "en" ? "Services" : translationData["Services"]}
             </span>
@@ -57,7 +57,7 @@ const Services = () => {
               {" "}
               {language === "en" ? "We Offer" : translationData["We Offer"]}
             </span>
-          </h2>
+          </h1>
           <div className="cursor-pointer flex flex-wrap justify-center">
             {ServicesDetails.servicesimage && (
               <div className="relative m-2 h-[300px] w-[250px]">

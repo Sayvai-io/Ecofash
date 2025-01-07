@@ -66,21 +66,21 @@ const Home = () => {
             className="flex items-center"
           >
             <div className="rounded-2xl p-8 pl-12 sm:pl-16 md:pl-20">
-              <h2
-                className="mb-6 text-3xl font-bold text-black dark:text-black xl:text-3xl"
+              <h1
+                className="mb-6 text-2xl font-bold text-black dark:text-black sm:text-3xl md:text-4xl lg:text-5xl"
                 dangerouslySetInnerHTML={sanitizeHTML(
                   homeDetails.contactheading,
                 )}
-              ></h2>
+              ></h1>
               <p
-                className="mb-8 text-lg font-normal leading-relaxed text-[#0a0a0a]"
+                className="mb-8 font-normal leading-relaxed text-[#0a0a0a] text-base sm:text-sm md:text-base lg:text-lg"
                 dangerouslySetInnerHTML={sanitizeHTML(
                   homeDetails.contactcontent,
                 )}
               ></p>
               <a
                 href="/services"
-                className="inline-flex items-center gap-2.5 rounded-lg bg-[#609641] px-6 py-3 font-medium text-white hover:opacity-90"
+                className="inline-flex items-center gap-2.5 rounded-lg bg-[#609641] px-6 py-3 font-medium text-white hover:bg-[#4d7a34]"
               >
                 <h1>
                   {language === "en"
@@ -112,7 +112,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="flex items-center"
           >
-            <div className="relative h-[320px] w-full overflow-hidden rounded-3xl">
+            <div className="relative h-[320px] w-full overflow-hidden rounded-3xl md:mr-12">
               {homeDetails.contactimage && (
                 <Image
                   src={homeDetails.contactimage}
