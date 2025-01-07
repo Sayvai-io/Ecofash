@@ -278,7 +278,7 @@ const Home = () => {
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-40">
          <div className="mb-8 md:mb-0 rounded-md border-l-8 border-[#609641] px-5">
-          <h2 className="mb-8 text-3xl font-bold sm:text-4xl md:text-5xl text-white">
+          <h2 className="mb-4 px-4 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-white">
             <span
               dangerouslySetInnerHTML={sanitizeHTML(
                 serviceDetails.serviceHeading,
@@ -287,7 +287,7 @@ const Home = () => {
           </h2>
         </div>
         <div className="">
-          <p className="mb-6 text-white">
+          <p className="mb-6 text-lg text-white">
             <span
               dangerouslySetInnerHTML={sanitizeHTML(
                 serviceDetails.serviceContent,
@@ -305,7 +305,7 @@ const Home = () => {
       </section>
       <section className="relative bg-[#609641]">
       <div >
-        <div className="flex flex-wrap justify-center">
+        <div className="px-10 flex flex-wrap justify-center">
           <div className="-mt-8 w-full text-center md:w-1/4">
             <Lottie
               animationData={counterAnimation}
@@ -313,7 +313,7 @@ const Home = () => {
               autoPlay
               style={{ width: '100px', height: '100px' }} // Adjust size as needed
             />
-            <p className="mb-4 text-8xl font-bold text-white">
+            <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
               <span
                 dangerouslySetInnerHTML={sanitizeHTML(
                   serviceDetails.yearsOfExperience,
@@ -336,7 +336,7 @@ const Home = () => {
               autoPlay
               style={{ width: '100px', height: '100px' }} // Adjust size as needed
             />
-            <p className="mb-4 text-8xl font-bold text-white">
+            <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
               <span
                 dangerouslySetInnerHTML={sanitizeHTML(
                   serviceDetails.satisfiedClients,
@@ -359,7 +359,7 @@ const Home = () => {
               autoPlay
               style={{ width: '100px', height: '100px' }} // Adjust size as needed
             />
-            <p className="mb-4 text-8xl font-bold text-white">
+            <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
               <span
                 dangerouslySetInnerHTML={sanitizeHTML(
                   serviceDetails.serviceProvided,
@@ -381,7 +381,7 @@ const Home = () => {
               autoPlay
               style={{ width: '100px', height: '100px' }} // Adjust size as needed
             />
-            <p className="mb-4 text-8xl font-bold text-white">
+            <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
               <span
                 dangerouslySetInnerHTML={sanitizeHTML(
                   serviceDetails.businessPortfolio,
@@ -402,7 +402,7 @@ const Home = () => {
       </section>
       <div id="serviceSection">
         <div className="px-4 py-16 text-center">
-          <h2 className="mb-4 text-5xl font-bold text-black">
+          <h2 className="mb-2 px-4 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-black">
             <span
               dangerouslySetInnerHTML={sanitizeHTML(
                 serviceDetails.serviceProvidedHeading,
@@ -423,7 +423,7 @@ const Home = () => {
 
       <div className="flex flex-col gap-10 px-4 md:flex-row md:justify-between md:px-20">
         <div className="mb-4 md:mb-0 md:w-1/2">
-          <p className="mb-4 text-5xl font-semibold text-gray-900">
+          <p className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl text-gray-900">
             <span
               dangerouslySetInnerHTML={sanitizeHTML(
                 serviceDetails.collectionHeading,
@@ -432,7 +432,7 @@ const Home = () => {
           </p>
         </div>
         <div className="pl-12 pr-16 md:w-1/2">
-          <p className="mb-4 text-base text-gray-900">
+          <p className="mb-4 text-lg text-gray-900">
             <span
               dangerouslySetInnerHTML={sanitizeHTML(
                 serviceDetails.collectionContent,

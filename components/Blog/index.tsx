@@ -7,6 +7,7 @@ import Link from "next/link"; // Import Link from next/link
 import { useRouter } from "next/navigation"; // Change this import
 
 import { supabase } from "../../supabase_config/supabaseClient";
+import Image from "next/image"; // Ensure you have this import
 import DOMPurify from "dompurify";
 
 const Blog: React.FC = () => {
@@ -14,6 +15,10 @@ const Blog: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter(); // Keep this line
+  const [bgImage, setBgImage] = useState<string>(""); // State for background image
+  const [bannerTitle, setBannerTitle] = useState<string>(""); // State for banner title
+  const [bannerSubquotes, setBannerSubquotes] = useState<string>(""); // State for banner subquotes
+
 
   // Fetch blog posts from Supabase
   const sanitizeHTML = (html: string) => {
@@ -28,6 +33,13 @@ const Blog: React.FC = () => {
       if (error) throw error;
       setPosts(data);
       setIsLoading(false);
+
+      // Set the background image from the first blog post
+      if (data.length > 0) {
+        setBgImage(data[0].bg_image); // Adjust the field name as necessary
+        setBannerTitle(data[0].banner_title); // Fetch banner title
+        setBannerSubquotes(data[0].banner_subquotes); // Fetch banner subquotes
+      }
     } catch (error) {
       setPosts([]);
       setIsLoading(false);
@@ -49,27 +61,48 @@ const Blog: React.FC = () => {
   };
 
   return (
-    <div className="!h-full px-17 py-30 md:px-30">
-      {" "}
-      {/* Grid layout with 3 columns */}
-      {error && <div className="mb-4 text-red-500">{error}</div>}
-      {posts == null && (
-        <div className="grid h-full grid-cols-3 gap-4">
-          <div className="col-span-3 h-[500px]  animate-pulse    cursor-pointer rounded-lg p-4 shadow-md  transition-shadow duration-200 hover:shadow-lg md:col-span-2 lg:col-span-1">
-            <div className="h-3/4 rounded bg-gray-100"></div>
-          </div>
-          <div className="col-span-3 h-[500px]  animate-pulse    cursor-pointer rounded-lg p-4 shadow-md  transition-shadow duration-200 hover:shadow-lg md:col-span-2 lg:col-span-1">
-            <div className="h-3/4 rounded bg-gray-100"></div>
-          </div>
-          <div className="col-span-3 h-[500px]  animate-pulse    cursor-pointer rounded-lg p-4 shadow-md  transition-shadow duration-200 hover:shadow-lg md:col-span-2 lg:col-span-1">
-            <div className="h-3/4 rounded bg-gray-100"></div>
+    <div>
+      {/* Banner Section */}
+      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-36">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          {bgImage && (
+            <Image
+              src={bgImage}
+              alt="Blog Background"
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+            />
+          )}
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-20 mt-44">
+          <h1 className="mb-4 text-4xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">Blogs</h1>
+
+          <h5
+            className="mb-10 text-lg text-white"
+            dangerouslySetInnerHTML={sanitizeHTML(bannerTitle)}
+          ></h5>
+          <div className="rounded-md border-l-8 border-[#101010] px-5">
+            <h1 className="mb-4 text-4xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
+              <span
+                className="mb-4 block"
+                dangerouslySetInnerHTML={sanitizeHTML(bannerSubquotes)}
+              ></span>
+            </h1>
           </div>
         </div>
-      )}
-      {posts && posts.length == 0 ? (
-        <ComingSoon />
+        
+      </section>
+
+      {/* Render blog posts here */}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div className="text-red-500">{error}</div>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-4 !h-full px-17 py-20 md:px-30">
           {" "}
           {/* Ensure grid layout for posts */}
           {posts != null &&
@@ -77,7 +110,7 @@ const Blog: React.FC = () => {
               <div
                 key={post.id}
                 onClick={() => handlePostClick(post.id)}
-                className="col-span-3 cursor-pointer rounded-lg p-4 transition-shadow  duration-200 hover:shadow-lg md:col-span-2 lg:col-span-1"
+                className="rounded-lg border border-gray-200 bg-white shadow-xl hover:shadow-2xl transition-shadow duration-200 p-4 cursor-pointer"
               >
                 {post.image_url && (
                   <img
