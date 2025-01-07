@@ -8,6 +8,9 @@ import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setTitle } from "../../store/userSlice";
+import Lottie from 'lottie-react';
+import counterAnimation from '../../animations/counter.json'; // Update the path to your Lottie animation file
+
 
 // First, let's define the ServiceCard component
 const ServiceCard = ({
@@ -34,48 +37,47 @@ const ServiceCard = ({
   };
 
   return (
-    // <Link className="block">
-      <div
-        onClick={handleClick}
-        className={`relative mx-auto flex h-[350px] w-[400px] items-center justify-center overflow-hidden rounded-lg p-4 transition-transform hover:scale-105 md:w-[390px] lg:w-[500px]  ${cardStyle}`}
-      >
-        {bg_image && (
-          <>
-            <Image
-              src={bg_image}
-              alt={title}
-              layout="fill"
-              objectFit="cover"
-              className="absolute inset-0 z-0"
-            />
-            <div className="absolute inset-0 z-10 bg-black opacity-50"></div>
-          </>
+    <div
+      onClick={handleClick}
+      className={`relative mx-auto flex h-[350px] w-[400px] items-center justify-center overflow-hidden rounded-lg p-4 transition-transform hover:scale-105 md:w-[390px] lg:w-[500px]  ${cardStyle}`}
+    >
+      {bg_image && (
+        <>
+          <Image
+            src={bg_image}
+            alt={title}
+            layout="fill"
+            objectFit="cover"
+            className="absolute inset-0 z-0"
+          />
+          <div className="absolute inset-0 z-10 bg-black opacity-50"></div>
+        </>
+      )}
+
+      <div className="relative z-20 w-full max-w-xs p-2 text-[#609641]">
+        {icon && (
+          <div className="mb-4 mt-4">
+            <Image src={icon} alt={`${title} Icon`} width={40} height={40} />
+          </div>
         )}
 
-        <div className="relative z-20 w-full max-w-xs p-2 text-[#609641]">
-          {icon && (
-            <div className="mb-4 mt-4">
-              <Image src={icon} alt={`${title} Icon`} width={40} height={40} />
-            </div>
-          )}
-
-          <h3
-            className={`mb-4 text-2xl font-bold ${
-              bg_image ? "text-white" : "text-[#609641]"
-            }`}
-            dangerouslySetInnerHTML={sanitizeHTML(title)}
-          />
-          <p
-            className={`mb-4 text-sm ${
-              bg_image ? "text-white" : "text-gray-700"
-            }`}
-            dangerouslySetInnerHTML={sanitizeHTML(content)}
-          />
-        </div>
+        <h3
+          className={`mb-4 text-2xl font-bold ${
+            bg_image ? "text-white" : "text-[#609641]"
+          }`}
+          dangerouslySetInnerHTML={sanitizeHTML(title)}
+        />
+        <p
+          className={`mb-4 text-sm ${
+            bg_image ? "text-white" : "text-gray-700"
+          }`}
+          dangerouslySetInnerHTML={sanitizeHTML(content)}
+        />
       </div>
-    // </Link>
+    </div>
   );
 };
+
 const sanitizeHTML = (htmlContent) => {
   return { __html: DOMPurify.sanitize(htmlContent) };
 };
@@ -114,7 +116,6 @@ const Home = () => {
     serviceProvidedHeading: "",
   });
   const dispatch = useDispatch();
-
 
   const fetchServiceDataDetails = async () => {
     const { data, error } = await supabase.from("service_provided").select("*");
@@ -181,13 +182,13 @@ const Home = () => {
             bgImage: servData.bg_image,
           };
         }
-        
 
         setServiceData((prevData) => [...prevData, sampleData]);
       });
       setServiceData(data);
     }
   };
+
   const fetchServiceDetails = async () => {
     const { data, error } = await supabase.from("service").select("*");
     if (error) {
@@ -197,7 +198,7 @@ const Home = () => {
       setServiceDetails({
         serviceHeading: serviceData.service_heading,
         serviceContent: serviceData.service_content,
-        serviceImage: serviceData.service_image,
+        serviceImage: serviceData.service_image, // Fetching service image from the database
         yearsOfExperienceTitle: serviceData.years_of_experience_title,
         yearsOfExperience: serviceData.years_of_experience,
         satisfiedClientsTitle: serviceData.satisfied_clients_title,
@@ -229,18 +230,20 @@ const Home = () => {
   if (!hasMounted) {
     return null;
   }
+
   const navigateToServices = () => {
     if (hasMounted) {
       router.push("/services");
     }
-    // Change '/contact' to the desired route
   };
+
   const handleMakeACallClick = () => {
     const serviceSection = document.getElementById("serviceSection");
     if (serviceSection) {
       serviceSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   const handleScroll = (targetId) => {
     const targetSection = document.getElementById(targetId);
     if (targetSection) {
@@ -251,15 +254,31 @@ const Home = () => {
     }
   };
 
-  const handleTitle=(title)=>{
-    dispatch(setTitle(title))
-  }
+  const handleTitle = (title) => {
+    dispatch(setTitle(title));
+  };
 
   return (
     <>
-      <div className="mx-auto mb-80 flex max-w-full flex-col items-center justify-between px-4 md:max-w-7xl md:flex-row md:px-8">
-        <div className="mb-8 md:mb-0 md:w-1/2">
-          <h2 className="mb-4 text-5xl font-semibold text-[#0b0b0a]">
+       <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-34">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          {serviceDetails.serviceImage !== "" && (
+            <Image
+              src={serviceDetails.serviceImage}
+              alt="Supply Chain Mapping"
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+              className="filter"
+            />
+          )}
+          <div className="absolute inset-0 bg-black opacity-60"></div>
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-40">
+         <div className="mb-8 md:mb-0 rounded-md border-l-8 border-[#609641] px-5">
+          <h2 className="mb-8 text-3xl font-bold sm:text-4xl md:text-5xl text-white">
             <span
               dangerouslySetInnerHTML={sanitizeHTML(
                 serviceDetails.serviceHeading,
@@ -267,8 +286,8 @@ const Home = () => {
             />
           </h2>
         </div>
-        <div className="md:w-1/2">
-          <p className="mb-4">
+        <div className="">
+          <p className="mb-6 text-white">
             <span
               dangerouslySetInnerHTML={sanitizeHTML(
                 serviceDetails.serviceContent,
@@ -277,24 +296,23 @@ const Home = () => {
           </p>
           <button
             onClick={handleMakeACallClick}
-            className="flex items-center text-black hover:underline"
+            className="flex items-center justify-center rounded-md bg-[#609641] px-4 py-2 text-base  text-white transition duration-300 ease-in-out hover:bg-[#4d7a34]"
           >
             Our Services <FaArrowRight className="ml-2" />
           </button>
         </div>
-      </div>
-      <div className="relative mx-auto max-w-7xl bg-[#609641] px-8 py-12 md:px-16">
-        <div className="flex w-full justify-center md:-mt-80">
-          <Image
-            src="/images/service/Services-meeting.jpg"
-            alt="Service Meeting"
-            width={960}
-            height={360}
-            className="rounded-lg shadow-lg"
-          />
         </div>
-        <div className="mt-12 flex flex-wrap justify-center">
-          <div className="mb-8 w-1/2 text-center md:w-1/4">
+      </section>
+      <section className="relative bg-[#609641]">
+      <div >
+        <div className="flex flex-wrap justify-center">
+          <div className="-mt-8 w-full text-center md:w-1/4">
+            <Lottie
+              animationData={counterAnimation}
+              loop={false}
+              autoPlay
+              style={{ width: '100px', height: '100px' }} // Adjust size as needed
+            />
             <p className="mb-4 text-8xl font-bold text-white">
               <span
                 dangerouslySetInnerHTML={sanitizeHTML(
@@ -311,7 +329,13 @@ const Home = () => {
               />
             </p>
           </div>
-          <div className="mb-8 w-1/2 text-center md:w-1/4">
+          <div className="-mt-8 w-full text-center md:w-1/4">
+            <Lottie
+              animationData={counterAnimation}
+              loop={false}
+              autoPlay
+              style={{ width: '100px', height: '100px' }} // Adjust size as needed
+            />
             <p className="mb-4 text-8xl font-bold text-white">
               <span
                 dangerouslySetInnerHTML={sanitizeHTML(
@@ -328,7 +352,13 @@ const Home = () => {
               />
             </p>
           </div>
-          <div className="mb-8 w-1/2 text-center md:w-1/4">
+          <div className="-mt-8 w-full text-center md:w-1/4">
+            <Lottie
+              animationData={counterAnimation}
+              loop={false}
+              autoPlay
+              style={{ width: '100px', height: '100px' }} // Adjust size as needed
+            />
             <p className="mb-4 text-8xl font-bold text-white">
               <span
                 dangerouslySetInnerHTML={sanitizeHTML(
@@ -344,7 +374,13 @@ const Home = () => {
               />
             </p>
           </div>
-          <div className="mb-8 w-1/2 text-center md:w-1/4">
+          <div className="mb-16 -mt-8  w-full text-center md:w-1/4">
+            <Lottie
+              animationData={counterAnimation}
+              loop={false}
+              autoPlay
+              style={{ width: '100px', height: '100px' }} // Adjust size as needed
+            />
             <p className="mb-4 text-8xl font-bold text-white">
               <span
                 dangerouslySetInnerHTML={sanitizeHTML(
@@ -363,6 +399,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      </section>
       <div id="serviceSection">
         <div className="px-4 py-16 text-center">
           <h2 className="mb-4 text-5xl font-bold text-black">
@@ -373,9 +410,7 @@ const Home = () => {
             />
           </h2>
         </div>
-        <div className="mb-16 grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
-          {" "}
-          {/* Set to 1 column for specified range */}
+        <div className="mb-16 px-4 sm:px-6 md:px-8 lg:px-16 grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
           {servicesData?.map((service, index) => (
             <div key={service.title + index} className="flex justify-center">
               <div className="cursor-pointer w-full !p-4" onClick={() => handleTitle(service.title)}>
@@ -397,7 +432,7 @@ const Home = () => {
           </p>
         </div>
         <div className="pl-12 pr-16 md:w-1/2">
-          <p className="mb-4 text-base text-gray-900  ">
+          <p className="mb-4 text-base text-gray-900">
             <span
               dangerouslySetInnerHTML={sanitizeHTML(
                 serviceDetails.collectionContent,
@@ -407,7 +442,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-1 px-2 pt-16 sm:grid-cols-2 md:grid-cols-3 md:px-4">
+      <div className="grid grid-cols-1 gap-2 px-2 pt-16 sm:grid-cols-2 md:grid-cols-3 md:px-18">
         {serviceDetails.collectionImage && (
           <div className="relative flex justify-center">
             <Image
@@ -442,7 +477,7 @@ const Home = () => {
               className="rounded-lg shadow-lg"
             />
           </div>
-          )}
+        )}
       </div>
     </>
   );
