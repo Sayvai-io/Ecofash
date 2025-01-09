@@ -55,16 +55,16 @@ const BlogDetailpage = () => {
 
   return (
     <>
-      <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-30">
+      {/* <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-30">
         <h1
           className="mb-6 mt-10 text-center text-4xl font-bold text-[#0b0b0b] sm:mb-10 sm:mt-6 sm:text-5xl md:mt-8 md:text-6xl"
           dangerouslySetInnerHTML={sanitizeHTML(title)}
         ></h1>{" "}
-        {/* Responsive title */}
+       
         {imagePreview && ( // Display image if available
           <div className="mb-4 flex justify-center px-4 sm:px-8 md:px-12 lg:px-32">
             {" "}
-            {/* Responsive padding on left and right */}
+            
             <img
               src={imagePreview}
               alt={title}
@@ -76,17 +76,16 @@ const BlogDetailpage = () => {
           className="mb-4 mt-10 px-4 text-3xl font-bold text-gray-700 sm:px-8 md:px-12 lg:px-50"
           dangerouslySetInnerHTML={sanitizeHTML(title)}
         ></h1>{" "}
-        {/* Bold title with responsive padding */}
+        
         <p
           className="mb-4 px-4 text-lg text-gray-700 sm:px-8 md:px-12 lg:px-50"
           dangerouslySetInnerHTML={sanitizeHTML(content)}
         ></p>{" "}
-        {/* Content with larger font size and responsive padding */}
-        {/* Display tags if available */}
+       
         {tags.length > 0 && (
           <div className="mt-4 px-4 sm:px-8 md:px-12 lg:px-50">
             {" "}
-            {/* Responsive padding for tags section */}
+          
             <h2 className="text-lg font-semibold">Tags:</h2>
             <div className="mt-2 flex flex-wrap">
               {tags.map((tag: string) => (
@@ -100,7 +99,7 @@ const BlogDetailpage = () => {
             </div>
           </div>
         )}
-      </section>
+      </section> */}
     </>
   );
 };
