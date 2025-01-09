@@ -8,9 +8,6 @@ import DOMPurify from "dompurify";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setTitle } from "../../store/userSlice";
-import Lottie from 'lottie-react';
-import counterAnimation from '../../animations/counter.json'; // Update the path to your Lottie animation file
-
 
 // First, let's define the ServiceCard component
 const ServiceCard = ({
@@ -260,7 +257,7 @@ const Home = () => {
 
   return (
     <>
-       <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-34">
+      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-34">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           {serviceDetails.serviceImage !== "" && (
@@ -277,128 +274,85 @@ const Home = () => {
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-40">
-         <div className="mb-8 md:mb-0 rounded-md border-l-8 border-[#609641] px-5">
-          <h2 className="mb-4 px-4 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-white">
-            <span
-              dangerouslySetInnerHTML={sanitizeHTML(
-                serviceDetails.serviceHeading,
-              )}
-            />
-          </h2>
-        </div>
-        <div className="">
-          <p className="mb-6 text-lg text-white">
-            <span
-              dangerouslySetInnerHTML={sanitizeHTML(
-                serviceDetails.serviceContent,
-              )}
-            />
-          </p>
-          <button
-            onClick={handleMakeACallClick}
-            className="flex items-center justify-center rounded-md bg-[#609641] px-4 py-2 text-base  text-white transition duration-300 ease-in-out hover:bg-[#4d7a34]"
-          >
-            Our Services <FaArrowRight className="ml-2" />
-          </button>
-        </div>
+          <div className="mb-8 md:mb-0 rounded-md border-l-8 border-[#609641] px-5">
+            <h2 className="mb-4 px-4 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-white">
+              <span
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  serviceDetails.serviceHeading,
+                )}
+              />
+            </h2>
+          </div>
+          <div className="">
+            <p className="mb-6 text-lg text-white">
+              <span
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  serviceDetails.serviceContent,
+                )}
+              />
+            </p>
+            <button
+              onClick={handleMakeACallClick}
+              className="flex items-center justify-center rounded-md bg-[#609641] px-4 py-2 text-base  text-white transition duration-300 ease-in-out hover:bg-[#4d7a34]"
+            >
+              Our Services <FaArrowRight className="ml-2" />
+            </button>
+          </div>
         </div>
       </section>
       <section className="relative bg-[#609641]">
-      <div >
-        <div className="px-10 flex flex-wrap justify-center">
-          <div className="-mt-8 w-full text-center md:w-1/4">
-            <Lottie
-              animationData={counterAnimation}
-              loop={false}
-              autoPlay
-              style={{ width: '100px', height: '100px' }} // Adjust size as needed
-            />
-            <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
-              <span
-                dangerouslySetInnerHTML={sanitizeHTML(
-                  serviceDetails.yearsOfExperience,
-                )}
-              />
-              +
-            </p>
-            <p className="text-xl text-black">
-              <span
-                dangerouslySetInnerHTML={sanitizeHTML(
-                  serviceDetails.yearsOfExperienceTitle,
-                )}
-              />
-            </p>
-          </div>
-          <div className="-mt-8 w-full text-center md:w-1/4">
-            <Lottie
-              animationData={counterAnimation}
-              loop={false}
-              autoPlay
-              style={{ width: '100px', height: '100px' }} // Adjust size as needed
-            />
-            <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
-              <span
-                dangerouslySetInnerHTML={sanitizeHTML(
-                  serviceDetails.satisfiedClients,
-                )}
-              />
-              +
-            </p>
-            <p className="text-xl text-black">
-              <span
-                dangerouslySetInnerHTML={sanitizeHTML(
-                  serviceDetails.satisfiedClientsTitle,
-                )}
-              />
-            </p>
-          </div>
-          <div className="-mt-8 w-full text-center md:w-1/4">
-            <Lottie
-              animationData={counterAnimation}
-              loop={false}
-              autoPlay
-              style={{ width: '100px', height: '100px' }} // Adjust size as needed
-            />
-            <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
-              <span
-                dangerouslySetInnerHTML={sanitizeHTML(
-                  serviceDetails.serviceProvided,
-                )}
-              />
-            </p>
-            <p className="text-xl text-black">
-              <span
-                dangerouslySetInnerHTML={sanitizeHTML(
-                  serviceDetails.serviceProvidedTitle,
-                )}
-              />
-            </p>
-          </div>
-          <div className="mb-16 -mt-8  w-full text-center md:w-1/4">
-            <Lottie
-              animationData={counterAnimation}
-              loop={false}
-              autoPlay
-              style={{ width: '100px', height: '100px' }} // Adjust size as needed
-            />
-            <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
-              <span
-                dangerouslySetInnerHTML={sanitizeHTML(
-                  serviceDetails.businessPortfolio,
-                )}
-              />
-              +
-            </p>
-            <p className="text-xl text-black">
-              <span
-                dangerouslySetInnerHTML={sanitizeHTML(
-                  serviceDetails.businessPortfolioTitle,
-                )}
-              />
-            </p>
+        <div>
+          <div className="px-10 flex flex-wrap justify-center">
+            <div className="-mt-8 w-full text-center md:w-1/4">
+              <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
+                {serviceDetails.yearsOfExperience}+
+              </p>
+              <p className="text-xl text-black">
+                <span
+                  dangerouslySetInnerHTML={sanitizeHTML(
+                    serviceDetails.yearsOfExperienceTitle,
+                  )}
+                />
+              </p>
+            </div>
+            <div className="-mt-8 w-full text-center md:w-1/4">
+              <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
+                {serviceDetails.satisfiedClients}+
+              </p>
+              <p className="text-xl text-black">
+                <span
+                  dangerouslySetInnerHTML={sanitizeHTML(
+                    serviceDetails.satisfiedClientsTitle,
+                  )}
+                />
+              </p>
+            </div>
+            <div className="-mt-8 w-full text-center md:w-1/4">
+              <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
+                {serviceDetails.serviceProvided}
+              </p>
+              <p className="text-xl text-black">
+                <span
+                  dangerouslySetInnerHTML={sanitizeHTML(
+                    serviceDetails.serviceProvidedTitle,
+                  )}
+                />
+              </p>
+            </div>
+            <div className="mb-16 -mt-8  w-full text-center md:w-1/4">
+              <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
+                {serviceDetails.businessPortfolio}+
+              </p>
+              <p className="text-xl text-black">
+                <span
+                  dangerouslySetInnerHTML={sanitizeHTML(
+                    serviceDetails.businessPortfolioTitle,
+                  )}
+                />
+              </p>
+            </div>
           </div>
         </div>
-      </div>
       </section>
       <div id="serviceSection">
         <div className="px-4 py-16 text-center">
