@@ -48,11 +48,11 @@ export default function RootLayout({
             defaultTheme="light"
           >
             {/* <Lines /> */}
-            <Header /> {/* {{ edit_1 }} */}
+            {/* <Header />  */}
             <ToasterContext />
-            {children}
-            <Footer />
-            <Chatwidget />
+                {children}
+            {/* <Footer /> */}
+            {/* <Chatwidget /> */}
           </ThemeProvider>
         </Provider>
       </body>

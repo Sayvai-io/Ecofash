@@ -43,7 +43,7 @@ const Brands = () => {
   };
 
   return (
-    <section className="border border-x-0 border-y-stroke bg-[#003F2E] py-3 dark:border-y-strokedark dark:bg-black">
+    <section className="-mt-1 border border-x-0 border-y-stroke bg-[#003F2E] py-3 dark:border-y-strokedark dark:bg-black">
       <div className="mx-auto max-w-c-1390 px-4 md:px-8 2xl:px-0">
         <Slider {...settings}>
           {wordData.map((word, index) => (

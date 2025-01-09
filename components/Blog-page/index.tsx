@@ -55,7 +55,7 @@ const BlogDetailpage = () => {
 
   return (
     <>
-      <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40">
+      <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32 xl:py-30">
         <h1
           className="mb-6 mt-10 text-center text-4xl font-bold text-[#0b0b0b] sm:mb-10 sm:mt-6 sm:text-5xl md:mt-8 md:text-6xl"
           dangerouslySetInnerHTML={sanitizeHTML(title)}
@@ -68,7 +68,7 @@ const BlogDetailpage = () => {
             <img
               src={imagePreview}
               alt={title}
-              className="h-auto max-w-full rounded-lg" // Responsive size with rounded corners
+              className="w-full max-w-3xl h-96 rounded-lg" // Large width, reduced height, responsive
             />
           </div>
         )}
