@@ -223,11 +223,11 @@ const Contact = () => {
                 ></textarea>
                 <button
                   type="submit"
-                  className="flex h-10 w-50 items-center justify-center rounded-md bg-[#609641] px-4 py-4 text-[15px] text-white transition-colors hover:bg-[#4d7a34]"
+                  className="flex h-10 w-30 items-center justify-center rounded-md bg-[#609641] px-4 py-4 text-[15px] text-white transition-colors hover:bg-[#4d7a34]"
                 >
                   {language === "en"
-                    ? "Send Us An Email"
-                    : translationData["Send Us An Email"]}
+                    ? "Submit"
+                    : translationData["Submit"]}
                 </button>
               </form>
             </div>
