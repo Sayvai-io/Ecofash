@@ -61,18 +61,23 @@ import Integration from "@/components/Integration";
 // Import metadata from the new file
 import { metadata } from "./metadata";
 
-export default function Home() {
+export default function Contruction() {
   const [language, setLanguage] = useState("en");
 
   return (
-    <main>
-      <Header /> {/* Pass setLanguage to Header */}
-      <Hero />
-      <Brands />
-      {/* <Makeacall /> */}
-      <About />
-      <Services />
-      <Integration />
-    </main>
+    <div className="flex items-center justify-center h-screen w-screen">
+      <span className="text-2xl font-bold text-gray-600">
+        Page Under Construction
+      </span>
+    </div>
+  //   <main>
+  //   <Header /> {/* Pass setLanguage to Header */}
+  //   <Hero />
+  //   <Brands />
+  //   {/* <Makeacall /> */}
+  //   <About />
+  //   <Services />
+  //   <Integration />
+  // </main>
   );
 }
