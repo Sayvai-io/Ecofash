@@ -102,8 +102,7 @@ const Blog: React.FC = () => {
       ) : error ? (
         <div className="text-red-500">{error}</div>
       ) : (
-        <div className="grid grid-cols-3 gap-4 !h-full px-17 py-20 md:px-30">
-          {" "}
+        <div className="grid grid-cols-1 gap-4 px-4 py-20 md:grid-cols-2 lg:grid-cols-3 lg:px-30">
           {/* Ensure grid layout for posts */}
           {posts != null &&
             posts.map((post) => (
@@ -127,15 +126,11 @@ const Blog: React.FC = () => {
                   className="line-clamp-3 flex-grow text-gray-700"
                   dangerouslySetInnerHTML={sanitizeHTML(post.content + "...")}
                 ></p>
-                {/* <p className="flex-grow text-gray-700">
-                  {post.content.split(" ").slice(0, 10).join(" ") +
-                    (post.content.split(" ").length > 10 ? "..." : "")}
-                </p> */}
                 <div className="tags mt-2 flex flex-wrap">
                   {post.tags.map((tag: string) => (
                     <div
                       key={tag}
-                      className="tag mb-2 mr-2 rounded bg-gray-200 px-2 py-1"
+                      className="tag mb-2 mr-2 rounded bg-gray-200 px-2 py-1 text-sm sm:text-base md:text-lg lg:text-xl"
                     >
                       {tag}
                     </div>

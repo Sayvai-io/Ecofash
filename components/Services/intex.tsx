@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
@@ -113,6 +113,10 @@ const Home = () => {
     serviceProvidedHeading: "",
   });
   const dispatch = useDispatch();
+  const [yearsOfExperienceCount, setYearsOfExperienceCount] = useState(0);
+  const [satisfiedClientsCount, setSatisfiedClientsCount] = useState(0);
+  const [serviceProvidedCount, setServiceProvidedCount] = useState(0);
+  const [businessPortfolioCount, setBusinessPortfolioCount] = useState(0);
 
   const fetchServiceDataDetails = async () => {
     const { data, error } = await supabase.from("service_provided").select("*");
@@ -224,6 +228,63 @@ const Home = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const duration = 2000; // Duration of the animation in milliseconds
+    const stepTime = 50; // Time between each step in milliseconds
+
+    const yearsOfExperienceInterval = setInterval(() => {
+      setYearsOfExperienceCount((prev) => {
+        if (prev < (serviceDetails.yearsOfExperience ?? 0)) {
+          return prev + 1;
+        } else {
+          clearInterval(yearsOfExperienceInterval);
+          return prev;
+        }
+      });
+    }, stepTime);
+
+    const satisfiedClientsInterval = setInterval(() => {
+      setSatisfiedClientsCount((prev) => {
+        if (prev < (serviceDetails.satisfiedClients ?? 0)) {
+          return prev + 1;
+        } else {
+          clearInterval(satisfiedClientsInterval);
+          return prev;
+        }
+      });
+    }, stepTime);
+
+    const serviceProvidedInterval = setInterval(() => {
+      setServiceProvidedCount((prev) => {
+        if (prev < (serviceDetails.serviceProvided ?? 0)) {
+          return prev + 1;
+        } else {
+          clearInterval(serviceProvidedInterval);
+          return prev;
+        }
+      });
+    }, stepTime);
+
+    const businessPortfolioInterval = setInterval(() => {
+      setBusinessPortfolioCount((prev) => {
+        if (prev < (serviceDetails.businessPortfolio ?? 0)) {
+          return prev + 1;
+        } else {
+          clearInterval(businessPortfolioInterval);
+          return prev;
+        }
+      });
+    }, stepTime);
+
+    // Cleanup intervals on component unmount
+    return () => {
+      clearInterval(yearsOfExperienceInterval);
+      clearInterval(satisfiedClientsInterval);
+      clearInterval(serviceProvidedInterval);
+      clearInterval(businessPortfolioInterval);
+    };
+  }, [serviceDetails]);
+
   if (!hasMounted) {
     return null;
   }
@@ -305,7 +366,7 @@ const Home = () => {
           {/* Years of Experience */}
           <div className="flex flex-col items-center mb-8 md:mb-0 md:w-1/4">
             <p className="text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
-              {serviceDetails.yearsOfExperience}+
+              {yearsOfExperienceCount}+
             </p>
             <p className="text-xl text-black">
               <span
@@ -319,7 +380,7 @@ const Home = () => {
           {/* Satisfied Clients */}
           <div className="flex flex-col items-center mb-8 md:mb-0 md:w-1/4">
             <p className="text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
-              {serviceDetails.satisfiedClients}+
+              {satisfiedClientsCount}+
             </p>
             <p className="text-xl text-black">
               <span
@@ -333,7 +394,7 @@ const Home = () => {
           {/* Services Provided */}
           <div className="flex flex-col items-center mb-8 md:mb-0 md:w-1/4">
             <p className="text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
-              {serviceDetails.serviceProvided}
+              {serviceProvidedCount}
             </p>
             <p className="text-xl text-black">
               <span
@@ -347,7 +408,7 @@ const Home = () => {
           {/* Business Portfolio */}
           <div className="flex flex-col items-center mb-8 md:mb-0 md:w-1/4">
             <p className="text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
-              {serviceDetails.businessPortfolio}+
+              {businessPortfolioCount}+
             </p>
             <p className="text-xl text-black">
               <span
