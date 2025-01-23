@@ -54,8 +54,8 @@ const Home = () => {
   };
 
   return (
-    <section className="bg-white py-20 lg:py-25 xl:py-30">
-      <div className="container max-w-7xl px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
+    <section className=" py-20 lg:py-25 xl:py-30">
+      <div className="container mx-auto max-w-7xl px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
         <div className="grid grid-cols-1 gap-8 rounded-3xl bg-gray-100 lg:grid-cols-2">
           {/* Left side content */}
           <motion.div

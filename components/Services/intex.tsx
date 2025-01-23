@@ -301,56 +301,61 @@ const Home = () => {
         </div>
       </section>
       <section className="relative bg-[#609641]">
-        <div>
-          <div className="px-10 flex flex-wrap justify-center">
-            <div className="-mt-8 w-full text-center md:w-1/4">
-              <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
-                {serviceDetails.yearsOfExperience}+
-              </p>
-              <p className="text-xl text-black">
-                <span
-                  dangerouslySetInnerHTML={sanitizeHTML(
-                    serviceDetails.yearsOfExperienceTitle,
-                  )}
-                />
-              </p>
-            </div>
-            <div className="-mt-8 w-full text-center md:w-1/4">
-              <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
-                {serviceDetails.satisfiedClients}+
-              </p>
-              <p className="text-xl text-black">
-                <span
-                  dangerouslySetInnerHTML={sanitizeHTML(
-                    serviceDetails.satisfiedClientsTitle,
-                  )}
-                />
-              </p>
-            </div>
-            <div className="-mt-8 w-full text-center md:w-1/4">
-              <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
-                {serviceDetails.serviceProvided}
-              </p>
-              <p className="text-xl text-black">
-                <span
-                  dangerouslySetInnerHTML={sanitizeHTML(
-                    serviceDetails.serviceProvidedTitle,
-                  )}
-                />
-              </p>
-            </div>
-            <div className="mb-16 -mt-8  w-full text-center md:w-1/4">
-              <p className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
-                {serviceDetails.businessPortfolio}+
-              </p>
-              <p className="text-xl text-black">
-                <span
-                  dangerouslySetInnerHTML={sanitizeHTML(
-                    serviceDetails.businessPortfolioTitle,
-                  )}
-                />
-              </p>
-            </div>
+        <div className="flex flex-col py-10 px-10 items-center justify-center md:flex-row md:justify-around">
+          {/* Years of Experience */}
+          <div className="flex flex-col items-center mb-8 md:mb-0 md:w-1/4">
+            <p className="text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
+              {serviceDetails.yearsOfExperience}+
+            </p>
+            <p className="text-xl text-black">
+              <span
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  serviceDetails.yearsOfExperienceTitle,
+                )}
+              />
+            </p>
+          </div>
+
+          {/* Satisfied Clients */}
+          <div className="flex flex-col items-center mb-8 md:mb-0 md:w-1/4">
+            <p className="text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
+              {serviceDetails.satisfiedClients}+
+            </p>
+            <p className="text-xl text-black">
+              <span
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  serviceDetails.satisfiedClientsTitle,
+                )}
+              />
+            </p>
+          </div>
+
+          {/* Services Provided */}
+          <div className="flex flex-col items-center mb-8 md:mb-0 md:w-1/4">
+            <p className="text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
+              {serviceDetails.serviceProvided}
+            </p>
+            <p className="text-xl text-black">
+              <span
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  serviceDetails.serviceProvidedTitle,
+                )}
+              />
+            </p>
+          </div>
+
+          {/* Business Portfolio */}
+          <div className="flex flex-col items-center mb-8 md:mb-0 md:w-1/4">
+            <p className="text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:text-8xl">
+              {serviceDetails.businessPortfolio}+
+            </p>
+            <p className="text-xl text-black">
+              <span
+                dangerouslySetInnerHTML={sanitizeHTML(
+                  serviceDetails.businessPortfolioTitle,
+                )}
+              />
+            </p>
           </div>
         </div>
       </section>

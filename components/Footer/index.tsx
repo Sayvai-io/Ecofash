@@ -1,9 +1,46 @@
 "use client";
 import { motion } from "framer-motion";
+import { useEffect, useState } from 'react';
+import { supabase } from "../../supabase_config/supabaseClient";
 import Image from "next/image";
 
-const Footer = () => {
+interface FooterLink {
+  id: number;
+  Resource1: string;
+  Resource1_link: string;
+  Resource2: string;
+  Resource2_link: string;
+  Resource3: string;
+  Resource3_link: string;
+  Resource4: string;
+  Resource4_link: string;
+  Resource5: string;
+  Resource5_link: string;
+  Youtube: string;
+  Facebook: string;
+  Instagram: string;
+  Twitter: string;
+  Linkedin: string;
+}
 
+const Footer = () => {
+  const [footerLinks, setFooterLinks] = useState<FooterLink[]>([]);
+
+  useEffect(() => {
+    const fetchFooterLinks = async () => {
+      const { data, error } = await supabase
+        .from('footer_links')
+        .select('*');
+
+      if (error) {
+        console.error('Error fetching footer links:', error);
+      } else {
+        setFooterLinks(data);
+      }
+    };
+
+    fetchFooterLinks();
+  }, []);
   
   return (
     <>
@@ -137,7 +174,7 @@ const Footer = () => {
                 </motion.div>
               </motion.div>
 
-              <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3 pl-4 md:pl-30"> {/* Adjusted gap and padding for mobile */}
+              <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3 pl-4 md:pl-30">
                 <motion.div
                   variants={{
                     hidden: {
@@ -153,13 +190,12 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top flex flex-col items-center" // Centered for mobile
+                  className="animate_top flex flex-col items-center"
                 >
-                  <h4 className="mb-4 text-itemtitle2 font-medium text-white dark:text-white text-center"> {/* Reduced margin */}
+                  <h4 className="mb-4 text-itemtitle2 font-medium text-white dark:text-white text-center">
                     Content
                   </h4>
-
-                  <ul className="space-y-4 text-center md:text-left"> {/* Centered text for mobile */}
+                  <ul className="space-y-4 text-center md:text-left">
                     <li>
                       <a
                         href="/home"
@@ -218,53 +254,62 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top flex flex-col items-center" // Centered for mobile
+                  className="animate_top flex flex-col items-center"
                 >
-                  <h4 className="mb-4 md:mt-0 mt-8 text-itemtitle2 font-medium text-white dark:text-white text-center"> {/* Reduced margin */}
+                  <h4 className="mb-4 md:mt-0 mt-8 text-itemtitle2 font-medium text-white dark:text-white text-center">
                     Resource
                   </h4>
-
-                  <ul className="space-y-4 text-center md:text-left"> {/* Centered text for mobile */}
-                    <li>
-                      <a
-                        href="#"
-                        className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
-                      >
-                        Sustainability
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
-                      >
-                        Fashion
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
-                      >
-                        Ecology
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
-                      >
-                        Recycle
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
-                      >
-                        Support
-                      </a>
-                    </li>
+                  <ul className="space-y-4 text-center md:text-left">
+                    {footerLinks.map((link) => (
+                      <li key={link.id}>
+                        <a
+                          href={link.Resource1_link}
+                          className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
+                        >
+                          {link.Resource1}
+                        </a>
+                      </li>
+                    ))}
+                    {footerLinks.map((link) => (
+                      <li key={link.id}>
+                        <a
+                          href={link.Resource2_link}
+                          className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
+                        >
+                          {link.Resource2}
+                        </a>
+                      </li>
+                    ))}
+                    {footerLinks.map((link) => (
+                      <li key={link.id}>
+                        <a
+                          href={link.Resource3_link}
+                          className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
+                        >
+                          {link.Resource3}
+                        </a>
+                      </li>
+                    ))}
+                    {footerLinks.map((link) => (
+                      <li key={link.id}>
+                        <a
+                          href={link.Resource4_link}
+                          className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
+                        >
+                          {link.Resource4}
+                        </a>
+                      </li>
+                    ))}
+                    {footerLinks.map((link) => (
+                      <li key={link.id}>
+                        <a
+                          href={link.Resource5_link}
+                          className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
+                        >
+                          {link.Resource5}
+                        </a>
+                      </li>
+                    ))}
                   </ul>
                 </motion.div>
 
@@ -283,16 +328,15 @@ const Footer = () => {
                   whileInView="visible"
                   transition={{ duration: 1, delay: 0.1 }}
                   viewport={{ once: true }}
-                  className="animate_top flex flex-col items-center" // Centered for mobile
+                  className="animate_top flex flex-col items-center"
                 >
-                  <h4 className="mb-4 md:mt-0 mt-8 text-itemtitle2 font-medium text-white dark:text-white text-center"> {/* Reduced margin */}
+                  <h4 className="mb-4 md:mt-0 mt-8 text-itemtitle2 font-medium text-white dark:text-white text-center">
                     Socials
                   </h4>
-
-                  <ul className="space-y-4 text-center md:text-left"> {/* Centered text for mobile */}
+                  <ul className="space-y-4 text-center md:text-left">
                     <li>
                       <a
-                        href="#"
+                        href={footerLinks[0]?.Youtube}
                         className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
                       >
                         Youtube
@@ -300,7 +344,7 @@ const Footer = () => {
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href={footerLinks[0]?.Facebook}
                         className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
                       >
                         Facebook
@@ -308,7 +352,7 @@ const Footer = () => {
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href={footerLinks[0]?.Instagram}
                         className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
                       >
                         Instagram
@@ -316,7 +360,7 @@ const Footer = () => {
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href={footerLinks[0]?.Twitter}
                         className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
                       >
                         Twitter
@@ -324,7 +368,7 @@ const Footer = () => {
                     </li>
                     <li>
                       <a
-                        href="#"
+                        href={footerLinks[0]?.Linkedin}
                         className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
                       >
                         Linkedin
@@ -358,7 +402,7 @@ const Footer = () => {
             >
               {/* Add any content here */}
             </motion.div>
-            <a href="/privacy" className="mb-2  transition duration-300 hover:underline"> {/* Added link to privacy center */}
+            <a href="/privacy" className="mb-2 transition duration-300 hover:underline">
               Privacy
             </a>
             <motion.div
@@ -378,13 +422,11 @@ const Footer = () => {
               viewport={{ once: true }}
               className="animate_top"
             >
-              
               <p className="text-center">
                 &copy; {new Date().getFullYear()} Ecofash. All rights reserved
               </p>
             </motion.div>
           </div>
-
           {/* <!-- Footer Bottom --> */}
         </div>
       </footer>
