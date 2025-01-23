@@ -321,10 +321,23 @@ const About = () => {
           <Swiper
             modules={[Autoplay]}
             spaceBetween={30}
-            slidesPerView={3}
             pagination={{ clickable: true }}
             autoplay={{ delay: 3000 }}
             className="testimonial-carousel"
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+              },
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+              1280: {
+                slidesPerView: 4,
+              },
+            }}
           >
             {reviewDetails.map((client, index) => (
               <SwiperSlide key={index} className="flex flex-col items-center">

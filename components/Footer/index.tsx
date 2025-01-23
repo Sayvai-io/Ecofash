@@ -76,15 +76,13 @@ const Footer = () => {
                     className="hidden dark:block"
                   />
                 </a>
-                <p className="mb-6 mt-2 text-xl text-white text-center">
+                <p className="mb-2 mt-2 text-xl text-white text-center">
                   Get the freshest news
                   <br />
                   <span className="text-xl text-white">on sustainability</span>
                 </p>
-                <button className="justify-center rounded-full bg-green-500 px-8 py-2 text-white transition-all duration-300 hover:bg-green-600">
-                  Subscribe
-                </button>
-                <p className="mt-4 text-white text-center">
+                
+                <p className="mt-2 text-white text-center">
                   <span>Phone: +91 7339544953</span>
                   <br />
                   <span>Email: mohan@ecofash.life</span>
