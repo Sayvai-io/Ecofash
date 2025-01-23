@@ -25,9 +25,12 @@ const Privacy = () => {
 
   // Function to sanitize HTML content
   const sanitizeHTML = (html: string) => {
-    return {
-      __html: DOMPurify.sanitize(html),
-    };
+    if (typeof window !== "undefined") {
+      return {
+        __html: DOMPurify.sanitize(html),
+      };
+    }
+    return { __html: html }; // Fallback for server-side rendering
   };
 
   return (

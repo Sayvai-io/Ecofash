@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js";
-import ComingSoon from "./coming-soon"; // Assuming ComingSoon is in the same directory
-import Link from "next/link"; // Import Link from next/link
+
 import { useRouter } from "next/navigation"; // Change this import
 
 import { supabase } from "../../supabase_config/supabaseClient";
@@ -22,9 +20,12 @@ const Blog: React.FC = () => {
 
   // Fetch blog posts from Supabase
   const sanitizeHTML = (html: string) => {
-    return {
-      __html: DOMPurify.sanitize(html),
-    };
+    if (typeof window !== "undefined") {
+      return {
+        __html: DOMPurify.sanitize(html),
+      };
+    }
+    return { __html: html }; // Fallback for server-side rendering
   };
   const fetchPosts = async () => {
     setIsLoading(true);
