@@ -47,12 +47,12 @@ export default function RootLayout({
             attribute="class"
             defaultTheme="light"
           >
-            {/* <Lines /> */}
-            {/* <Header />  */}
+            {/* <Lines />  */}
+            <Header />  
             <ToasterContext />
                 {children}
-            {/* <Footer /> */}
-            {/* <Chatwidget /> */}
+            <Footer /> 
+            <Chatwidget />
           </ThemeProvider>
         </Provider>
       </body>
