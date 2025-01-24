@@ -196,7 +196,7 @@ const Footer = () => {
                   <ul className="space-y-4 text-center md:text-left">
                     <li>
                       <a
-                        href="/home"
+                        href="/"
                         className="inline-block text-gray-300 transition-colors duration-300 hover:text-[#609641]"
                       >
                         Home
