@@ -148,7 +148,7 @@ const Contact = () => {
         </div>
       </section>
       <section>
-        <div className="-mb-4 mt-2 flex min-h-screen items-center justify-center">
+        <div className="flex items-center justify-center py-4 sm:py-6 md:py-8 lg:py-10">
           <div className="flex w-full max-w-6xl flex-col gap-8 bg-white p-6 md:flex-row">
             {/* Left Side - Heading and Paragraph */}
             <div className="flex flex-col justify-center md:w-1/2">

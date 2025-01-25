@@ -52,7 +52,7 @@ const Address = () => {
   }, []);
 
   return (
-    <div className="min-h-screen p-8 bg-gray-100">
+    <div className="p-8 bg-gray-100">
       <h1 className="text-4xl font-bold text-[#609641] text-center mb-8">Our Offices Across the Global</h1>
       <div className="flex justify-center">
             <button
