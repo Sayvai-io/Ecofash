@@ -63,7 +63,7 @@ const Hero = () => {
 
   return (
     <>
-      <section className="relative overflow-hidden py-8 sm:py-10 md:py-28 lg:py-32 xl:py-20">
+      <section className="relative overflow-hidden py-10 sm:py-12 md:py-16 lg:py-20 xl:py-32">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           {HeroDetails?.headimage && (
@@ -84,13 +84,13 @@ const Hero = () => {
             <div className="w-full">
               <div className="mx-auto max-w-3xl">
                 {/* Left side content */}
-                <div className="absolute left-30 top-30 hidden lg:block">
+                <div className="absolute left-20 top-50 hidden lg:block">
                   <Image
                     src="/images/hero/star.png"
                     alt="Star"
                     width={48}
                     height={48}
-                    className="-ml-10 mb-16"
+                    className="-ml-10 mb-20"
                   />
                   <Image
                     src="/images/hero/roundframe1.png"
@@ -102,7 +102,7 @@ const Hero = () => {
                 </div>
 
                 {/* Right side content */}
-                <div className="absolute right-20 top-30 hidden lg:block">
+                <div className="absolute right-20 top-50 hidden lg:block">
                   <Image
                     src="/images/hero/roundframe2.png"
                     alt="Rounded Frame 3"

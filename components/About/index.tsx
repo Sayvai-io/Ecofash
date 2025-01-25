@@ -94,7 +94,8 @@ const About = () => {
                 <Image
                   src={AboutDetails.aboutimage}
                   alt="About Image"
-                  fill
+                  width={450}
+                  height={300}
                   className="rounded-lg object-cover"
                 />
               )}

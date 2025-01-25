@@ -76,7 +76,7 @@ const Footer = () => {
                     className="hidden dark:block"
                   />
                 </a>
-                <p className="mb-2 mt-2 text-xl text-white text-center">
+                <p className="mb-2 mt-2 text-lg sm:text-xl text-white text-center">
                   Get the freshest news
                   <br />
                   <span className="text-xl text-white">on sustainability</span>
@@ -172,7 +172,7 @@ const Footer = () => {
                 </motion.div>
               </motion.div>
 
-              <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3 pl-4 md:pl-30">
+              <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 pl-4 sm:pl-6 md:pl-10 lg:pl-20">
                 <motion.div
                   variants={{
                     hidden: {
@@ -380,7 +380,7 @@ const Footer = () => {
           {/* <!-- Footer Top --> */}
 
           {/* <!-- Footer Bottom --> */}
-          <div className="flex flex-col items-center justify-center gap-5 border-t border-stroke py-7 dark:border-strokedark lg:gap-0">
+          <div className="flex flex-col items-center justify-center gap-2 sm:gap-5 md:gap-6 lg:gap-2 border-t border-stroke py-4 sm:py-6 md:py-4 dark:border-strokedark">
             <motion.div
               variants={{
                 hidden: {
@@ -400,7 +400,7 @@ const Footer = () => {
             >
               {/* Add any content here */}
             </motion.div>
-            <a href="/privacy" className="mb-2 transition duration-300 hover:underline">
+            <a href="/privacy" className="transition duration-300 hover:underline">
               Privacy
             </a>
             <motion.div
@@ -420,7 +420,7 @@ const Footer = () => {
               viewport={{ once: true }}
               className="animate_top"
             >
-              <p className="text-center">
+              <p className="text-center mb-2">
                 &copy; {new Date().getFullYear()} Ecofash. All rights reserved
               </p>
             </motion.div>

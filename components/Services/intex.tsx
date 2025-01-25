@@ -36,7 +36,7 @@ const ServiceCard = ({
   return (
     <div
       onClick={handleClick}
-      className={`relative mx-auto flex h-[350px] w-[400px] items-center justify-center overflow-hidden rounded-lg p-4 transition-transform hover:scale-105 md:w-[390px] lg:w-[500px]  ${cardStyle}`}
+      className={`relative mx-auto flex h-[300px] w-full max-w-[400px] items-center justify-center overflow-hidden rounded-lg p-2 transition-transform hover:scale-105 sm:h-[350px] md:w-[320px] lg:w-[500px] ${cardStyle}`}
     >
       {bg_image && (
         <>
@@ -59,7 +59,7 @@ const ServiceCard = ({
         )}
 
         <h3
-          className={`mb-4 text-2xl font-bold ${
+          className={`mb-4 text-xl font-bold ${
             bg_image ? "text-white" : "text-[#609641]"
           }`}
           dangerouslySetInnerHTML={sanitizeHTML(title)}
@@ -318,7 +318,7 @@ const Home = () => {
 
   return (
     <>
-      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-34">
+      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-35 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-52">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           {serviceDetails.serviceImage !== "" && (
@@ -334,7 +334,7 @@ const Home = () => {
           <div className="absolute inset-0 bg-black opacity-60"></div>
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-40">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
           <div className="mb-8 md:mb-0 rounded-md border-l-8 border-[#609641] px-5">
             <h2 className="mb-4 px-4 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-white">
               <span
@@ -422,7 +422,7 @@ const Home = () => {
       </section>
       <div id="serviceSection">
         <div className="px-4 py-16 text-center">
-          <h2 className="mb-2 px-4 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-black">
+          <h2 className="mb-2 px-10 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-black">
             <span
               dangerouslySetInnerHTML={sanitizeHTML(
                 serviceDetails.serviceProvidedHeading,
@@ -430,10 +430,10 @@ const Home = () => {
             />
           </h2>
         </div>
-        <div className="mb-16 px-4 sm:px-6 md:px-8 lg:px-16 grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+        <div className="mb-16 px-2 sm:px-6 md:px-8 lg:px-50 grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
           {servicesData?.map((service, index) => (
-            <div key={service.title + index} className="flex justify-center">
-              <div className="cursor-pointer w-full !p-4" onClick={() => handleTitle(service.title)}>
+            <div key={service.title + index} className="flex justify-center mb-1 sm:mb-1 md:mb-1 lg:mb-4">
+              <div className="cursor-pointer w-full sm:w-[90%] md:w-auto !p-2" onClick={() => handleTitle(service.title)}>
                 <ServiceCard {...service} />
               </div>
             </div>
@@ -451,7 +451,7 @@ const Home = () => {
             />
           </p>
         </div>
-        <div className="pl-12 pr-16 md:w-1/2">
+        <div className="px-4 sm:px-6 md:px-8 lg:px-12 md:w-1/2">
           <p className="mb-4 text-lg text-gray-900">
             <span
               dangerouslySetInnerHTML={sanitizeHTML(
