@@ -64,37 +64,25 @@ const Blog: React.FC = () => {
   return (
     <div>
       {/* Banner Section */}
-      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-36">
+      <section className="relative h-screen sm:h-[70vh] md:h-[70vh] lg:h-[100vh] overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          {bgImage && (
-            <Image
-              src={bgImage}
-              alt="Blog Background"
-              layout="fill"
-              objectFit="cover"
-              quality={100}
-            />
-          )}
+          <Image
+            src="/images/blog/newsletter.jpg"
+            alt="Blog Background"
+            layout="fill"
+            objectFit="cover"
+            quality={100}
+          />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-20 mt-44">
-          <h1 className="mb-4 text-4xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">Blogs</h1>
-
-          <h5
-            className="mb-10 text-lg text-white"
-            dangerouslySetInnerHTML={sanitizeHTML(bannerTitle)}
-          ></h5>
-          <div className="rounded-md border-l-8 border-[#101010] px-5">
+        <div className="relative z-10 mx-auto max-w-7xl px-10 sm:px-10 md:px-10 lg:px-20 mt-96">
+          <div className="rounded-md border-l-8 border-[#609641] px-5 text-left">
             <h1 className="mb-4 text-4xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
-              <span
-                className="mb-4 block"
-                dangerouslySetInnerHTML={sanitizeHTML(bannerSubquotes)}
-              ></span>
+              Blogs
             </h1>
           </div>
         </div>
-        
       </section>
 
       {/* Render blog posts here */}

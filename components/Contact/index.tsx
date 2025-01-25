@@ -116,7 +116,7 @@ const Contact = () => {
 
   return (
     <>
-      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-36">
+      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-52">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           {contactDetails.bgImage !== "" && (
@@ -137,7 +137,7 @@ const Contact = () => {
             className="mb-10 text-white"
             dangerouslySetInnerHTML={sanitizeHTML(contactDetails.subquotes)}
           ></h5>
-          <div className="rounded-md border-l-8 border-[#101010] px-5">
+          <div className="rounded-md border-l-8 border-[#609641] px-5">
             <h1 className="mb-4 text-4xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
               <span
                 className="mb-4 block"

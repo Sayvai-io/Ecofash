@@ -134,7 +134,7 @@ const About = () => {
 
   return (
     <>
-      <section className="relative -mt-14 overflow-hidden py-16 sm:-mt-10 sm:py-20 md:-mt-12 md:py-28 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-44">
+      <section className="relative -mt-14 overflow-hidden py-40 sm:-mt-10 sm:py-40 md:-mt-12 md:py-40 lg:-mt-14 lg:py-32 xl:-mt-18 xl:py-50">
         <div className="absolute inset-0 z-0">
           {AboutDetails.bgimage && (
             <Image
@@ -148,7 +148,7 @@ const About = () => {
           <div className="absolute inset-0 bg-black opacity-70"></div>
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-30">
+        <div className="relative z-10 mx-auto max-w-7xl px-20 sm:px-20 md:px-20 lg:px-30">
           <div className="flex items-start gap-6 px-5">
             <Image
               src="/images/about/line.png"
